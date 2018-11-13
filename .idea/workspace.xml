@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/ExFramework/ExState.py" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="28c6390b-92a8-4cf7-a528-0f275a2a87bd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/ExFramework/ExJsonEncoder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FunctionBlockDiagram/FbdEncoder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/PyExecutor/PyExecutorFactory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ElectricCooker/OpPanel.py" beforeDir="false" afterPath="$PROJECT_DIR$/ElectricCooker/OpPanel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExFramework/ExBlock.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExFramework/ExBlock.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExFramework/ExComponentFactory.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExFramework/ExComponentFactory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExFramework/ExComponents.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExFramework/ExComponents.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExFramework/ExConnector.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExFramework/ExConnector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExFramework/ExInputPort.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExFramework/ExInputPort.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExFramework/ExNote.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExFramework/ExNote.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExFramework/ExOutputPort.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExFramework/ExOutputPort.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExFramework/ExPort.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExFramework/ExPort.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ExFramework/ScrollCanvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/ExFramework/ScrollCanvas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionBlockDiagram/CosFun.py" beforeDir="false" afterPath="$PROJECT_DIR$/FunctionBlockDiagram/CosFun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionBlockDiagram/FbdComponentFactory.py" beforeDir="false" afterPath="$PROJECT_DIR$/FunctionBlockDiagram/FbdExecutorFactory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionBlockDiagram/GraphFun.py" beforeDir="false" afterPath="$PROJECT_DIR$/FunctionBlockDiagram/GraphFun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionBlockDiagram/MathFun.py" beforeDir="false" afterPath="$PROJECT_DIR$/FunctionBlockDiagram/MathFun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FunctionBlockDiagram/SinFun.py" beforeDir="false" afterPath="$PROJECT_DIR$/FunctionBlockDiagram/SinFun.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyExecutor/PyCanvasAddConnectorState.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyExecutor/PyCanvasAddConnectorState.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyExecutor/PyCanvasIdleState.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyExecutor/PyCanvasIdleState.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyExecutor/PyEditorCanvas.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyExecutor/PyEditorCanvas.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyExecutor/PyExecuteWnd.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyExecutor/PyExecuteWnd.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PyExecutor/PyExecutor.py" beforeDir="false" afterPath="$PROJECT_DIR$/PyExecutor/PyExecutor.py" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FUSProjectUsageTrigger">
+    <session id="101222565">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="22" />
+          <entry key="project.open.time.10" value="6" />
+          <entry key="project.open.time.11" value="5" />
+          <entry key="project.open.time.12" value="1" />
+          <entry key="project.open.time.15" value="1" />
+          <entry key="project.open.time.16" value="1" />
+          <entry key="project.open.time.4" value="2" />
+          <entry key="project.open.time.5" value="1" />
+          <entry key="project.open.time.6" value="1" />
+          <entry key="project.open.time.9" value="4" />
+          <entry key="project.opened" value="22" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.open">
+        <counts>
+          <entry key="ExEvent" value="1" />
+          <entry key="ExTransition" value="1" />
+          <entry key="TEst" value="1" />
+          <entry key="fbd" value="1" />
+          <entry key="json" value="9" />
+          <entry key="py" value="328" />
+          <entry key="pye" value="7" />
+          <entry key="t2" value="1" />
+          <entry key="test" value="1" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.open">
+        <counts>
+          <entry key="JSON" value="9" />
+          <entry key="PLAIN_TEXT" value="14" />
+          <entry key="Python" value="327" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="25543" />
+          <entry key="txt" value="7" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="PLAIN_TEXT" value="245" />
+          <entry key="Python" value="25305" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.vcs.git.usages" />
+    </session>
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/PyExecutor/PyExecuteWnd.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="497">
+              <caret line="38" column="50" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="50" />
+              <folding>
+                <element signature="e#0#10#0" expanded="true" />
+                <marker date="1542121806508" expanded="true" signature="1332:1337" ph="..." />
+                <marker date="1542121806508" expanded="true" signature="1332:1789" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ExFramework/ExConnector.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1054">
+              <caret line="62" column="49" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://E:/Temp/321.json">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/PyExecutor/PyEditorCanvas.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="145" column="33" selection-start-line="145" selection-start-column="33" selection-end-line="145" selection-end-column="33" />
+              <folding>
+                <element signature="e#0#42#0" expanded="true" />
+                <marker date="1542119323111" expanded="true" signature="730:2742" ph="..." />
+                <marker date="1542119323111" expanded="true" signature="781:1092" ph="..." />
+                <marker date="1542119323111" expanded="true" signature="5182:5339" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>ExComponents</find>
+      <find>current</find>
+      <find>toDict</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>ExFramework</replace>
+      <replace>serialize</replace>
+    </replaceStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/ElectricCooker/Heater.py" />
+        <option value="$PROJECT_DIR$/UmlStateDiagram/UsdStartPoint.py" />
+        <option value="$PROJECT_DIR$/UmlStateDiagram/UsdEndPoint.py" />
+        <option value="$PROJECT_DIR$/UmlStateDiagram/State.py" />
+        <option value="$PROJECT_DIR$/UmlStateDiagram/StateMachine.py" />
+        <option value="$PROJECT_DIR$/UmlStateDiagram/Choice.py" />
+        <option value="$PROJECT_DIR$/FunctionBlockDiagram/FbdComponentFactory.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExFinal.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExInitial.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExNode.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExEvent.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExInitialState.py" />
+        <option value="$PROJECT_DIR$/PyExecutor/PyCanvasNormalState.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExTrigger.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExChangeTrigger.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExStateMachine.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExState.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExTransition.py" />
+        <option value="$PROJECT_DIR$/ExFramework/__init__.py" />
+        <option value="$PROJECT_DIR$/ElectricCooker/EcConnector.py" />
+        <option value="$PROJECT_DIR$/UmlStateDiagram/UsdConnector.py" />
+        <option value="$PROJECT_DIR$/PyExecutor/PyCanvasMoveElementState.py" />
+        <option value="$PROJECT_DIR$/PyExecutor/PyCanvasStateMachine.py" />
+        <option value="$PROJECT_DIR$/FunctionBlockDiagram/FbdConnector.py" />
+        <option value="$PROJECT_DIR$/PyExecutor/PyExcutorFactory.py" />
+        <option value="$PROJECT_DIR$/PyExecutor/PyExecutorFactoryManager.py" />
+        <option value="$PROJECT_DIR$/PyExecutor/PyExecutor.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ScrollCanvas.py" />
+        <option value="$PROJECT_DIR$/PyExecutor/PyCanvasAddConnectorState.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExComponentFactory.py" />
+        <option value="$PROJECT_DIR$/FunctionBlockDiagram/FbdEncoder.py" />
+        <option value="$PROJECT_DIR$/PyExecutor/PyExecutorFactory.py" />
+        <option value="$PROJECT_DIR$/ElectricCooker/OpPanel.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExJsonEncoder.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExIdProvider.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExTagFactory.py" />
+        <option value="$PROJECT_DIR$/PyExecutor/PyEditorCanvas.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExPort.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExBlock.py" />
+        <option value="$PROJECT_DIR$/FunctionBlockDiagram/SinFun.py" />
+        <option value="$PROJECT_DIR$/FunctionBlockDiagram/MathFun.py" />
+        <option value="$PROJECT_DIR$/FunctionBlockDiagram/CosFun.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExInputPort.py" />
+        <option value="$PROJECT_DIR$/FunctionBlockDiagram/GraphFun.py" />
+        <option value="$PROJECT_DIR$/FunctionBlockDiagram/FbdExecutorFactory.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExOutputPort.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExNote.py" />
+        <option value="$PROJECT_DIR$/PyExecutor/PyCanvasIdleState.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExComponents.py" />
+        <option value="$PROJECT_DIR$/ExFramework/ExConnector.py" />
+        <option value="$PROJECT_DIR$/PyExecutor/PyExecuteWnd.py" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1942" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="PyExecutor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PyExecutor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PyExecutor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PyExecutor" type="462c0819:PsiDirectoryNode" />
+              <item name="PyExecutor" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PyExecutor" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/PyExecutor/PyExecutor.py" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="PyExecutor" type="PythonConfigurationType" factoryName="Python">
+      <module name="PyExecutor" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="G:\MyBooks\PyDesignPatterns\SourceCode\PyExecutor\venv\Scripts\python.exe" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/PyExecutor" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/PyExecutor/PyExecutor.py" />
+      <option name="PARAMETERS" value="fbd" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="28c6390b-92a8-4cf7-a528-0f275a2a87bd" name="Default Changelist" comment="" />
+      <created>1540823329253</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1540823329253</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Coding">
+      <created>1540997261646</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1540997261646</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18335089" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3286334" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.40933767" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.329718" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.329718" />
+      <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.329718" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+    <layout-to-restore>
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18335089" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3286334" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.4099783" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.329718" />
+      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.329718" />
+      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.329718" />
+      <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.329718" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout-to-restore>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Coding" />
+    <option name="LAST_COMMIT_MESSAGE" value="Coding" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/PyExecutor/PyExecutorFactory.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="PythonConfigurationType">
+        <watch expression="self.context.children" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExTransition.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExChangeTrigger.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyExecutor/PyCanvasMoveElementState.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="71" lean-forward="true" selection-start-line="15" selection-start-column="71" selection-end-line="15" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionBlockDiagram/FbdComponentFactory.py" />
+    <entry file="file://$PROJECT_DIR$/PyExecutor/PyExcutorFactory.py" />
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_imps/_pydev_execfile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyExecutor/PyExecutorFactoryManager.py" />
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExState.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ElectricCooker/EcConnector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyExecutor/PyCanvasAddConnectorState.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="18" column="47" selection-start-line="18" selection-start-column="47" selection-end-line="18" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Temp/test">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://C:/Program Files (x86)/Microsoft Visual Studio/Shared/Python36_64/Lib/shelve.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="242" selection-start-line="242" selection-end-line="242" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Temp/t7.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://E:/Temp/t2">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://C:/Program Files (x86)/Microsoft Visual Studio/Shared/Python36_64/Lib/tkinter/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="1704" selection-start-line="1704" selection-end-line="1704" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExComponentFactory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="27" lean-forward="true" selection-start-line="6" selection-start-column="27" selection-end-line="6" selection-end-column="27" />
+          <folding>
+            <marker date="1541991366876" expanded="true" signature="106:111" ph="..." />
+            <marker date="1541991366876" expanded="true" signature="106:124" ph="..." />
+            <marker date="1541991366876" expanded="true" signature="162:167" ph="..." />
+            <marker date="1541991366876" expanded="true" signature="162:191" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionBlockDiagram/FbdEncoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <marker date="1541991366923" expanded="true" signature="48:53" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Temp/test.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="3" selection-start-column="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ScrollCanvas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="205">
+          <caret line="33" column="12" selection-start-line="32" selection-start-column="4" selection-end-line="33" selection-end-column="12" />
+          <folding>
+            <marker date="1541929161145" expanded="true" signature="1072:1099" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Temp/test.pye">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="38" lean-forward="true" selection-start-column="38" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ElectricCooker/OpPanel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyExecutor/PyExecutor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExIdProvider.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="18" selection-start-line="1" selection-start-column="6" selection-end-line="1" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyExecutor/PyExecuteWnd1.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-102" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyExecutor/PyCanvasStateMachine.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Temp/54321.pye">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://E:/Temp/12354.pye">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="1" selection-start-line="8" selection-start-column="1" selection-end-line="8" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Temp/1234567.pye">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExTagFactory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="35" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://C:/Program Files (x86)/Microsoft Visual Studio/Shared/Python36_64/Lib/json/encoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="403" selection-start-line="403" selection-end-line="403" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExJsonEncoder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="50" selection-start-line="7" selection-start-column="50" selection-end-line="7" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <marker date="1541992760639" expanded="true" signature="90:95" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionBlockDiagram/FbdConnector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="10" lean-forward="true" selection-start-column="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExPort.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionBlockDiagram/FbdStartPoint.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionBlockDiagram/CosFun.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="53" lean-forward="true" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionBlockDiagram/SinFun.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="37" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExOutputPort.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="8" selection-start-line="10" selection-start-column="8" selection-end-line="10" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExNote.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="33" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyExecutor/PyCanvasIdleState.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExComponents.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="8" lean-forward="true" selection-start-line="7" selection-start-column="8" selection-end-line="7" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExBlock.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExInputPort.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="42" lean-forward="true" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionBlockDiagram/MathFun.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="54" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionBlockDiagram/GraphFun.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="55" lean-forward="true" selection-start-line="9" selection-start-column="55" selection-end-line="9" selection-end-column="55" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/FunctionBlockDiagram/FbdExecutorFactory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="34" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="e#0#48#0" expanded="true" />
+            <marker date="1542120519337" expanded="true" signature="537:667" ph="..." />
+            <marker date="1542120519337" expanded="true" signature="631:667" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyExecutor/PyEditorCanvas.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="145" column="33" selection-start-line="145" selection-start-column="33" selection-end-line="145" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+            <marker date="1542119323111" expanded="true" signature="730:2742" ph="..." />
+            <marker date="1542119323111" expanded="true" signature="781:1092" ph="..." />
+            <marker date="1542119323111" expanded="true" signature="5182:5339" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Temp/321.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ExFramework/ExConnector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1054">
+          <caret line="62" column="49" selection-start-line="62" selection-start-column="49" selection-end-line="62" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyExecutor/PyExecutorFactory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="30" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="30" />
+          <folding>
+            <marker date="1541991492664" expanded="true" signature="144:377" ph="..." />
+            <marker date="1541991492664" expanded="true" signature="401:420" ph="..." />
+            <marker date="1541991492664" expanded="true" signature="468:553" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/Temp/test.fbd">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PyExecutor/PyExecuteWnd.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="497">
+          <caret line="38" column="50" selection-start-line="38" selection-start-column="50" selection-end-line="38" selection-end-column="50" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+            <marker date="1542121806508" expanded="true" signature="1332:1337" ph="..." />
+            <marker date="1542121806508" expanded="true" signature="1332:1789" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
