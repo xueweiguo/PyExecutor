@@ -30,11 +30,11 @@ class ExState:
             self.owner.active = None
         print(type(self), 'exit')
 
-    def eventHandling(self, type, event):
+    def eventHandling(self, type_str, event):
         for t in self.transitions:
             if t.eventHandling(type, event):
                 return True
         if self.active:
-            return self.active.eventHandling(type, event)
+            return self.active.eventHandling(type_str, event)
         return False
 

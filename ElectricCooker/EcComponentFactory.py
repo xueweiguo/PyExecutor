@@ -1,3 +1,10 @@
+import sys
+
+#sys.path.append('..')
+from ExFramework.ExComponentFactory import *
+from ExFramework.ExJsonEncoder import *
+from PyExecutorFactory import *
+
 from ElectricCooker.EcInitial import *
 from ElectricCooker.EcFinal import *
 from ElectricCooker.EcConnector import *
@@ -7,34 +14,42 @@ from ElectricCooker.HeatingController import *
 from ElectricCooker.Display import *
 from ElectricCooker.Heater import *
 
-import sys
-sys.path.append('..')
-from ExFramework.ExComponentFactory import *
 
 class EcComponentFactory(ExComponentFactory):
-    #构建起始点
-    def make_initial(self):
-        return EcInitial('Initial')
-    #构建终止点
-    def make_final(self):
-        return EcFinal('Final')
-    #添加链接线
-    def make_connector(self):
-        return EcConnector('')
-    #返回支持的要素类型
-    def element_types(self):
-         return ['OpPanel', 'TempSensor', 'HeatingController', 'Display', 'Heater']
-    #构建要素
-    def make_element(self, index):
-        if index==0:
-            return OpPanel('OpPanel')
-        elif index==1:
-            return TempSensor('TempSensor')
-        elif index ==2:
-            return HeatingController('HeatingController')
-        elif index ==3:
-            return Display('Display')
-        elif index ==4:
-            return Heater('Heater')
-               
 
+    def __init__(self):
+        PyExecutorFactory().registerElementFactory('ecd', self)
+
+    # 添加链接线
+    def makeConnector(self):
+        return EcConnector('')
+
+    def elementTypes(self):
+        types = ['OpPanel', 'TempSensor', 'Controller', 'Display', 'Heater']
+        parent_types = ExComponentFactory.elementTypes(self)
+        for t in parent_types:
+            types.append(t)
+        return types
+
+    def makeElement(self, type):
+        if type=='Initial':
+            return EcInitial('Initial')
+        elif type=='Final':
+            return EcFinal('Final')
+        elif type=='OpPanel':
+            return OpPanel('OpPanel')
+        elif type=='TempSensor':
+            return TempSensor('TempSensor')
+        elif type=='Controller':
+            return HeatingController('Controller')
+        elif type=='Display':
+            return Display('Display')
+        elif type == 'Heater':
+            return Heater('Heater')
+        return ExComponentFactory.makeElement(self, type)
+
+    # 系列化编码器
+    def jsonEncoder(self):
+        return ExJsonEncoder
+
+EcComponentFactory()

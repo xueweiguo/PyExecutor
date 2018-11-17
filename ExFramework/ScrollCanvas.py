@@ -8,6 +8,7 @@ class ScrollCanvas(Frame):
         canv.config(width=300, height=200)
         canv.config(scrollregion=(0, 0, 300, 1000))
         canv.config(highlightthickness=0)
+        canv.focus_set()
 
         sbar = Scrollbar(self)
         sbar.config(command=canv.yview)
@@ -21,6 +22,7 @@ class ScrollCanvas(Frame):
         canv.bind('<B1-Motion>', self.onLButtonMove)
         canv.bind('<Motion>', self.onMouseMove)
         canv.bind('<ButtonRelease-1>', self.onLButtonUp)
+        canv.bind('<Key>', self.onKey)
 
         self.canvas = canv
 
@@ -41,4 +43,6 @@ class ScrollCanvas(Frame):
 
     def onLButtonUp(self, event):
         pass
-    
+
+    def onKey(self, event):
+        print(type(self), event)

@@ -16,6 +16,7 @@ class PyEditorCanvas(ScrollCanvas):
         self.element_type = None
         self.drawn = None
         self.start = None
+        self.active = None
         self.connector = None
         self.element_dict = {}
         self.tag = 1
@@ -23,18 +24,28 @@ class PyEditorCanvas(ScrollCanvas):
         self.machine.entry()
 
     #根据tags查找要素
-    def findComponent(self, tags):
-        if len(tags) > 0:
-            element = self.element_dict[tags[0]]
-            if element == None:
-                return None
-            elif len(tags) > 1:
-                return element.findChild(tags[1])
-            else:
-                return element
-        else:
-            return None
+    def find_element(self, tags):
+        tag_count = len(tags)
+        if tag_count > 0:
+            if tags[tag_count-1] == 'current':
+                tag_count = tag_count-1
+            if tag_count > 0:
+                element = self.element_dict[tags[0]]
+                if element != None:
+                    if tag_count > 1:
+                        return element.findChild(tags[1])
+                    else:
+                        return element
+        return None
 
+    #根据坐标查找要素
+    def find_overlapping(self, x, y):
+        ids = self.canvas.find_overlapping(x, y, x + 1, y + 1)
+        if len(ids) > 0:
+            tags = self.canvas.gettags(ids[0])
+            if len(tags) > 0:
+                return self.find_element(tags)
+        return None
 
     # 构建工具条
     def makeToolbar(self, toolbar):
@@ -100,7 +111,9 @@ class PyEditorCanvas(ScrollCanvas):
 
         menu.add_cascade(label='Elements', menu=submenu)
 
-
+    # 删除选中的要素
+    def deleteCurrent(self):
+        pass
 
     # 构建起始点
     def addInitial(self):
@@ -119,37 +132,46 @@ class PyEditorCanvas(ScrollCanvas):
         self.canvas.configure(cursor='dotbox')
 
     def onDoubleClick(self, event):
-        event.x = self.canvas.canvasx(event.x)
-        event.y = self.canvas.canvasy(event.y)
-        self.machine.eventHandling('LButtonDoubleClick', event)
+        self.machine.eventHandling('LButtonDoubleClick', self.grid(event))
 
     def onLButtonDown(self, event):
-        event.x = self.canvas.canvasx(event.x)
-        event.y = self.canvas.canvasy(event.y)
-        self.machine.eventHandling('LButtonDown', event)
+        self.machine.eventHandling('LButtonDown',  self.grid(event))
 
     def onRButtonDown(self, event):
-        event.x = self.canvas.canvasx(event.x)
-        event.y = self.canvas.canvasy(event.y)
-        self.machine.eventHandling('RButtonDown', event)
+        self.machine.eventHandling('RButtonDown',  self.grid(event))
 
     def onLButtonMove(self, event):
-        event.x = self.canvas.canvasx(event.x)
-        event.y = self.canvas.canvasy(event.y)
-        self.machine.eventHandling('LButtonMove', event)
+        self.machine.eventHandling('LButtonMove',  self.grid(event))
 
     def onMouseMove(self, event):
-        event.x = self.canvas.canvasx(event.x)
-        event.y = self.canvas.canvasy(event.y)
-        self.machine.eventHandling('MouseMove', event)
+        self.machine.eventHandling('MouseMove',  self.grid(event))
 
     def onLButtonUp(self, event):
-        event.x = self.canvas.canvasx(event.x)
-        event.y = self.canvas.canvasy(event.y)
-        self.machine.eventHandling('LButtonUp', event)
+        self.machine.eventHandling('LButtonUp',  self.grid(event))
+
+    def onKey(self, event):
+        self.machine.eventHandling('Key',  self.grid(event))
+
+    def set_active(self, act):
+        if self.active != act:
+            if self.active:
+                self.active.set_color('black')
+                self.active = None
+            if act:
+                act.set_color('red')
+                self.active = act
 
     def serialize(self):
         list = []
         for key in self.element_dict:
             list.append(self.element_dict[key].serialize())
         return list
+
+    def grid(self, event):
+        half = 2
+        event.x = self.canvas.canvasx(event.x)
+        event.x = int((event.x + half) / (half * 2)) * (half * 2)
+        event.y = self.canvas.canvasy(event.y)
+        event.y = int((event.y + half) / (half * 2)) * (half * 2)
+        return event
+

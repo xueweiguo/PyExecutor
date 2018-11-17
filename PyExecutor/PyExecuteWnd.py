@@ -25,10 +25,14 @@ class PyExecuteWnd(Tk):
         self.config(menu=top) # set its menu option
 
         file = Menu(top, tearoff=False)
-        file.add_command(label='Open', command=self.Load, underline=0)
-        file.add_command(label='Save', command=self.Save, underline=0)
+        file.add_command(label='Open', command=self.load, underline=0)
+        file.add_command(label='Save', command=self.save, underline=0)
         file.add_command(label='Quit', command=self.quit, underline=0)
         top.add_cascade(label='File', menu=file, underline=0)
+
+        edit = Menu(top, tearoff=False)
+        edit.add_command(label='delete', command=self.deleteCurrent, underline=0)
+        top.add_cascade(label='Edit', menu=edit, underline=0)
 
         #添加图形要素菜单
         add = Menu(top, tearoff=False)
@@ -40,7 +44,7 @@ class PyExecuteWnd(Tk):
         toolbar.pack(side=BOTTOM, fill=X)
         self.canvas.makeToolbar(toolbar)
 
-    def Save(self):
+    def save(self):
         fn = asksaveasfile(mode='w', filetypes=(("JSON files", "*.json"),("PyExecutor configure data", '*.'+str(sys.argv[1]))),defaultextension='json')
         if fn:
             f = open(fn.name, 'w', encoding='utf-8')
@@ -50,5 +54,9 @@ class PyExecuteWnd(Tk):
             json.dump(dict, f, cls=self.factory.jsonEncoder(), indent=4)
             f.close()
 
-    def Load(self):
+    def load(self):
         file_name = askopenfilename(filetypes=(("PyExecutor files", "*.pye"),("All files", "*.*")))
+
+    def deleteCurrent(self):
+        self.canvas.deleteCurrent()
+

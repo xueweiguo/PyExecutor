@@ -8,9 +8,10 @@ class ExConnector(ExComponent):
     def __init__(self, name):
         ExComponent.__init__(self, name)
         self.tag = ExTagFactory().createTag()
-        self.outputport = None
-        self.inputport = None
+        self.output = None
+        self.input = None
         self.line = None
+        self.active = None
 
     def attach(self, canvas):
         ExComponent.attach(self, canvas)
@@ -18,23 +19,58 @@ class ExConnector(ExComponent):
     def setOutputPort(self, port):
         if isinstance(port, ExOutputPort)==False:
             return False
-        coords = port.connectPoint()
+        coords = port.point()
         self.startLine(coords[0] , coords[1])
-        self.outputport = port
+        self.output = port
+        port.add_connector(self)
 
     def setInputPort(self, port):
-        if isinstance(port, ExInputPort)==False:
+        if not isinstance(port, ExInputPort):
             return False
-        coords = port.connectPoint()
-        self.moveLastPoint(coords[0], coords[1])
-        self.inputport = port
+        coords = port.point()
+        self.move_last(coords[0], coords[1])
+        self.input = port
+        port.set_connector(self)
 
     def startLine(self, x, y):
         self.line = self.canvas.create_line(x, y, x, y, tag=self.tag, arrow=LAST)
 
-    def moveLastPoint(self, x, y):
+    def move_first(self, x, y):
         if self.line:
             coords = self.canvas.coords(self.line)
+            if len(coords) <= 4:
+                x = int((coords[0] + coords[2]) / 2)
+                y = int((coords[1] + coords[3]) / 2)
+                coords.insert(2, y)
+                coords.insert(2, x)
+                coords.insert(2, y)
+                coords.insert(2, x)
+            coords[0] = x
+            coords[1] = y
+            coords[3] = y
+            self.canvas.coords(self.line, coords)
+
+    def move_last(self, x, y):
+        if self.line:
+            coords = self.canvas.coords(self.line)
+            if len(coords) <= 4:
+                x = int((coords[0] + coords[2]) / 2)
+                y = int((coords[1] + coords[3]) / 2)
+                coords.insert(2, y)
+                coords.insert(2, x)
+                coords.insert(2, y)
+                coords.insert(2, x)
+
+            last_index = len(coords) - 1
+            coords[last_index - 1] = x
+            coords[last_index] =  y
+            coords[last_index - 2] = y
+            self.canvas.coords(self.line, coords)
+
+    def drag_last(self, x, y):
+        if self.line:
+            coords = self.canvas.coords(self.line)
+
             last_index = int(len(coords) / 2) - 1
             if last_index % 2 != 0:
                 coords[last_index * 2] = x
@@ -42,7 +78,7 @@ class ExConnector(ExComponent):
                 coords[last_index * 2 + 1] = y
             self.canvas.coords(self.line, coords)
 
-    def removeLastPoint(self):
+    def remove_last(self):
         if self.line:
             coords = self.canvas.coords(self.line)
             length = len(coords)
@@ -56,12 +92,50 @@ class ExConnector(ExComponent):
                     self.canvas.delete(self.line)
                     self.line = None
 
-    def appendPoint(self):
+    def append_last(self):
         if self.line:
             coords = self.canvas.coords(self.line)
             data_count = len(coords)
             coords.append(coords[data_count - 2])
             coords.append(coords[data_count - 1])
+            self.canvas.coords(self.line, coords)
+
+    def set_color(self, c):
+        self.canvas.itemconfigure(self.line, fill=c)
+
+    def select_segment(self, x, y):
+        self.active = None
+        coords = self.canvas.coords(self.line)
+        #最初段，最后段禁止拖动
+        i = 2
+        while i < (len(coords) - 2):
+            if i % 4 == 0:
+                if y == coords[i + 1]:
+                    if(x >= coords[i]) and (x <= coords[i + 2]):
+                        self.active = int(i / 2)
+                        break
+                    elif (x <= coords[i]) and (x >= coords[i + 2]):
+                        self.active = int(i / 2)
+                        break
+            else:
+                if x == coords[i]:
+                    if (y >= coords[i + 1]) and (y <= coords[i + 3]):
+                        self.active = int(i / 2)
+                        break
+                    if (y <= coords[i + 1]) and (y >= coords[i + 3]):
+                        self.active = int(i / 2)
+                        break
+            i = i + 2
+
+    def move(self, cx, cy):
+        if self.active:
+            coords = self.canvas.coords(self.line)
+            if self.active % 2:
+                coords[self.active * 2] = coords[self.active * 2] + cx
+                coords[self.active * 2 + 2] = coords[self.active * 2 + 2] + cx
+            else:
+                coords[self.active * 2 + 1] = coords[self.active * 2 + 1] + cy
+                coords[self.active * 2 + 3] = coords[self.active * 2 + 3] + cy
             self.canvas.coords(self.line, coords)
 
     def serialize(self):

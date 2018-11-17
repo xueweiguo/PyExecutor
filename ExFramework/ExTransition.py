@@ -11,6 +11,9 @@ class ExTransition:
     def addTrigger(self, t):
         self.triggers.append(t)
 
+    def setGuard(self, g):
+        self.guard = g
+
     def entry(self):
         for t in self.triggers:
             t.entry()
@@ -21,10 +24,11 @@ class ExTransition:
     def effect(self):
         pass
 
-    def eventHandling(self, type, event):
-        for t in self.triggers:
-            if t.check():
-                self.transition()
+    def eventHandling(self, type_str, event):
+        if self.guard():
+            for t in self.triggers:
+                if t.check():
+                    self.transition()
 
     def transition(self):
         self.source.exit()
