@@ -8,17 +8,25 @@ from tkinter.messagebox import * # get standard dialogs
 from tkinter.filedialog import *
 from PyEditorCanvas import *
 from PyExecutorFactory import *
+from SelModeDlg import *
 
 class PyExecuteWnd(Tk):
     #初始化
     def __init__(self, title, parent=None):
         Tk.__init__(self, parent)
-        self.factory = PyExecutorFactory().elementFactory()
         self.title(title)
-        self.canvas=PyEditorCanvas(self, self.factory)
+        if len(sys.argv) > 1:
+            PyExecutorFactory().mode = sys.argv[1]
+        else:
+            SelModeDlg().mainloop()
+        self.center_window(600, 450)
+        self.minsize(400, 300)
+        self.maxsize(1200, 900)
+        self.factory = PyExecutorFactory().factory('element')
+        self.canvas = PyEditorCanvas(self, self.factory)
         self.makemenu()
         self.makeToolbar()
-    
+
     #构建菜单
     def makemenu(self):
         top = Menu(self)
@@ -45,13 +53,14 @@ class PyExecuteWnd(Tk):
         self.canvas.makeToolbar(toolbar)
 
     def save(self):
-        fn = asksaveasfile(mode='w', filetypes=(("JSON files", "*.json"),("PyExecutor configure data", '*.'+str(sys.argv[1]))),defaultextension='json')
+        mode = PyExecutorFactory().mode
+        fn = asksaveasfile(mode='w', filetypes=(("JSON files", "*.json"),("PyExecutor configure data", '*.'+mode)),defaultextension='json')
         if fn:
             f = open(fn.name, 'w', encoding='utf-8')
             dict = {}
             dict['tag_factory'] = ExTagFactory().serialize()
             dict['canvas'] = self.canvas.serialize()
-            json.dump(dict, f, cls=self.factory.jsonEncoder(), indent=4)
+            json.dump(dict, f, cls=PyExecutorFactory().factory('serialize').jsonEncoder(), indent=4)
             f.close()
 
     def load(self):
@@ -59,4 +68,10 @@ class PyExecuteWnd(Tk):
 
     def deleteCurrent(self):
         self.canvas.deleteCurrent()
+
+    def center_window(self, width, height):
+        s_width = self.winfo_screenwidth()
+        s_height = self.winfo_screenheight()
+        size = '%dx%d+%d+%d' % (width, height, (s_width - width) / 2, (s_height - height)/2)
+        self.geometry(size)
 

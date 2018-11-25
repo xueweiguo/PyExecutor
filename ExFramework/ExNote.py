@@ -5,8 +5,7 @@ from ExFramework.ExTagFactory import *
 class ExNote(ExComponent):
     def __init__(self):
         ExComponent.__init__(self, '')
-        self.tag = ExTagFactory().createTag()
 
     def attach(self, canvas, x, y):
         self.canvas = canvas
-        self.frame = canvas.create_rectangle(x, y, x + 100, y + 60, fill='lightyellow', tag=self.tag)
+        self.frame = canvas.create_rectangle(x, y, x + 100, y + 60, fill='lightyellow', tag=self.tag())

@@ -1,13 +1,11 @@
 from ExFramework.ExComponents import *
 from ExFramework.ExOutputPort import *
 from ExFramework.ExInputPort import *
-from ExFramework.ExTagFactory import *
 
 #连接线
 class ExConnector(ExComponent):
     def __init__(self, name):
         ExComponent.__init__(self, name)
-        self.tag = ExTagFactory().createTag()
         self.output = None
         self.input = None
         self.line = None
@@ -17,12 +15,14 @@ class ExConnector(ExComponent):
         ExComponent.attach(self, canvas)
 
     def setOutputPort(self, port):
-        if isinstance(port, ExOutputPort)==False:
+        if isinstance(port, ExOutputPort):
+            coords = port.point()
+            self.startLine(coords[0] , coords[1])
+            self.output = port
+            port.add_connector(self)
+            return True
+        else:
             return False
-        coords = port.point()
-        self.startLine(coords[0] , coords[1])
-        self.output = port
-        port.add_connector(self)
 
     def setInputPort(self, port):
         if not isinstance(port, ExInputPort):
@@ -32,8 +32,16 @@ class ExConnector(ExComponent):
         self.input = port
         port.set_connector(self)
 
+    def disconnect(self):
+        if self.output:
+            self.output.remove_connector(self)
+            self.output = None
+        if self.input:
+            self.input.set_connector(None)
+            self.input = None
+
     def startLine(self, x, y):
-        self.line = self.canvas.create_line(x, y, x, y, tag=self.tag, arrow=LAST)
+        self.line = self.canvas.create_line(x, y, x, y, tag=self.tag(), arrow=LAST)
 
     def move_first(self, x, y):
         if self.line:
@@ -85,7 +93,7 @@ class ExConnector(ExComponent):
             if length > 2:
                 coords.pop()
                 coords.pop()
-                print(coords)
+                #print(coords)
                 if len(coords) >= 4:
                     self.canvas.coords(self.line, coords)
                 else:
@@ -142,3 +150,8 @@ class ExConnector(ExComponent):
         dict = ExComponent.serialize(self)
         dict['coords'] = self.canvas.coords(self.line)
         return dict
+
+    def create_popup(self, handler):
+        menu = Menu(self.canvas, tearoff=False)
+        menu.add_command(label='Delete', command=(lambda: handler.on_command('Delete')))
+        return menu

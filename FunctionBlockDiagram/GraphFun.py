@@ -1,7 +1,6 @@
 #import sys
 from ExFramework.ExBlock import *
 from ExFramework.ExInputPort import *
-from ExFramework.ExOutputPort import *
 
 
 class GraphFun(ExBlock):

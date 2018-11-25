@@ -6,7 +6,7 @@ class ExState:
         self.initial = None
         self.final = None
         self.transitions = []
-        print(self)
+        #print(self)
 
     def start(self):
         self.eventHandling(event)

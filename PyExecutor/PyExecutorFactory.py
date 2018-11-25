@@ -1,31 +1,27 @@
 import sys
-sys.path.append('..')
+#sys.path.append('..')
 
-from ExFramework.ExNote import *
 
 class PyExecutorFactory(object):
     _instance = None
 
     def __new__(cls):
         if not PyExecutorFactory._instance:
-            PyExecutorFactory._instance = super(PyExecutorFactory, cls).__new__(cls)
-            PyExecutorFactory._instance.element_dict = {}
+            cls._instance = super(PyExecutorFactory, cls).__new__(cls)
+            cls._instance.factory_dict = {}
             cls._instance.type_set = set()
+            cls._instance.mode = None
         return PyExecutorFactory._instance
 
     def __init__(self):
         pass
 
-    def registerElementFactory(self, mode, factory):
-        self.element_dict[mode] = factory
+    def register(self, mode, name, factory):
+        self.factory_dict[self.factory_key(mode, name)] = factory
         self.type_set.add(mode)
-        print(self.element_dict)
 
-    def elementFactory(self):
-        key = str(sys.argv[1])
-        return self.element_dict[key]
+    def factory(self, name):
+        return self.factory_dict[self.factory_key(self.mode, name)]
 
-    def modes(self):
-        for m in self.type_set:
-            print(m)
-
+    def factory_key(self, mode, name):
+        return mode + ',' + name

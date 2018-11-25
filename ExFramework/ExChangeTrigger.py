@@ -7,7 +7,7 @@ class ExChangeTrigger(ExTrigger):
         self.target = target
 
     def entry(self):
-        print(eval(self.target))
+        #print(eval(self.target))
         self.prev = eval(self.target)
 
     def check(self):

@@ -1,4 +1,3 @@
-import sys
 #sys.path.append('..')
 from ExFramework.ExState import *
 from PyEditorCanvas import *

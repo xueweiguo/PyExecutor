@@ -8,7 +8,7 @@ class Display(ExBlock):
          self.children.append(ExInputPort('In1', self))
          self.children.append(ExInputPort('In2', self))
          self.children.append(ExInputPort('In3', self))
-         self.children.append(ExOutputPort('Result', self))
+         self.children.append(ExOutputPort('Sta', self))
 
 
 

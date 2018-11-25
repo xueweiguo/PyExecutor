@@ -1,5 +1,5 @@
 import sys
-import math
+
 sys.path.append('..')
 
 from ExFramework.ExState import *
@@ -17,12 +17,11 @@ class AddConnectorState(ExState):
         elif type_str == "RButtonDown":
             self.context.connector.remove_last()
             if not self.context.connector.line:
-                del self.context.connector
+                self.context.remove_element(self.context.connector)
                 self.context.connector = None
         elif type_str == 'LButtonDoubleClick':
             hit = self.context.find_overlapping(event.x, event.y)
             if hit and isinstance(hit, ExInputPort):
                 self.context.connector.setInputPort(hit)
-                self.context.element_dict[self.context.connector.tag] = self.context.connector
                 self.context.connector = None
         ExState.eventHandling(self, type, event)

@@ -9,8 +9,8 @@ class ExOutputPort(ExPort):
 
     def attach(self, canvas, x, y):
         self.canvas = canvas
-        self.frame = canvas.create_rectangle(x, y, x + 10, y + 5, fill='cyan', tags=[self.owner.tag, self.name])
-        self.caption = canvas.create_text(x - 2, y, tag=self.owner.tag, text=self.name, anchor=E)
+        self.frame = canvas.create_rectangle(x, y, x + 10, y + 5, fill='cyan', tags=[self.owner.tag(), self.name])
+        self.caption = canvas.create_text(x - 2, y, tag=self.owner.tag(), text=self.name, anchor=E)
 
     def point(self):
         bound_rect = self.canvas.coords(self.frame)
@@ -21,6 +21,9 @@ class ExOutputPort(ExPort):
 
     def add_connector(self, c):
         self.connectors.append(c)
+
+    def remove_connector(self, c):
+        self.connectors.remove(c)
 
     def on_move(self):
         for c in self.connectors:

@@ -6,7 +6,7 @@ class ExTransition:
         s.addTransition(self)
         self.target = t
         self.triggers = []
-        print(self)
+        #print(self)
 
     def addTrigger(self, t):
         self.triggers.append(t)

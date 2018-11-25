@@ -1,4 +1,3 @@
-import sys
 #sys.path.append('..')
 from ExFramework.ExElement import *
 from ExFramework.ExConnector import *
@@ -26,7 +25,6 @@ class PyCanvasStateMachine(ExStateMachine):
         idel2move_element = ExTransition(self, context, idle, move_element)
         idel2move_element.addTrigger(ExChangeTrigger(context, 'self.context.drawn'))
         idel2move_element.setGuard(lambda: isinstance(self.context.drawn, ExElement))
-
         move_element2idle = ExTransition(self, context, move_element, idle)
         move_element2idle.addTrigger(ExChangeTrigger(context, 'self.context.drawn'))
 
@@ -34,7 +32,6 @@ class PyCanvasStateMachine(ExStateMachine):
         idel2move_line = ExTransition(self, context, idle, move_line)
         idel2move_line.addTrigger(ExChangeTrigger(context, 'self.context.drawn'))
         idel2move_line.setGuard(lambda: isinstance(self.context.drawn, ExConnector))
-
         move_line2idle = ExTransition(self, context, move_line, idle)
         move_line2idle.addTrigger(ExChangeTrigger(context, 'self.context.drawn'))
 
