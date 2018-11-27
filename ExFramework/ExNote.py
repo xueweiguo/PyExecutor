@@ -10,6 +10,9 @@ class ExNote(ExComponent):
         self.canvas = canvas
         self.frame = canvas.create_rectangle(x, y, x + 100, y + 60, fill='lightyellow', tag=self.tag())
 
+    def set_color(self, color):
+        self.canvas.itemconfigure(self.frame, outline=color)
+
     # 生成属性对话框
     def create_property_dlg(self):
         dlg = Tk()

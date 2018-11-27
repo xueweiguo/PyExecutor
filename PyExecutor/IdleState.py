@@ -1,5 +1,6 @@
 from ExFramework.ExState import *
 from ExFramework.ExBlock import *
+from ExFramework.ExConnector import *
 from ExFramework.ExOutputPort import *
 
 
@@ -59,8 +60,11 @@ class IdleState(ExState):
                         for c in port.connectors:
                             c.disconnect()
                             self.context.remove_element(c)
-            else:
+            elif isinstance(self.hit, ExConnector):
                 self.hit.disconnect()
+            else:
+                pass
+
             self.context.remove_element(self.hit)
             self.hit = None
         if cmd == 'SetProperty':
@@ -68,4 +72,4 @@ class IdleState(ExState):
             dlg.focus_set()
             dlg.grab_set()
             dlg.mainloop()
-            dlg.destroy()
+
