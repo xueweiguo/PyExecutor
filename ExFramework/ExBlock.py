@@ -51,18 +51,16 @@ class ExBlock(ExElement):
         dict['ports'] = port_list
         return dict
 
-    def set_property(self):
-        win = Tk()
-        Label(win, text='Hard drive reformatted!').pack()
-        win.protocal('WM_DELETE_WINDOW', win.quit)
-        win.focus_set()
-        win.grab_set()
-        win.mainloop()
-        win.destroy()
+    # 生成属性对话框
+    def create_property_dlg(self):
+        dlg = Tk()
+        Label(dlg, text='Hard drive reformatted!').pack()
+        return dlg
 
+    # 生成弹出菜单
     def create_popup(self, handler):
         menu = Menu(self.canvas, tearoff=False)
-        menu.add_command(label='Property', command=self.set_property)
+        menu.add_command(label='Property', command=(lambda: handler.on_command('SetProperty')))
         menu.add_command(label='Delete', command=(lambda: handler.on_command('Delete')))
         return menu
 

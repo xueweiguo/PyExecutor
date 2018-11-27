@@ -63,3 +63,9 @@ class IdleState(ExState):
                 self.hit.disconnect()
             self.context.remove_element(self.hit)
             self.hit = None
+        if cmd == 'SetProperty':
+            dlg = self.hit.create_property_dlg()
+            dlg.focus_set()
+            dlg.grab_set()
+            dlg.mainloop()
+            dlg.destroy()
