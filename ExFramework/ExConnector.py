@@ -1,9 +1,9 @@
-from ExFramework.ExComponents import *
+from ExFramework.ExElement import *
 from ExFramework.ExOutputPort import *
 from ExFramework.ExInputPort import *
 
 #连接线
-class ExConnector(ExComponent):
+class ExConnector(ExElement):
     def __init__(self, name):
         ExComponent.__init__(self, name)
         self.output = None

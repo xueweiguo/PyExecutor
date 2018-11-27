@@ -2,7 +2,7 @@ from ExFramework.ExComponents import *
 from ExFramework.ExTagFactory import *
 
 #信息标签
-class ExNote(ExComponent):
+class ExNote(ExElement):
     def __init__(self):
         ExComponent.__init__(self, '')
 

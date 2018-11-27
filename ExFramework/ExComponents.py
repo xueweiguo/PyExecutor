@@ -36,8 +36,6 @@ class ExComponent:
     def serialize(self):
         return {'type':str(type(self)), 'tag':self.tag(), 'name':self.name}
 
-    def create_popup(self, handler):
-        return None
 
 
 
