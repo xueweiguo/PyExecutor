@@ -13,3 +13,6 @@ class ExElement(ExComponent):
     def create_popup(self, handler):
         pass
 
+    def rect(self):
+        pass
+

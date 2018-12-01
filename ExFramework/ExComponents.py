@@ -2,7 +2,7 @@ from tkinter import * # get widget classes
 
 class ExComponent:
     def __init__(self, name):
-        self.name = name
+        self.__name = name
         self.__tag = None
         self.canvas = None
         self.frame = None
@@ -17,6 +17,9 @@ class ExComponent:
     def tag(self):
         return self.__tag
 
+    def name(self):
+        return self.__name
+
     def attach(self, canvas):
         self.canvas = canvas
 
@@ -29,7 +32,7 @@ class ExComponent:
 
     def findChild(self, name):
         for child in self.children:
-            if child.name==name:
+            if child.name() == name:
                 return child
         return None
 

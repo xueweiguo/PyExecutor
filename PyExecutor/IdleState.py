@@ -69,7 +69,5 @@ class IdleState(ExState):
             self.hit = None
         if cmd == 'SetProperty':
             dlg = self.hit.create_property_dlg()
-            dlg.focus_set()
-            dlg.grab_set()
-            dlg.mainloop()
+            dlg.do_modal()
 

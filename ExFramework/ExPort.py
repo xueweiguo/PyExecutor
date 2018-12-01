@@ -9,4 +9,10 @@ class ExPort(ExComponent):
     def set_color(self, color):
         self.canvas.itemconfigure(self.frame, outline=color)
 
+    def accept(self, visitor):
+        pass
+
+    def value(self):
+        return 0
+
 

@@ -1,4 +1,4 @@
-from ExFramework.ExComponents import *
+from ExFramework.ExElement import *
 from ExFramework.ExTagFactory import *
 
 #信息标签
