@@ -5,9 +5,10 @@ from ExFramework.ExElement import *
 
 class ExPropertyDlg(Frame):
     def __init__(self, element):
-        Frame.__init__(self, Toplevel())
+        Frame.__init__(self, Toplevel(), )
         self.element = element
         self.pack()
+        #self.winfo_toplevel().geometry("400x200")
         self.notebook = Notebook(self)
         for t in self.tabs():
             self.notebook.add(self.create_tab(t), text=t)

@@ -1,5 +1,6 @@
 from ExFramework.ExElement import *
 from ExFramework.ExTagFactory import *
+from ExFramework.ExNotePropertyDlg import *
 
 #信息标签
 class ExNote(ExElement):
@@ -15,9 +16,7 @@ class ExNote(ExElement):
 
     # 生成属性对话框
     def create_property_dlg(self):
-        dlg = Tk()
-        Label(dlg, text='Hard drive reformatted!').pack()
-        return dlg
+        return ExNotePropertyDlg(self)
 
     # 生成弹出菜单
     def create_popup(self, handler):
