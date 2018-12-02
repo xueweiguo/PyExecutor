@@ -6,8 +6,8 @@ from ExFramework.ExBlockPropertyDlg import *
 
 #功能块
 class ExBlock(ExElement):
-    def __init__(self, name):
-        ExElement.__init__(self, name)
+    def __init__(self, name, comment):
+        ExElement.__init__(self, name, comment)
 
 
     def attach(self, canvas, x, y):

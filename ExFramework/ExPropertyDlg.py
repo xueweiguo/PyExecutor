@@ -29,15 +29,20 @@ class ExPropertyDlg(Frame):
         if title == 'Common':
             tab = Frame(self)
             tab.pack(side=TOP)
-            Label(tab, text="Tag").grid(row=0, column=0)
+            Label(tab, text="Tag").grid(row=0, column=0, sticky=E)
             tag = Entry(tab)
             tag.insert(0, self.element.tag())
             tag.configure(state='readonly')
             tag.grid(row=0, column=1)
-            Label(tab, text="Name").grid(row=1, column=0)
+            Label(tab, text="Name").grid(row=1, column=0, sticky=E)
             ent = Entry(tab)
             ent.insert(0, self.element.name())
             ent.grid(row=1, column=1)
+            Label(tab, text='功能概要').grid(row=2, column=0)
+            text = Text(tab, height=5, width=30)
+            text.insert(INSERT, self.element.comment())
+            text.configure(state=DISABLED)
+            text.grid(row=3, columnspan=2, sticky=W)
             return tab
 
     def on_button(self, mode):

@@ -5,7 +5,7 @@ from ExFramework.ExNotePropertyDlg import *
 #信息标签
 class ExNote(ExElement):
     def __init__(self):
-        ExComponent.__init__(self, '')
+        ExComponent.__init__(self, '', '信息标签')
 
     def attach(self, canvas, x, y):
         self.canvas = canvas

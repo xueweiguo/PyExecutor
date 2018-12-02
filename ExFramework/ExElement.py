@@ -2,8 +2,8 @@ from ExFramework.ExComponents import *
 
 #功能块
 class ExElement(ExComponent):
-    def __init__(self, name):
-        ExComponent.__init__(self, name)
+    def __init__(self, name, comment):
+        ExComponent.__init__(self, name, comment)
 
     #生成属性对话框
     def create_property_dlg(self):

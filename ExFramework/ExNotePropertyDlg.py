@@ -21,7 +21,7 @@ class ExNotePropertyDlg(ExPropertyDlg):
     def create_note_tab(self):
         tab = Frame(self)
         tab.pack(side=TOP)
-        self.text = Text(tab, height=5, width=30)
-        self.text.insert(INSERT, "Input Text.")
+        self.text = Text(tab, height=10, width=30)
+        self.text.insert(INSERT, "在此处自由输入")
         self.text.pack()
         return tab

@@ -1,8 +1,9 @@
 from tkinter import * # get widget classes
 
 class ExComponent:
-    def __init__(self, name):
+    def __init__(self, name, comment):
         self.__name = name
+        self.__comment__ = comment
         self.__tag = None
         self.canvas = None
         self.frame = None
@@ -19,6 +20,9 @@ class ExComponent:
 
     def name(self):
         return self.__name
+
+    def comment(self):
+        return self.__comment__
 
     def attach(self, canvas):
         self.canvas = canvas

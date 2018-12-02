@@ -2,8 +2,8 @@ from ExFramework.ExPort import *
 
 #信息标签
 class ExInputPort(ExPort):
-    def __init__(self, name, owner):
-        ExPort.__init__(self, name, owner)
+    def __init__(self, name, comment, owner):
+        ExPort.__init__(self, name, comment, owner)
         self.connector = None
         self.caption = None
 

@@ -5,7 +5,7 @@ from ExFramework.ExInputPort import *
 #连接线
 class ExConnector(ExElement):
     def __init__(self, name):
-        ExComponent.__init__(self, name)
+        ExComponent.__init__(self, name, '')
         self.output = None
         self.input = None
         self.line = None

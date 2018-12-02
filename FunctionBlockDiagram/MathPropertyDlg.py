@@ -25,7 +25,7 @@ class MathPropertyDlg(ExBlockPropertyDlg):
             if isinstance(port, ExOutputPort):
                 Label(tab, text=port.name()).grid(row=r, column=0)
                 ent = Entry(tab)
-                #ent.insert(0, port.name())
                 ent.grid(row=r, column=1)
+                Label(tab, text=port.comment()).grid(row=r, column=2, sticky=W)
                 r = r + 1
         return tab

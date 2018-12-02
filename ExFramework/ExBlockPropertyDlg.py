@@ -24,10 +24,11 @@ class ExBlockPropertyDlg(ExPropertyDlg):
         r = 0
         for port in self.element.children:
             if isinstance(port, ExInputPort):
-                Label(tab, text=port.name()).grid(row=r, column=0)
+                Label(tab, text=port.name()).grid(row=r, column=0, sticky=E)
                 ent = Entry(tab)
                 ent.insert(0, port.value())
                 ent.grid(row=r, column=1)
+                Label(tab, text=port.comment()).grid(row=r, column=2, sticky=W)
                 r = r + 1
         return tab
 
