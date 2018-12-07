@@ -68,6 +68,6 @@ class IdleState(ExState):
             self.context.remove_element(self.hit)
             self.hit = None
         if cmd == 'SetProperty':
-            dlg = self.hit.create_property_dlg()
-            dlg.do_modal()
+            self.hit.create_property_dlg().do_modal()
+
 
