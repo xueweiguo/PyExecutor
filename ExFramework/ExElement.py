@@ -1,4 +1,4 @@
-from ExFramework.ExComponents import *
+from ExFramework.ExComponent import *
 from ExFramework.ExPropertyDlg import *
 
 #功能要素

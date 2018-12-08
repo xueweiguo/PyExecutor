@@ -2,11 +2,13 @@ from ExFramework.ExState import *
 from ExFramework.ExBlock import *
 from ExFramework.ExConnector import *
 from ExFramework.ExOutputPort import *
+from PyExecutorFactory import *
 
 
 class IdleState(ExState):
     def __init__(self, owner, context):
         ExState.__init__(self, owner, context)
+        self.factory = PyExecutorFactory().factory('element')
 
     def entry(self):
         self.context.drawn = None
@@ -29,14 +31,14 @@ class IdleState(ExState):
             hit = self.context.find_overlapping(event.x, event.y)
             if hit:
                 if isinstance(hit, ExOutputPort):
-                    connector = self.context.factory.make_connector()
+                    connector = self.factory.make_connector()
                     self.context.register_element(connector)
                     connector.attach(self.context.canvas)
                     connector.setOutputPort(hit)
                     self.context.connector = connector
             else:
                 if self.context.element_type:
-                    element = self.context.factory.make_element(self.context.element_type)
+                    element = self.factory.make_element(self.context.element_type)
                     self.context.register_element(element)
                     element.attach(self.context.canvas, event.x, event.y)
                     self.context.canvas.configure(cursor='arrow')
@@ -48,14 +50,14 @@ class IdleState(ExState):
     def on_command(self, cmd):
         if cmd == 'Delete':
             if isinstance(self.hit, ExBlock):
-                for port in self.hit.children:
+                for port in self.hit.children():
                     if isinstance(port, ExInputPort):
                         if port.connector:
                             c = port.connector
                             c.disconnect()
                             self.context.remove_element(c)
 
-                for port in self.hit.children:
+                for port in self.hit.children():
                     if isinstance(port, ExOutputPort):
                         for c in port.connectors:
                             c.disconnect()

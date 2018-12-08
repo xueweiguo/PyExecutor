@@ -1,6 +1,5 @@
 from ExFramework.ExNote import *
 
-
 class ExComponentFactory(object):
     #构建连接线
     def make_connector(self):

@@ -31,7 +31,7 @@ class ExBlockPropertyDlg(ExPropertyDlg):
         self.tree.heading("设定值", text="设定值")
         self.tree.heading("说明", text="说明")
         r = 0
-        for port in self.element.children:
+        for port in self.element.children():
             if isinstance(port, ExInputPort):
                 self.tree.insert("", r, text=r+1, values=(port.name(), port.value(), port.comment()))  # 插入数据，
                 r = r + 1

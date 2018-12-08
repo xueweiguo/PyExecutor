@@ -1,14 +1,11 @@
-import sys
-
-sys.path.append('..')
 from ExFramework.ScrollCanvas import *
-from PyCanvasStateMachine import *
 from ExFramework.ExTagFactory import *
+from PyCanvasStateMachine import *
+from PyExecutorFactory import *
 
 class PyEditorCanvas(ScrollCanvas):
-    def __init__(self, parent, factory, color='lightyellow'):
+    def __init__(self, parent, color='lightyellow'):
         ScrollCanvas.__init__(self, parent, color)
-        self.factory = factory
         self.element_type = None
         self.drawn = None
         self.start = None
@@ -17,24 +14,32 @@ class PyEditorCanvas(ScrollCanvas):
         self.__element_dict = {}
         self.machine = PyCanvasStateMachine(self)
         self.machine.entry()
+        self.makeToolbar(parent.toolbar)
+        self.make_menu(parent.top_menu)
+
+    def set_diagram(self, diagram):
+        self.__diagram__ = diagram
 
     # 构建工具条
     def makeToolbar(self, toolbar):
-        types = self.factory.element_types()
+        types = PyExecutorFactory().factory('element').element_types()
         for i in range(len(types)):
             Button(toolbar, text=types[i], command=(lambda index=i: self.addElement(index))).pack(side=LEFT)
 
     # 构建菜单项
-    def makemenu(self, menu):
+    def make_menu(self, menu):
+        # 添加图形要素菜单
+        add = Menu(menu, tearoff=False)
+        menu.add_cascade(label='Add', menu=add, underline=0)
         # 功能块子菜单
-        types = self.factory.element_types()
+        types = PyExecutorFactory().factory('element').element_types()
         for i in range(len(types)):
-            menu.add_command(label=types[i], command=(lambda index=i: self.addElement(index)))
+            add.add_command(label=types[i], command=(lambda index=i: self.addElement(index)))
 
 
     # 构建功能块
     def addElement(self, index):
-        types = self.factory.element_types()
+        types = PyExecutorFactory().factory('element').element_types()
         self.element_type = types[index]
         self.canvas.configure(cursor='dotbox')
 
@@ -43,11 +48,13 @@ class PyEditorCanvas(ScrollCanvas):
         tag = ExTagFactory().createTag()
         element.set_tag(tag)
         self.__element_dict[tag] = element
+        self.__diagram__.append(element)
 
     def remove_element(self, element):
         tag = element.tag()
         self.canvas.delete(tag)
         self.__element_dict.pop(tag)
+        self.__diagram__.remove(element)
 
     # 根据tags查找要素
     def find_element(self, tags):

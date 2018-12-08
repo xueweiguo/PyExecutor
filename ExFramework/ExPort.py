@@ -1,4 +1,4 @@
-from ExFramework.ExComponents import *
+from ExFramework.ExComponent import *
 
 #信息标签
 class ExPort(ExComponent):

@@ -1,18 +1,39 @@
 from tkinter import *
 from tkinter.ttk import *
+from ExFramework.ExTreeAccessor import *
+from ExFramework.ExObserver import *
 
-class ExTreeView(Frame):
-    def __init__(self, parent, side):
+class ExTreeView(Frame, ExObserver):
+    def __init__(self, parent, accessor, side):
         Frame.__init__(self, parent, relief=GROOVE)
         self.pack(side=side, fill=Y, ipadx=2, ipady=2)
+        self.accessor = accessor
+        self.accessor.attach(self)
         self.tree = Treeview(self)
         self.tree.heading('#0', text='BlockTree', anchor='w')
-        myid = self.tree.insert("", 0, "中国", text="中国China", values=("1"))  # ""表示父节点是根
-        myidx1 = self.tree.insert(myid, 0,"广东",text="中国广东",values=("2"))  # text表示显示出的文本，values是隐藏的值
-        myidx2 = self.tree.insert(myid,1,"江苏",text="中国江苏",values=("3"))
-        myidy = self.tree.insert("",1,"美国",text="美国USA",values=("4"))
-        myidy1= self.tree.insert(myidy,0,"加州",text="美国加州",values=("5"))
+        self.build_tree('', self.accessor.get_root())
         self.tree.pack()
 
-    def update(self):
-        pass
+    def build_tree(self, parent, node):
+        node_name = self.accessor.get_name(node)
+        iid = self.accessor.get_iid(node)
+        self.tree.insert(parent, 'end', iid=iid, text=node_name)
+        nodes = self.accessor.get_children(node)
+        for n in nodes:
+            self.build_tree(iid, n)
+
+    def update(self, invoker, ext):
+        if ext == 'append':
+            self.append_node(invoker)
+        elif ext == 'remove':
+            self.remove_node(invoker)
+
+    def append_node(self, node):
+        parent = self.accessor.get_parent(node)
+        iid = self.accessor.get_iid(parent)
+        self.build_tree(iid, node)
+
+    def remove_node(self, node):
+        iid = self.accessor.get_iid(node)
+        self.tree.delete(iid)
+

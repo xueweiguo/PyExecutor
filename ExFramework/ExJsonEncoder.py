@@ -1,5 +1,5 @@
 import json
-from ExFramework.ExComponents import *
+from ExFramework.ExComponent import *
 
 class ExJsonEncoder(json.JSONEncoder):
     def default(self, obj):
