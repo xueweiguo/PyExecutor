@@ -1,3 +1,5 @@
+import sys
+import tkinter
 from ExFramework.ExTreeAccessor import *
 from ExFramework.ExObserver import *
 from ExFramework.ExBlock import *
@@ -10,6 +12,8 @@ class PyExecutorTreeAccessor(ExTreeAccessor, ExObserver):
         ExTreeAccessor.__init__(self)
         self.wnd = main_wnd
         self.__tree__ = None
+        self.__blk_image__ = PhotoImage(file='images\\block.gif')
+        self.__diagram_image__ = PhotoImage(file='images\\diagram.gif')
 
     def get_root(self):
         return self.wnd.top_diagram;
@@ -32,6 +36,12 @@ class PyExecutorTreeAccessor(ExTreeAccessor, ExObserver):
 
     def get_iid(self, node):
         return node.tag()
+
+    def get_image(self, node):
+        if isinstance(node, ExDiagram):
+            return self.__diagram_image__
+        else:
+            return self.__blk_image__
 
     def focus(self, iid):
         component = ExComponentDict().component(iid)

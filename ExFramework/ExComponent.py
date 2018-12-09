@@ -24,6 +24,9 @@ class ExComponent:
     def tag(self):
         return self.__tag
 
+    def set_name(self, name):
+        self.__name = name
+
     def name(self):
         return self.__name
 

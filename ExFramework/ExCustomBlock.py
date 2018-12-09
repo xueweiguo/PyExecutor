@@ -11,6 +11,12 @@ class ExCustomBlock(ExBlock):
     def diagram(self):
         return self.__diagram__
 
+    def append_input(self, name):
+        self.append(ExInputPort(name, '输入'+name, self))
+
+    def append_output(self, name):
+         self.append(ExOutputPort(name,'输出'+name, self))
+
     # 生成属性对话框
     def create_property_dlg(self):
         return ExBlock.create_property_dlg(self)

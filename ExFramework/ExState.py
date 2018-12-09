@@ -22,13 +22,13 @@ class ExState:
             self.active.entry()
         if self.owner:
             self.owner.active = self
-        print(type(self), 'entry')
+        #print(type(self), 'entry')
 
     def exit(self):
         self.active = self.final
         if self.owner:
             self.owner.active = None
-        print(type(self), 'exit')
+        #print(type(self), 'exit')
 
     def eventHandling(self, type_str, event):
         for t in self.transitions:

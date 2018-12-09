@@ -17,8 +17,9 @@ class ExTreeView(Frame, ExObserver):
 
     def build_tree(self, parent, node):
         node_name = self.accessor.get_name(node)
+        node_image = self.accessor.get_image(node)
         iid = self.accessor.get_iid(node)
-        self.tree.insert(parent, 'end', iid=iid, text=node_name)
+        self.tree.insert(parent, 'end', iid=iid, text=node_name, image =node_image)
         nodes = self.accessor.get_children(node)
         for n in nodes:
             self.build_tree(iid, n)
