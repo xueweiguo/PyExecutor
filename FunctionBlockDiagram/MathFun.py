@@ -3,7 +3,7 @@ sys.path.append('..')
 from ExFramework.ExBlock import *
 from ExFramework.ExInputPort import *
 from ExFramework.ExOutputPort import *
-from FunctionBlockDiagram.MathPropertyDlg import *
+from FunctionBlockDiagram.MathFunTab import *
 
 class MathFun(ExBlock):
     def __init__(self, name):
@@ -16,7 +16,10 @@ class MathFun(ExBlock):
 
     # 生成属性对话框
     def create_property_dlg(self):
-        return MathPropertyDlg(self)
+        dlg = ExBlock.create_property_dlg(self)
+        dlg.add_tab(MathFunTab(dlg.notebook(), '参数', self))
+        return dlg
+
 
 
 

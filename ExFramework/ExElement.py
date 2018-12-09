@@ -1,5 +1,6 @@
 from ExFramework.ExComponent import *
 from ExFramework.ExPropertyDlg import *
+from ExFramework.ExCommonTab import *
 
 #功能要素
 class ExElement(ExComponent):
@@ -8,7 +9,9 @@ class ExElement(ExComponent):
 
     #生成属性对话框
     def create_property_dlg(self):
-        return ExPropertyDlg(self)
+        dlg = ExPropertyDlg(self)
+        dlg.add_tab(ExCommonTab(dlg.notebook(), '共通', self))
+        return dlg
 
     # 生成弹出菜单
     def create_popup(self, handler):

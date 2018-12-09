@@ -2,7 +2,7 @@ from tkinter import *
 from ExFramework.ExElement import *
 from ExFramework.ExInputPort import *
 from ExFramework.ExOutputPort import *
-from ExFramework.ExBlockPropertyDlg import *
+from ExFramework.ExBlockTab import *
 
 #功能块
 class ExBlock(ExElement):
@@ -52,7 +52,9 @@ class ExBlock(ExElement):
 
     # 生成属性对话框
     def create_property_dlg(self):
-        return ExBlockPropertyDlg(self)
+        dlg = ExElement.create_property_dlg(self)
+        dlg.add_tab(ExBlockTab(dlg.notebook(), '参数', self))
+        return dlg
 
     # 生成弹出菜单
     def create_popup(self, handler):

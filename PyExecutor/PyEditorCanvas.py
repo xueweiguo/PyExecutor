@@ -1,5 +1,5 @@
 from ExFramework.ScrollCanvas import *
-from ExFramework.ExTagFactory import *
+from ExFramework.ExComponentDict import *
 from PyCanvasStateMachine import *
 from PyExecutorFactory import *
 
@@ -11,7 +11,6 @@ class PyEditorCanvas(ScrollCanvas):
         self.start = None
         self.active = None
         self.connector = None
-        self.__element_dict = {}
         self.machine = PyCanvasStateMachine(self)
         self.machine.entry()
         self.makeToolbar(parent.toolbar)
@@ -19,12 +18,23 @@ class PyEditorCanvas(ScrollCanvas):
 
     def set_diagram(self, diagram):
         self.__diagram__ = diagram
+        if self.__diagram__.parent():
+            self.input_btn.configure(state=NORMAL)
+            self.output_btn.configure(state=NORMAL)
+        else:
+            self.input_btn.configure(state=DISABLED)
+            self.output_btn.configure(state=DISABLED)
 
     # 构建工具条
     def makeToolbar(self, toolbar):
         types = PyExecutorFactory().factory('element').element_types()
         for i in range(len(types)):
-            Button(toolbar, text=types[i], command=(lambda index=i: self.addElement(index))).pack(side=LEFT)
+            btn = Button(toolbar, text=types[i], command=(lambda index=i: self.addElement(index)))
+            btn.pack(side=LEFT)
+            if types[i] == 'Input':
+                self.input_btn = btn
+            elif types[i] == 'Output':
+                self.output_btn = btn
 
     # 构建菜单项
     def make_menu(self, menu):
@@ -44,16 +54,11 @@ class PyEditorCanvas(ScrollCanvas):
         self.canvas.configure(cursor='dotbox')
 
     #
-    def register_element(self, element):
-        tag = ExTagFactory().createTag()
-        element.set_tag(tag)
-        self.__element_dict[tag] = element
-        self.__diagram__.append(element)
+    def append_element(self, element):
+         self.__diagram__.append(element)
 
     def remove_element(self, element):
-        tag = element.tag()
-        self.canvas.delete(tag)
-        self.__element_dict.pop(tag)
+        self.canvas.delete(element.tag())
         self.__diagram__.remove(element)
 
     # 根据tags查找要素
@@ -63,7 +68,7 @@ class PyEditorCanvas(ScrollCanvas):
             if tags[tag_count - 1] == 'current':
                 tag_count = tag_count - 1
             if tag_count > 0:
-                element = self.__element_dict[tags[0]]
+                element = ExComponentDict().component(tags[0])
                 if element != None:
                     if tag_count > 1:
                         return element.findChild(tags[1])

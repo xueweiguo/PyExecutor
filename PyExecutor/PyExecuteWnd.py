@@ -7,7 +7,7 @@ from tkinter import * # get widget classes
 from tkinter.messagebox import * # get standard dialogs
 from tkinter.filedialog import *
 from ExFramework.ExTreeView import *
-from ExFramework.ExDiagramTreeAccessor import *
+from PyExecutorTreeAccessor import *
 from PyEditorCanvas import *
 from PyExecutorFactory import *
 from TopDiagram import *
@@ -27,7 +27,7 @@ class PyExecuteWnd(Tk):
         self.minsize(400, 300)
         self.maxsize(1200, 900)
         self.top_diagram = TopDiagram('Top')
-        accessor = ExDiagramTreeAccessor(self.top_diagram)
+        accessor = PyExecutorTreeAccessor(self.top_diagram)
         self.top_diagram.attach(accessor)
         self.makemenu()
         self.makeToolbar()

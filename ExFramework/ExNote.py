@@ -14,6 +14,9 @@ class ExNote(ExElement):
     def set_color(self, color):
         self.canvas.itemconfigure(self.frame, outline=color)
 
+    def move(self, x, y):
+        self.canvas.move(self.tag(), x, y)
+
     # 生成属性对话框
     def create_property_dlg(self):
         return ExNotePropertyDlg(self)

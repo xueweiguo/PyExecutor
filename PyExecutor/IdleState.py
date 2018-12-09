@@ -32,14 +32,14 @@ class IdleState(ExState):
             if hit:
                 if isinstance(hit, ExOutputPort):
                     connector = self.factory.make_connector()
-                    self.context.register_element(connector)
+                    self.context.append_element(connector)
                     connector.attach(self.context.canvas)
                     connector.setOutputPort(hit)
                     self.context.connector = connector
             else:
                 if self.context.element_type:
                     element = self.factory.make_element(self.context.element_type)
-                    self.context.register_element(element)
+                    self.context.append_element(element)
                     element.attach(self.context.canvas, event.x, event.y)
                     self.context.canvas.configure(cursor='arrow')
         elif event_type == 'Key':
@@ -69,7 +69,9 @@ class IdleState(ExState):
 
             self.context.remove_element(self.hit)
             self.hit = None
-        if cmd == 'SetProperty':
+        elif cmd == 'SetProperty':
+            self.hit.create_property_dlg().do_modal()
+        elif cmd == 'Detail':
             self.hit.create_property_dlg().do_modal()
 
 

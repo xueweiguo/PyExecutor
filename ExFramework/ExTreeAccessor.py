@@ -17,6 +17,9 @@ class ExTreeAccessor:
     def get_iid(self, node):
         pass
 
+    def focus(self, iid):
+        pass
+
     def attach(self, observer):
         self.__observer__ = observer
 

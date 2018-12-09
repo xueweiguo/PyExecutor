@@ -12,6 +12,7 @@ class ExTreeView(Frame, ExObserver):
         self.tree = Treeview(self)
         self.tree.heading('#0', text='BlockTree', anchor='w')
         self.build_tree('', self.accessor.get_root())
+        self.tree.bind('<<TreeviewSelect>>', self.treeview_select)
         self.tree.pack()
 
     def build_tree(self, parent, node):
@@ -21,6 +22,9 @@ class ExTreeView(Frame, ExObserver):
         nodes = self.accessor.get_children(node)
         for n in nodes:
             self.build_tree(iid, n)
+
+    def treeview_select(self, event):
+        self.accessor.focus(self.tree.focus())
 
     def update(self, invoker, ext):
         if ext == 'append':
