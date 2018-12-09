@@ -30,8 +30,17 @@ class ExComponent:
     def comment(self):
         return self.__comment__
 
-    def attach(self, canvas):
+    def attach_canvas(self, canvas):
         self.canvas = canvas
+        for c in self.children():
+            c.attach_canvas(canvas)
+
+    def detach_canvas(self):
+        self.canvas.delete(self.frame)
+        self.frame = None
+        for c in self.children():
+            c.detach_canvas()
+        self.canvas = None
 
     def countChild(self, child_class):
         count = 0

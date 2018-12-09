@@ -33,14 +33,15 @@ class IdleState(ExState):
                 if isinstance(hit, ExOutputPort):
                     connector = self.factory.make_connector()
                     self.context.append_element(connector)
-                    connector.attach(self.context.canvas)
+                    connector.attach_canvas(self.context.canvas)
                     connector.setOutputPort(hit)
                     self.context.connector = connector
             else:
                 if self.context.element_type:
                     element = self.factory.make_element(self.context.element_type)
                     self.context.append_element(element)
-                    element.attach(self.context.canvas, event.x, event.y)
+                    element.set_position(event.x, event.y)
+                    element.attach_canvas(self.context.canvas)
                     self.context.canvas.configure(cursor='arrow')
         elif event_type == 'Key':
             pass

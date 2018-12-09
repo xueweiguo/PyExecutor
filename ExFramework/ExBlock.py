@@ -8,34 +8,51 @@ from ExFramework.ExBlockTab import *
 class ExBlock(ExElement):
     def __init__(self, name, comment):
         ExElement.__init__(self, name, comment)
+        self.frame = None
+        self.caption = None
 
+    def set_position(self, x, y):
+        self.x = x
+        self.y = y
 
-    def attach(self, canvas, x, y):
+    def attach_canvas(self, canvas):
         self.canvas= canvas
         blk_width = 80
         port_start = 20
         port_height = 10
         blk_height = port_start + max(self.countChild(ExInputPort), self.countChild(ExOutputPort)) * port_height
-        self.frame = canvas.create_rectangle(x, y, x+blk_width, y+blk_height, tag=self.tag(),
+        self.frame = canvas.create_rectangle(self.x, self.y, self.x+blk_width, self.y+blk_height, tag=self.tag(),
                                              fill='white', outline='black')
-        self.caption = canvas.create_text(x + 40, y, tag=self.tag(), text=self.name(), anchor=N)
+        self.caption = canvas.create_text(self.x + 40, self.y, tag=self.tag(), text=self.name(), anchor=N)
 
-        port_y = y + port_start
+        port_y = self.y + port_start
         for port in self.children():
             if isinstance(port, ExInputPort):
-                port.attach(canvas, x, port_y)
+                port.set_position(self.x, port_y)
+                port.attach_canvas(canvas)
                 port_y = port_y + port_height
 
-        port_y = y + port_start
+        port_y = self.y + port_start
         for port in self.children():
             if isinstance(port, ExOutputPort):
-                port.attach(canvas, x + blk_width, port_y)
+                port.set_position(self.x + blk_width, port_y)
+                port.attach_canvas(canvas)
                 port_y = port_y + port_height
+
+    def detach_canvas(self):
+        self.canvas.delete(self.frame)
+        self.frame = None
+        if self.caption:
+            self.canvas.delete(self.caption)
+            self.caption = None
+        ExElement.detach_canvas(self)
 
     def move(self, x, y):
         self.canvas.move(self.tag(), x, y)
         for port in self.children():
             port.on_move()
+        self.x = self.x + x
+        self.y = self.y + y
 
     def set_color(self, color):
         self.canvas.itemconfigure(self.frame, outline=color)

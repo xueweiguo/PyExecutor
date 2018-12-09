@@ -15,9 +15,9 @@ class ExComponentFactory(object):
         if type == "Custom":
             return ExCustomBlock('Custom')
         elif type == "Input":
-            return ExInputBlock('Input')
+            return ExInputBlock('Input', '用户取得自定义功能的输入数据')
         elif type == "Output":
-            return ExOutputBlock('Output')
+            return ExOutputBlock('Output','用于设定用户自定义模块的输出数据')
         elif type == "Note":
             return ExNote()
 

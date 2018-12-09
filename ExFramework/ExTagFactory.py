@@ -10,6 +10,7 @@ class ExTagFactory(object):
     def createTag(self):
         id = 'Ex'+str(self.current)
         self.current = self.current + 1
+        #print('creatTag(',id, ')')
         return id
 
     def serialize(self):

@@ -8,7 +8,7 @@ class ExTreeView(Frame, ExObserver):
         Frame.__init__(self, parent, relief=GROOVE)
         self.pack(side=side, fill=Y, ipadx=2, ipady=2)
         self.accessor = accessor
-        self.accessor.attach(self)
+        self.accessor.attach_observer(self)
         self.tree = Treeview(self)
         self.tree.heading('#0', text='BlockTree', anchor='w')
         self.build_tree('', self.accessor.get_root())

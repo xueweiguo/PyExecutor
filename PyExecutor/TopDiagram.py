@@ -4,11 +4,9 @@ from ExFramework.ExTagFactory import *
 class TopDiagram(ExDiagram):
     def __init__(self, name):
         ExDiagram.__init__(self, name)
-        tag = ExTagFactory().createTag()
-        self.set_tag(tag)
         self.__observers__ = []
 
-    def attach(self, observer):
+    def attach_observer(self, observer):
         self.__observers__.append(observer)
 
     def detach(self, observer):

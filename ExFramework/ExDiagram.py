@@ -5,6 +5,8 @@ from ExFramework.ExComponentDict import *
 class ExDiagram(ExComponent):
     def __init__(self, name, comment=''):
         ExComponent.__init__(self, name, comment)
+        self.set_tag(ExTagFactory().createTag())
+        ExComponentDict().register(self)
 
     def append(self, child):
         child.set_tag(ExTagFactory().createTag())

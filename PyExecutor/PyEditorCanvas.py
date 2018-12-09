@@ -6,6 +6,7 @@ from PyExecutorFactory import *
 class PyEditorCanvas(ScrollCanvas):
     def __init__(self, parent, color='lightyellow'):
         ScrollCanvas.__init__(self, parent, color)
+        self.__diagram__ = None
         self.element_type = None
         self.drawn = None
         self.start = None
@@ -17,13 +18,24 @@ class PyEditorCanvas(ScrollCanvas):
         self.make_menu(parent.top_menu)
 
     def set_diagram(self, diagram):
-        self.__diagram__ = diagram
-        if self.__diagram__.parent():
-            self.input_btn.configure(state=NORMAL)
-            self.output_btn.configure(state=NORMAL)
-        else:
-            self.input_btn.configure(state=DISABLED)
-            self.output_btn.configure(state=DISABLED)
+        if not self.__diagram__ == diagram:
+            if self.__diagram__:
+                self.__diagram__.detach_canvas()
+            diagram.attach_canvas(self.canvas)
+            self.__diagram__ = diagram
+            if self.__diagram__.parent():
+                self.input_btn.configure(state=NORMAL)
+                self.output_btn.configure(state=NORMAL)
+            else:
+                self.input_btn.configure(state=DISABLED)
+                self.output_btn.configure(state=DISABLED)
+            self.drawn = None
+        self.element_type = None
+        self.drawn = None
+        self.start = None
+        self.active = None
+        self.connector = None
+        self.machine.entry()
 
     # 构建工具条
     def makeToolbar(self, toolbar):

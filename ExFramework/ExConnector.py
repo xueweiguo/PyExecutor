@@ -10,14 +10,23 @@ class ExConnector(ExElement):
         self.input = None
         self.line = None
         self.active = None
+        self.coords = None
 
-    def attach(self, canvas):
-        ExComponent.attach(self, canvas)
+    def attach_canvas(self, canvas):
+        ExComponent.attach_canvas(self, canvas)
+        if self.coords:
+
+            self.line = self.canvas.create_line(self.coords, tag=self.tag(), arrow=LAST)
+    def detach_canvas(self):
+        if self.line:
+            self.canvas.delete(self.line)
+            self.line = None
+        ExComponent.detach_canvas(self)
 
     def setOutputPort(self, port):
         if isinstance(port, ExOutputPort):
-            coords = port.point()
-            self.startLine(coords[0] , coords[1])
+            self.coords = port.point()
+            self.startLine(self.coords[0] , self.coords[1])
             self.output = port
             port.add_connector(self)
             return True
@@ -27,8 +36,8 @@ class ExConnector(ExElement):
     def setInputPort(self, port):
         if not isinstance(port, ExInputPort):
             return False
-        coords = port.point()
-        self.move_last(coords[0], coords[1])
+        self.coords = port.point()
+        self.move_last(self.coords[0], self.coords[1])
         self.input = port
         port.set_connector(self)
 
@@ -56,7 +65,8 @@ class ExConnector(ExElement):
             coords[0] = x
             coords[1] = y
             coords[3] = y
-            self.canvas.coords(self.line, coords)
+            self.coords = coords
+            self.canvas.coords(self.line, self.coords)
 
     def move_last(self, x, y):
         if self.line:
@@ -73,18 +83,19 @@ class ExConnector(ExElement):
             coords[last_index - 1] = x
             coords[last_index] =  y
             coords[last_index - 2] = y
-            self.canvas.coords(self.line, coords)
+            self.coords = coords
+            self.canvas.coords(self.line, self.coords)
 
     def drag_last(self, x, y):
         if self.line:
             coords = self.canvas.coords(self.line)
-
             last_index = int(len(coords) / 2) - 1
             if last_index % 2 != 0:
                 coords[last_index * 2] = x
             else:
                 coords[last_index * 2 + 1] = y
-            self.canvas.coords(self.line, coords)
+            self.coords = coords
+            self.canvas.coords(self.line, self.coords)
 
     def remove_last(self):
         if self.line:
@@ -93,11 +104,12 @@ class ExConnector(ExElement):
             if length > 2:
                 coords.pop()
                 coords.pop()
-                #print(coords)
                 if len(coords) >= 4:
-                    self.canvas.coords(self.line, coords)
+                    self.coords = coords
+                    self.canvas.coords(self.line, self.coords)
                 else:
                     self.canvas.delete(self.line)
+                    self.coords = None
                     self.line = None
 
     def append_last(self):
@@ -106,7 +118,8 @@ class ExConnector(ExElement):
             data_count = len(coords)
             coords.append(coords[data_count - 2])
             coords.append(coords[data_count - 1])
-            self.canvas.coords(self.line, coords)
+            self.coords = coords
+            self.canvas.coords(self.line, self.coords)
 
     def set_color(self, c):
         self.canvas.itemconfigure(self.line, fill=c)
@@ -144,7 +157,8 @@ class ExConnector(ExElement):
             else:
                 coords[self.active * 2 + 1] = coords[self.active * 2 + 1] + cy
                 coords[self.active * 2 + 3] = coords[self.active * 2 + 3] + cy
-            self.canvas.coords(self.line, coords)
+            self.coords = coords
+            self.canvas.coords(self.line, self.coords)
 
     def serialize(self):
         dict = ExComponent.serialize(self)

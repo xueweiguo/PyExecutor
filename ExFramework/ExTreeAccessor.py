@@ -20,7 +20,7 @@ class ExTreeAccessor:
     def focus(self, iid):
         pass
 
-    def attach(self, observer):
+    def attach_observer(self, observer):
         self.__observer__ = observer
 
     def notify(self, invoker, ext):
