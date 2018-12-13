@@ -4,18 +4,29 @@ from ExFramework.ExNotePropertyDlg import *
 
 #信息标签
 class ExNote(ExElement):
-    def __init__(self):
-        ExComponent.__init__(self, '', '信息标签')
+    def __init__(self, parent):
+        ExComponent.__init__(self, parent, '', '信息标签')
 
-    def attach(self, canvas, x, y):
+    def construct(self):
+        ExComponent.construct(self)
+        self.set_tag(self.handle_request(self, 'create_tag'))
+        return self
+
+    def set_position(self, x, y):
+        self.x = x
+        self.y = y
+
+    def attach_canvas(self, canvas):
         self.canvas = canvas
-        self.frame = canvas.create_rectangle(x, y, x + 100, y + 60, fill='lightyellow', tag=self.tag())
+        self.frame = canvas.create_rectangle(self.x, self.y, self.x + 100, self.y + 60, fill='lightyellow', tag=self.tag())
 
     def set_color(self, color):
         self.canvas.itemconfigure(self.frame, outline=color)
 
     def move(self, x, y):
         self.canvas.move(self.tag(), x, y)
+        self.x = self.x + x
+        self.y = self.y + y
 
     # 生成属性对话框
     def create_property_dlg(self):

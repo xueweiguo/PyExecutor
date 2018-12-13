@@ -5,13 +5,15 @@ from ExFramework.ExInputBlock import *
 from ExFramework.ExOutputBlock import *
 
 class ExDiagram(ExComponent):
-    def __init__(self, name, comment=''):
-        ExComponent.__init__(self, name, comment)
-        self.set_tag(ExTagFactory().createTag())
+    def __init__(self, parent, name, comment=''):
+        ExComponent.__init__(self, parent, name, comment)
+
+    def construct(self):
+        self.set_tag(self.handle_request(self, 'create_tag'))
         ExComponentDict().register(self)
+        return self
 
     def append(self, child):
-        child.set_tag(ExTagFactory().createTag())
         ExComponent.append(self, child)
         ExComponentDict().register(child)
         parent = self.parent()
@@ -24,5 +26,6 @@ class ExDiagram(ExComponent):
                 parent.append_output(child.name())
 
     def remove(self, child):
-        ExComponentDict().unregister(child)
         ExComponent.remove(self, child)
+        ExComponentDict().unregister(child)
+

@@ -37,6 +37,9 @@ class PyEditorCanvas(ScrollCanvas):
         self.connector = None
         self.machine.entry()
 
+    def diagram(self):
+        return self.__diagram__
+
     # 构建工具条
     def makeToolbar(self, toolbar):
         types = PyExecutorFactory().factory('element').element_types()

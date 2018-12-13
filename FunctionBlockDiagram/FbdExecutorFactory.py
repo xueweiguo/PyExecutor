@@ -14,8 +14,8 @@ class FbdExecutorFactory(ExComponentFactory):
     def __init__(self):
         PyExecutorFactory().register('fbd', 'element', self)
 
-    def make_connector(self):
-        return FbdConnector()
+    def make_connector(self, parent):
+        return FbdConnector(parent)
 
     def element_types(self):
         types = ['Sin', 'Cos', 'Math', 'Graph']
@@ -24,15 +24,17 @@ class FbdExecutorFactory(ExComponentFactory):
             types.append(t)
         return types
 
-    def make_element(self, type):
+    def make_element(self, parent, type):
+        element = None
         if type=='Sin':
-            return SinFun('Sin')
+            return SinFun(parent, 'Sin').construct()
         elif type=='Cos':
-            return CosFun('Cos')
+            return CosFun(parent, 'Cos').construct()
         elif type=='Math':
-            return MathFun('Math')
+            return MathFun(parent, 'Math').construct()
         elif type=='Graph':
-            return GraphFun('Graph')
-        return ExComponentFactory.make_element(self, type)
+            return GraphFun(parent, 'Graph').construct()
+        return ExComponentFactory.make_element(self, parent, type)
+
 
 FbdExecutorFactory()

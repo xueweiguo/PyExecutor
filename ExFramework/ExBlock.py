@@ -6,10 +6,14 @@ from ExFramework.ExBlockTab import *
 
 #功能块
 class ExBlock(ExElement):
-    def __init__(self, name, comment):
-        ExElement.__init__(self, name, comment)
+    def __init__(self, parent, name, comment):
+        ExElement.__init__(self, parent, name, comment)
         self.frame = None
         self.caption = None
+
+    def construct(self):
+        self.set_tag(self.handle_request(self, 'create_tag'))
+        return self
 
     def set_position(self, x, y):
         self.x = x

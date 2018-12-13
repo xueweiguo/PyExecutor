@@ -6,11 +6,15 @@ from ExFramework.ExInputPort import *
 from ExFramework.ExOutputPort import *
 
 class CosFun(ExBlock):
-     def __init__(self, name):
-         ExBlock.__init__(self,name, '余弦信号发生器')
-         self.append(ExInputPort('A', '振幅', self))
-         self.append(ExInputPort('w', '角速度，单位为弧度/S', self))
-         self.append(ExInputPort('t', '初始角度,单位为弧度', self))
-         self.append(ExInputPort('En', '有效', self))
-         self.append(ExOutputPort('Out','输出', self))
+    def __init__(self, parent, name):
+        ExBlock.__init__(self, parent, name, '余弦信号发生器')
+
+    def construct(self):
+        ExBlock.construct(self)
+        ExInputPort(self, 'A', '振幅').construct()
+        ExInputPort(self, 'w', '角速度，单位为弧度/S').construct()
+        ExInputPort(self, 't', '初始角度,单位为弧度').construct()
+        ExInputPort(self, 'En', '有效').construct()
+        ExOutputPort(self, 'Out','输出').construct()
+        return self
 

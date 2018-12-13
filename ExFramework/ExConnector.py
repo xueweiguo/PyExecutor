@@ -4,8 +4,8 @@ from ExFramework.ExInputPort import *
 
 #连接线
 class ExConnector(ExElement):
-    def __init__(self, name):
-        ExComponent.__init__(self, name, '')
+    def __init__(self, parent, name):
+        ExComponent.__init__(self, parent, name, '')
         self.output = None
         self.input = None
         self.line = None
@@ -36,8 +36,8 @@ class ExConnector(ExElement):
     def setInputPort(self, port):
         if not isinstance(port, ExInputPort):
             return False
-        self.coords = port.point()
-        self.move_last(self.coords[0], self.coords[1])
+        pt = port.point()
+        self.move_last(pt[0], pt[1])
         self.input = port
         port.set_connector(self)
 

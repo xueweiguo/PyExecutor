@@ -17,8 +17,8 @@ class EcComponentFactory(ExComponentFactory):
         PyExecutorFactory().register('ecd', 'element', self)
 
     # 添加链接线
-    def make_connector(self):
-        return EcConnector('')
+    def make_connector(self, parent):
+        return EcConnector(parent, '')
 
     def element_types(self):
         types = ['OpPanel', 'TempSensor', 'Controller', 'Display', 'Heater']
@@ -27,17 +27,17 @@ class EcComponentFactory(ExComponentFactory):
             types.append(t)
         return types
 
-    def make_element(self, type):
+    def make_element(self, parent, type):
         if type=='OpPanel':
-            return OpPanel('OpPanel')
+            return OpPanel(parent, 'OpPanel').construct()
         elif type=='TempSensor':
-            return TempSensor('TempSensor')
+            return TempSensor(parent, 'TempSensor').construct()
         elif type=='Controller':
-            return HeatingController('Controller')
+            return HeatingController(parent, 'Controller').construct()
         elif type=='Display':
-            return Display('Display')
+            return Display(parent, 'Display').construct()
         elif type == 'Heater':
-            return Heater('Heater')
-        return ExComponentFactory.make_element(self, type)
+            return Heater(parent, 'Heater').construct()
+        return ExComponentFactory.make_element(self, parent, type)
 
 EcComponentFactory()

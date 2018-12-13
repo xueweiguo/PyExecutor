@@ -1,8 +1,9 @@
 from tkinter import * # get widget classes
 
 class ExComponent:
-    def __init__(self, name, comment):
-        self.__parent__ = None
+    def __init__(self, parent, name, comment):
+        self.__parent__ = parent
+        self.__tag = None
         self.__name = name
         self.__comment__ = comment
         self.__tag = None
@@ -10,16 +11,14 @@ class ExComponent:
         self.frame = None
         self.__children__ = []
 
-    def set_parent(self, parent):
-        self.__parent__ = parent
+    def construct(self):
+        return self
 
     def parent(self):
         return self.__parent__
 
     def set_tag(self, tag):
         self.__tag = tag
-        for c in self.children():
-            c.set_tag(tag)
 
     def tag(self):
         return self.__tag
@@ -59,12 +58,11 @@ class ExComponent:
         return None
 
     def append(self, child):
-        child.set_parent(self)
         self.__children__.append(child)
-        self.notify(child, 'append')
+        self.handle_request(child, 'append')
 
     def remove(self, child):
-        self.notify(child, 'remove')
+        self.handle_request(child, 'remove')
         self.__children__.remove(child)
 
     def children(self):
@@ -73,9 +71,11 @@ class ExComponent:
     def serialize(self):
         return {'type':str(type(self)), 'tag':self.tag(), 'name':self.name}
 
-    def notify(self, component, ext):
+    def handle_request(self, component, ext):
         if self.__parent__:
-            self.__parent__.notify(component, ext)
+            return self.__parent__.handle_request(component, ext)
+        else:
+            return None
 
 
 

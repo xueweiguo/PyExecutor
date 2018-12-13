@@ -4,8 +4,8 @@ from ExFramework.ExCommonTab import *
 
 #功能要素
 class ExElement(ExComponent):
-    def __init__(self, name, comment):
-        ExComponent.__init__(self, name, comment)
+    def __init__(self, parent, name, comment):
+        ExComponent.__init__(self, parent, name, comment)
 
     #生成属性对话框
     def create_property_dlg(self):

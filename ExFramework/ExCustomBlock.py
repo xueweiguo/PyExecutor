@@ -3,10 +3,13 @@ from ExFramework.ExDiagram import *
 
 
 class ExCustomBlock(ExBlock):
-    def __init__(self, name):
-        ExBlock.__init__(self, name, '用户自定义功能')
-        self.__diagram__ = ExDiagram('Sub Diagram')
-        self.__diagram__.set_parent(self)
+    def __init__(self, parent, name):
+        ExBlock.__init__(self, parent, name, '用户自定义功能')
+
+    def construct(self):
+        ExBlock.construct(self)
+        self.__diagram__ = ExDiagram(self, 'Sub Diagram').construct()
+        return self
 
     def diagram(self):
         return self.__diagram__

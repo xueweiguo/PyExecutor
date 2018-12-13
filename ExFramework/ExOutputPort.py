@@ -2,8 +2,8 @@ from ExFramework.ExPort import *
 
 #信息标签
 class ExOutputPort(ExPort):
-    def __init__(self, name, comment, owner):
-        ExPort.__init__(self, name, comment, owner)
+    def __init__(self, parent, name, comment):
+        ExPort.__init__(self, parent, name, comment)
         self.caption = None
         self.x = None
         self.y = None
@@ -11,8 +11,9 @@ class ExOutputPort(ExPort):
 
     def attach_canvas(self, canvas):
         self.canvas = canvas
-        self.frame = canvas.create_rectangle(self.x, self.y, self.x + 10, self.y + 5, fill='cyan', tags=[self.owner.tag(), self.name()])
-        self.caption = canvas.create_text(self.x - 2, self.y, tag=self.owner.tag(), text=self.name(), anchor=E)
+        self.frame = canvas.create_rectangle(self.x, self.y, self.x + 10, self.y + 5, fill='cyan',
+                                             tags=[self.parent().tag(), self.name()])
+        self.caption = canvas.create_text(self.x - 2, self.y, tag=self.parent().tag(), text=self.name(), anchor=E)
 
     def detach_canvas(self):
         self.canvas.delete(self.frame)

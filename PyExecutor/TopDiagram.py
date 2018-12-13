@@ -2,8 +2,9 @@ from ExFramework.ExDiagram import *
 from ExFramework.ExTagFactory import *
 
 class TopDiagram(ExDiagram):
-    def __init__(self, name):
-        ExDiagram.__init__(self, name)
+    def __init__(self, parent, name):
+        ExDiagram.__init__(self, parent, name)
+        self.tag_factory = ExTagFactory()
         self.__observers__ = []
 
     def attach_observer(self, observer):
@@ -12,8 +13,13 @@ class TopDiagram(ExDiagram):
     def detach(self, observer):
         self.__observers__.remove(observer)
 
-    def notify(self, component, ext):
-        ExDiagram.notify(self, component, ext)
+    def handle_request(self, component, ext):
+        #ExDiagram.handle_request(self, component, ext)
+        if ext == 'create_tag':
+            return self.tag_factory.createTag()
         if self.__observers__:
             for ob in self.__observers__:
                 ob.update(component, ext)
+        return None
+
+

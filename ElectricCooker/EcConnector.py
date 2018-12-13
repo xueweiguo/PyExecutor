@@ -4,8 +4,8 @@ sys.path.append('..')
 from ExFramework.ExConnector import *
 
 class EcConnector(ExConnector):
-    def _init__(self, name):
-        ExElement.__init__(self,name)
+    def _init__(self, parent, name):
+        ExElement.__init__(self, parent, name)
 
 
 

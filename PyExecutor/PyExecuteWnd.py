@@ -26,7 +26,7 @@ class PyExecuteWnd(Tk):
         self.center_window(600, 450)
         self.minsize(400, 300)
         self.maxsize(1200, 900)
-        self.top_diagram = TopDiagram('Top')
+        self.top_diagram = TopDiagram(None, 'Top').construct()
         accessor = PyExecutorTreeAccessor(self)
         self.top_diagram.attach_observer(accessor)
         self.makemenu()
