@@ -12,6 +12,10 @@ class ExConnector(ExElement):
         self.active = None
         self.coords = None
 
+    def construct(self):
+        self.set_tag(self.handle_request(self, 'create_tag'))
+        return self
+
     def attach_canvas(self, canvas):
         ExComponent.attach_canvas(self, canvas)
         if self.coords:
