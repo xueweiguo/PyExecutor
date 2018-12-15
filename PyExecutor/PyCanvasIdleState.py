@@ -16,9 +16,9 @@ class PyCanvasIdleState(ExState):
 
     def eventHandling(self, type, event):
         if type=='LButtonDown':
-            self.context.drawn = self.context.canvas.find_overlapping(event.x, event.y, event.x + 1, event.y + 1)
+            self.context.drawn = self.context._canvas.find_overlapping(event.x, event.y, event.x + 1, event.y + 1)
             if len(self.context.drawn) > 0:
-                tags = self.context.canvas.gettags(self.context.drawn)
+                tags = self.context._canvas.gettags(self.context.drawn)
                 if len(tags) > 0:
                     self.context.start = event
             else:

@@ -11,7 +11,7 @@ class ExComponentDict(object):
         self.__dict__[component.tag()] = component
 
     def unregister(self, component):
-        self.__dict__.pop(component)
+        self.__dict__.pop(component.tag())
 
     def component(self, tag):
         return self.__dict__[tag]

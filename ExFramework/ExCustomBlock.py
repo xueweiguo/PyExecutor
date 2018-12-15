@@ -26,7 +26,7 @@ class ExCustomBlock(ExBlock):
 
     # 生成弹出菜单
     def create_popup(self, handler):
-        menu = Menu(self.canvas, tearoff=False)
+        menu = Menu(self._canvas, tearoff=False)
         menu.add_command(label='Property', command=(lambda: handler.on_command('Set Property')))
         menu.add_command(label='Delete', command=(lambda: handler.on_command('Delete')))
         return menu

@@ -17,14 +17,14 @@ class ExNote(ExElement):
         self.y = y
 
     def attach_canvas(self, canvas):
-        self.canvas = canvas
-        self.frame = canvas.create_rectangle(self.x, self.y, self.x + 100, self.y + 60, fill='lightyellow', tag=self.tag())
+        self._canvas = canvas
+        self._frame = canvas.create_rectangle(self.x, self.y, self.x + 100, self.y + 60, fill='lightyellow', tag=self.tag())
 
     def set_color(self, color):
-        self.canvas.itemconfigure(self.frame, outline=color)
+        self._canvas.itemconfigure(self._frame, outline=color)
 
     def move(self, x, y):
-        self.canvas.move(self.tag(), x, y)
+        self._canvas.move(self.tag(), x, y)
         self.x = self.x + x
         self.y = self.y + y
 
@@ -34,7 +34,7 @@ class ExNote(ExElement):
 
     # 生成弹出菜单
     def create_popup(self, handler):
-        menu = Menu(self.canvas, tearoff=False)
+        menu = Menu(self._canvas, tearoff=False)
         menu.add_command(label='Property', command=(lambda: handler.on_command('SetProperty')))
         menu.add_command(label='Delete', command=(lambda: handler.on_command('Delete')))
         return menu

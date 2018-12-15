@@ -17,10 +17,7 @@ class ExPort(ExComponent):
         self.y = y
 
     def set_color(self, color):
-        self.canvas.itemconfigure(self.frame, outline=color)
-
-    def accept(self, visitor):
-        pass
+        self._canvas.itemconfigure(self._frame, outline=color)
 
     def value(self):
         return 0
