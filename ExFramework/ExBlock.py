@@ -19,30 +19,15 @@ class ExBlock(ExElement):
         self.x = x
         self.y = y
 
+    #挂接canvas
     def attach_canvas(self, canvas):
-        self._canvas= canvas
-        blk_width = 80
-        port_start = 20
-        port_height = 10
-        blk_height = port_start + max(self.countChild(ExInputPort), self.countChild(ExOutputPort)) * port_height
-        self._frame = canvas.create_rectangle(self.x, self.y, self.x+blk_width, self.y+blk_height, tag=self.tag(),
-                                             fill='white', outline='black')
+        self._frame = canvas.create_rectangle(self.left(), self.top(), self.right(), self.bottom(),
+                                              tag=self.tag(), fill='white', outline='black')
         self.caption = canvas.create_text(self.x + 40, self.y, tag=self.tag(), text=self.name(), anchor=N)
+        #调用父类功能
+        ExElement.attach_canvas(self, canvas)
 
-        port_y = self.y + port_start
-        for port in self.children():
-            if isinstance(port, ExInputPort):
-                port.set_position(self.x, port_y)
-                port.attach_canvas(canvas)
-                port_y = port_y + port_height
-
-        port_y = self.y + port_start
-        for port in self.children():
-            if isinstance(port, ExOutputPort):
-                port.set_position(self.x + blk_width, port_y)
-                port.attach_canvas(canvas)
-                port_y = port_y + port_height
-
+    #脱离canvas
     def detach_canvas(self):
         self._canvas.delete(self._frame)
         self._frame = None
@@ -54,9 +39,26 @@ class ExBlock(ExElement):
     def move(self, x, y):
         self._canvas.move(self.tag(), x, y)
         for port in self.children():
-            port.on_move()
+            port.move()
         self.x = self.x + x
         self.y = self.y + y
+
+    def port_start(self):
+        return self.top() + 20
+
+    def left(self):
+        return self.x
+
+    def top(self):
+        return self.y
+
+    def right(self):
+        return self.x + 80
+
+    def bottom(self):
+        # 计算功能模块高度
+        docking_count = max(self.countChild(ExInputPort), self.countChild(ExOutputPort))
+        return self.port_start() + docking_count * ExPort.height()
 
     def set_color(self, color):
         self._canvas.itemconfigure(self._frame, outline=color)

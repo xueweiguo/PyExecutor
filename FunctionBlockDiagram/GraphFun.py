@@ -12,7 +12,7 @@ class GraphFun(ExBlock):
         ExInputPort(self, 'In1', '曲线输入1').construct()
         ExInputPort(self, 'In2', '曲线输入2').construct()
         ExInputPort(self, 'In3', '曲线输入3').construct()
-        ExInputPort(self, 'Mode', '表示形式,1:曲线，2：棒图，3：仪表').construct()
+        ExInputPort(self, 'Md', '表示形式,1:曲线，2：棒图，3：仪表').construct()
         return self
 
 

@@ -10,17 +10,11 @@ class ExOutputPort(ExPort):
         self.connectors = []
 
     def attach_canvas(self, canvas):
-        self._canvas = canvas
+        self.calculate_position()
         self._frame = canvas.create_rectangle(self.x, self.y, self.x + 10, self.y + 5, fill='cyan',
                                              tags=[self.parent().tag(), self.name()])
         self.caption = canvas.create_text(self.x - 2, self.y, tag=self.parent().tag(), text=self.name(), anchor=E)
-
-    def detach_canvas(self):
-        self._canvas.delete(self._frame)
-        self._frame = None
-        self._canvas.delete(self.caption)
-        self.caption = None
-        ExPort.detach_canvas(self)
+        ExPort.attach_canvas(self, canvas)
 
     def point(self):
         bound_rect = self._canvas.coords(self._frame)
@@ -35,9 +29,17 @@ class ExOutputPort(ExPort):
     def remove_connector(self, c):
         self.connectors.remove(c)
 
-    def on_move(self):
+    def move(self):
         for c in self.connectors:
             coords = self.point()
             c.move_first(coords[0], coords[1])
 
-
+    def calculate_position(self):
+        block = self.parent()
+        port_y = block.port_start()
+        for port in block.children():
+            if isinstance(port, ExOutputPort):
+                if port == self:
+                    self.x = block.right()
+                    self.y = port_y
+                port_y = port_y + self.height()

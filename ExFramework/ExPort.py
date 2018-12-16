@@ -12,14 +12,21 @@ class ExPort(ExComponent):
         self.parent().append(self)
         return self
 
-    def set_position(self, x, y):
-        self.x = x
-        self.y = y
+    def detach_canvas(self):
+        self._canvas.delete(self._frame)
+        self._frame = None
+        self._canvas.delete(self.caption)
+        self.caption = None
+        ExComponent.detach_canvas(self)
 
     def set_color(self, color):
         self._canvas.itemconfigure(self._frame, outline=color)
 
     def value(self):
         return 0
+
+    @staticmethod
+    def height():
+        return 10
 
 
