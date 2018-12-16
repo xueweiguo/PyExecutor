@@ -10,6 +10,9 @@ class ExInputBlock(ExBlock):
         ExOutputPort(self, '', '自定义模块输入').construct()
         return self
 
+    def port_start(self):
+        return self.top() + 5
+
     def attach_canvas(self, canvas):
         self._canvas= canvas
         blk_width = 80
@@ -23,7 +26,6 @@ class ExInputBlock(ExBlock):
         port_y = self.y + port_start
         for port in self.children():
             if isinstance(port, ExOutputPort):
-                port.set_position(self.x + blk_width, port_y)
                 port.attach_canvas(canvas)
                 port_y = port_y + port_height
 
