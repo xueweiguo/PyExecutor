@@ -5,7 +5,7 @@ from ExFramework.ExInputPort import *
 #连接线
 class ExConnector(ExElement):
     def __init__(self, parent, name):
-        ExComponent.__init__(self, parent, name, '')
+        ExElement.__init__(self, parent, name, '')
         self.output = None
         self.input = None
         self.line = None
@@ -17,7 +17,7 @@ class ExConnector(ExElement):
         return self
 
     def attach_canvas(self, canvas):
-        ExComponent.attach_canvas(self, canvas)
+        ExElement.attach_canvas(self, canvas)
         if self.coords:
 
             self.line = self._canvas.create_line(self.coords, tag=self.tag(), arrow=LAST)
@@ -25,7 +25,7 @@ class ExConnector(ExElement):
         if self.line:
             self._canvas.delete(self.line)
             self.line = None
-        ExComponent.detach_canvas(self)
+        ExElement.detach_canvas(self)
 
     def setOutputPort(self, port):
         if isinstance(port, ExOutputPort):
