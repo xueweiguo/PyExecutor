@@ -1,4 +1,3 @@
-#sys.path.append('..')
 from ExFramework.ExComponentFactory import *
 from ExFramework.ExJsonEncoder import *
 from PyExecutorFactory import *
@@ -6,6 +5,8 @@ from PyExecutorFactory import *
 from ElectricCooker.EcConnector import *
 from ElectricCooker.OpPanel import *
 from ElectricCooker.TempSensor import *
+from ElectricCooker.XiaomiCommFun import *
+from ElectricCooker.HuaweiCommFun import *
 from ElectricCooker.HeatingController import *
 from ElectricCooker.Display import *
 from ElectricCooker.Heater import *
@@ -21,7 +22,7 @@ class EcComponentFactory(ExComponentFactory):
         return EcConnector(parent, '')
 
     def element_types(self):
-        types = ['OpPanel', 'TempSensor', 'Controller', 'Display', 'Heater']
+        types = ['OpPanel', 'TempSensor', 'XiaomiCom', 'HuaweiCom','Controller', 'Display', 'Heater']
         parent_types = ExComponentFactory.element_types(self)
         for t in parent_types:
             types.append(t)
@@ -32,6 +33,10 @@ class EcComponentFactory(ExComponentFactory):
             return OpPanel(parent, 'OpPanel').construct()
         elif type=='TempSensor':
             return TempSensor(parent, 'TempSensor').construct()
+        elif type=='XiaomiCom':
+            return XiaomiCommFun(parent).construct()
+        elif type=='HuaweiCom':
+            return HuaweiCommFun(parent).construct()
         elif type=='Controller':
             return HeatingController(parent, 'Controller').construct()
         elif type=='Display':
