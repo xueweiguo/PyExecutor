@@ -8,8 +8,8 @@ class ExPort(ExComponent):
         self.y = None
 
     def construct(self):
-        self.set_tag(self.parent().tag())
-        self.parent().append(self)
+        self.tag = self.parent.tag
+        self.parent.append(self)
         return self
 
     def detach_canvas(self):

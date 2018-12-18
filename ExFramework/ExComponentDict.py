@@ -8,10 +8,10 @@ class ExComponentDict(object):
         return ExComponentDict.__instance__
 
     def register(self, component):
-        self.__dict__[component.tag()] = component
+        self.__dict__[component.tag] = component
 
     def unregister(self, component):
-        self.__dict__.pop(component.tag())
+        self.__dict__.pop(component.tag)
 
     def component(self, tag):
         return self.__dict__[tag]

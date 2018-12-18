@@ -18,15 +18,15 @@ class ExComposite(ExComponent):
         self.handle_request(child, 'remove')
         self.__children.remove(child)
 
-    #将对象挂接到Canvas
+    #@canvas.setter
     def attach_canvas(self, canvas):
         ExComponent.attach_canvas(self, canvas)
         for c in self.children():
-            c.attach_canvas(canvas)
-    #从Canvas分离要素
+            c.canvas = canvas
+
     def detach_canvas(self):
         for c in self.children():
-            c.detach_canvas()
+            c.canvas = None
         ExComponent.detach_canvas(self)
 
     #系列化要素
@@ -48,7 +48,7 @@ class ExComposite(ExComponent):
 
     def findChild(self, name):
         for child in self.children():
-            if child.name() == name:
+            if child.name == name:
                 return child
         return None
 

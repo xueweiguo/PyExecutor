@@ -10,9 +10,9 @@ class ExInputPort(ExPort):
     def attach_canvas(self, canvas):
         self.calculate_position()
         self._frame = canvas.create_rectangle(self.x - 10, self.y, self.x, self.y + 5,
-                                              fill='cyan', tags=[self.parent().tag(), self.name()])
+                                              fill='cyan', tags=[self.parent.tag, self.name])
         self.caption = canvas.create_text(self.x + 2, self.y,
-                                          tag=self.parent().tag(), text=self.name(), anchor=W)
+                                          tag=self.parent.tag, text=self.name, anchor=W)
         ExPort.attach_canvas(self, canvas)
 
     def point(self):
@@ -34,12 +34,12 @@ class ExInputPort(ExPort):
         return ExPort.serialize(self)
 
     def calculate_position(self):
-        block = self.parent()
+        block = self.parent
         port_y = block.port_start()
         for port in block.children():
             if isinstance(port, ExInputPort):
                 if port == self:
-                    self.x = block.left()
+                    self.x = block.left
                     self.y = port_y
                 port_y = port_y + self.height()
 

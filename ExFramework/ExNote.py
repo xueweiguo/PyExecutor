@@ -9,7 +9,7 @@ class ExNote(ExElement):
 
     def construct(self):
         ExComponent.construct(self)
-        self.set_tag(self.handle_request(self, 'create_tag'))
+        self.tag = self.handle_request(self, 'create_tag')
         return self
 
     def set_position(self, x, y):
@@ -18,13 +18,15 @@ class ExNote(ExElement):
 
     def attach_canvas(self, canvas):
         self._canvas = canvas
-        self._frame = canvas.create_rectangle(self.x, self.y, self.x + 100, self.y + 60, fill='lightyellow', tag=self.tag())
+        self._frame = canvas.create_rectangle(self.x, self.y, self.x + 100, self.y + 60, fill='lightyellow', tag=self.tag)
+        ExElement.attach_canvas(self, canvas)
+
 
     def set_color(self, color):
         self._canvas.itemconfigure(self._frame, outline=color)
 
     def move(self, x, y):
-        self._canvas.move(self.tag(), x, y)
+        self._canvas.move(self.tag, x, y)
         self.x = self.x + x
         self.y = self.y + y
 

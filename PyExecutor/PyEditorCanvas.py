@@ -6,7 +6,7 @@ from PyExecutorFactory import *
 class PyEditorCanvas(ScrollCanvas):
     def __init__(self, parent, color='lightyellow'):
         ScrollCanvas.__init__(self, parent, color)
-        self.__diagram__ = None
+        self.__diagram = None
         self.element_type = None
         self.drawn = None
         self.start = None
@@ -17,28 +17,31 @@ class PyEditorCanvas(ScrollCanvas):
         self.makeToolbar(parent.toolbar)
         self.make_menu(parent.top_menu)
 
-    def set_diagram(self, diagram):
-        if not self.__diagram__ == diagram:
-            if self.__diagram__:
-                self.__diagram__.detach_canvas()
-            diagram.attach_canvas(self.canvas)
-            self.__diagram__ = diagram
-            if self.__diagram__.parent():
+    @property
+    def diagram(self):
+        return self.__diagram
+
+    @diagram.setter
+    def diagram(self, diagram):
+        if not self.__diagram == diagram:
+            if self.__diagram:
+                self.__diagram.canvas = None
+            diagram.canvas = self.canvas
+            self.__diagram = diagram
+            if self.__diagram.parent:
                 self.input_btn.configure(state=NORMAL)
                 self.output_btn.configure(state=NORMAL)
             else:
                 self.input_btn.configure(state=DISABLED)
                 self.output_btn.configure(state=DISABLED)
-            self.drawn = None
+
+        self.drawn = None
         self.element_type = None
         self.drawn = None
         self.start = None
         self.active = None
         self.connector = None
         self.machine.entry()
-
-    def diagram(self):
-        return self.__diagram__
 
     # 构建工具条
     def makeToolbar(self, toolbar):
@@ -70,11 +73,11 @@ class PyEditorCanvas(ScrollCanvas):
 
     #
     def append_element(self, element):
-         self.__diagram__.append(element)
+         self.diagram.append(element)
 
     def remove_element(self, element):
-        self.canvas.delete(element.tag())
-        self.__diagram__.remove(element)
+        self.canvas.delete(element.tag)
+        self.diagram.remove(element)
 
     # 根据tags查找要素
     def find_element(self, tags):

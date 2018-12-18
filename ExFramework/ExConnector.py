@@ -13,19 +13,19 @@ class ExConnector(ExElement):
         self.coords = None
 
     def construct(self):
-        self.set_tag(self.handle_request(self, 'create_tag'))
+        self.tag = self.handle_request(self, 'create_tag')
         return self
 
     def attach_canvas(self, canvas):
         ExElement.attach_canvas(self, canvas)
         if self.coords:
+            self.line = self._canvas.create_line(self.coords, tag=self.tag, arrow=LAST)
 
-            self.line = self._canvas.create_line(self.coords, tag=self.tag(), arrow=LAST)
     def detach_canvas(self):
-        if self.line:
-            self._canvas.delete(self.line)
-            self.line = None
-        ExElement.detach_canvas(self)
+            if self.line:
+                self._canvas.delete(self.line)
+                self.line = None
+            ExElement.detach_canvas(self)
 
     def setOutputPort(self, port):
         if isinstance(port, ExOutputPort):
@@ -54,7 +54,7 @@ class ExConnector(ExElement):
             self.input = None
 
     def startLine(self, x, y):
-        self.line = self._canvas.create_line(x, y, x, y, tag=self.tag(), arrow=LAST)
+        self.line = self._canvas.create_line(x, y, x, y, tag=self.tag, arrow=LAST)
 
     def move_first(self, x, y):
         if self.line:

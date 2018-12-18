@@ -37,7 +37,7 @@ class PyCanvasIdleState(ExState):
                 if self.context.element_type != None:
                     element=self.context.factory.makeElement(self.context.element_type)
                     element.set_position(event.x, event.y)
-                    element.attach_canvas(self.context.canvas)
+                    element.canvas = self.context.canvas
                     self.context.element_dict[element.tag] = element
                     self.context.command = None
                     self.context.canvas.configure(cursor='arrow')

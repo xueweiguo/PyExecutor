@@ -19,11 +19,11 @@ class PyExecutorTreeAccessor(ExTreeAccessor, ExObserver):
         return self.wnd.top_diagram;
 
     def get_parent(self, node):
-        return node.parent()
+        return node.parent
 
     #取得节点名称
     def get_name(self, node):
-        return node.name()
+        return node.name
     # 取得节点图标
     def get_image(self, node):
         #根据节点类型返回图标
@@ -34,7 +34,7 @@ class PyExecutorTreeAccessor(ExTreeAccessor, ExObserver):
     #取得节点iid
     def get_iid(self, node):
         #返回ExComponent的tag
-        return node.tag()
+        return node.tag
     # 取得下级节点
     def get_children(self, node):
         children = []
@@ -54,7 +54,7 @@ class PyExecutorTreeAccessor(ExTreeAccessor, ExObserver):
     def focus(self, iid):
         component = ExComponentDict().component(iid)
         if isinstance(component, ExDiagram):
-            self.wnd.canvas.set_diagram(component)
+            self.wnd.canvas.diagram = component
 
     def update(self, component, ext):
         if isinstance(component, ExBlock):

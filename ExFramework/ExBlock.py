@@ -12,22 +12,21 @@ class ExBlock(ExElement):
         self._caption = None
 
     def construct(self):
-        self.set_tag(self.handle_request(self, 'create_tag'))
+        self.tag = self.handle_request(self, 'create_tag')
         return self
 
     def set_position(self, x, y):
         self.x = x
         self.y = y
 
-    #挂接canvas
+    #@canvas.setter
     def attach_canvas(self, canvas):
-        self._frame = canvas.create_rectangle(self.left(), self.top(), self.right(), self.bottom(),
-                                              tag=self.tag(), fill='white', outline='black')
-        self.caption = canvas.create_text(self.x + 40, self.y, tag=self.tag(), text=self.name(), anchor=N)
+        self._frame = canvas.create_rectangle(self.left, self.top, self.right, self.bottom,
+                                              tag=self.tag, fill='white', outline='black')
+        self.caption = canvas.create_text(self.x + 40, self.y, tag=self.tag, text=self.name, anchor=N)
         #调用父类功能
         ExElement.attach_canvas(self, canvas)
 
-    #脱离canvas
     def detach_canvas(self):
         self._canvas.delete(self._frame)
         self._frame = None
@@ -37,24 +36,28 @@ class ExBlock(ExElement):
         ExElement.detach_canvas(self)
 
     def move(self, x, y):
-        self._canvas.move(self.tag(), x, y)
+        self._canvas.move(self.tag, x, y)
         for port in self.children():
             port.move()
         self.x = self.x + x
         self.y = self.y + y
 
     def port_start(self):
-        return self.top() + 20
+        return self.top + 20
 
+    @property
     def left(self):
         return self.x
 
+    @property
     def top(self):
         return self.y
 
+    @property
     def right(self):
         return self.x + 80
 
+    @property
     def bottom(self):
         # 计算功能模块高度
         docking_count = max(self.countChild(ExInputPort), self.countChild(ExOutputPort))

@@ -17,7 +17,7 @@ class ExPropertyDlg:
         return self.__notebook__
 
     def add_tab(self, tab):
-        self.__notebook__.add(tab, text=tab.name())
+        self.__notebook__.add(tab, text=tab.name)
         self.__notebook__.pack(side="top", fill=BOTH, expand=True)
 
     def on_apply(self):

@@ -33,7 +33,7 @@ class PyExecuteWnd(Tk):
         self.makeToolbar()
         self.tree = ExTreeView(self, accessor, LEFT)
         self.canvas = PyEditorCanvas(self)
-        self.canvas.set_diagram(self.top_diagram)
+        self.canvas.diagram = self.top_diagram
 
 
     #构建菜单

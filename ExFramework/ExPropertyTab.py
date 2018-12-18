@@ -5,9 +5,11 @@ class ExPropertyTab(Frame):
         self.__element__ = element
         self.__name__ = name
 
+    @property
     def element(self):
         return self.__element__
 
+    @property
     def name(self):
         return self.__name__
 

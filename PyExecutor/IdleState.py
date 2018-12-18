@@ -31,17 +31,17 @@ class IdleState(ExState):
             hit = self.context.find_overlapping(event.x, event.y)
             if hit:
                 if isinstance(hit, ExOutputPort):
-                    connector = self.factory.make_connector(self.context.diagram())
+                    connector = self.factory.make_connector(self.context.diagram)
                     self.context.append_element(connector)
-                    connector.attach_canvas(self.context.canvas)
+                    connector.canvas = self.context.canvas
                     connector.setOutputPort(hit)
                     self.context.connector = connector
             else:
                 if self.context.element_type:
-                    element = self.factory.make_element(self.context.diagram(), self.context.element_type)
+                    element = self.factory.make_element(self.context.diagram, self.context.element_type)
                     self.context.append_element(element)
                     element.set_position(event.x, event.y)
-                    element.attach_canvas(self.context.canvas)
+                    element.canvas = self.context.canvas
                     self.context.canvas.configure(cursor='arrow')
         elif event_type == 'Key':
             pass

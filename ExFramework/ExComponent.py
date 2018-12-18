@@ -13,24 +13,42 @@ class ExComponent:
     def construct(self):
         return self
 
+    @property
     def parent(self):
         return self.__parent
 
-    def set_tag(self, tag):
-        self.__tag = tag
-
+    @property
     def tag(self):
         return self.__tag
 
-    def set_name(self, name):
-        self.__name = name
+    @tag.setter
+    def tag(self, tag):
+        self.__tag = tag
 
+    @property
     def name(self):
         return self.__name
 
+    @name.setter
+    def name(self, name):
+        self.__name = name
+
+    @property
     def comment(self):
         return self.__comment
 
+    @property
+    def canvas(self):
+        return self._canvas
+
+    @canvas.setter
+    def canvas(self, canvas):
+        if canvas:
+            self.attach_canvas(canvas)
+        else:
+            self.detach_canvas()
+
+    #@canvas.setter
     def attach_canvas(self, canvas):
         self._canvas = canvas
 
@@ -39,11 +57,8 @@ class ExComponent:
         self._frame = None
         self._canvas = None
 
-    def canvas(self):
-        return self._canvas
-
     def serialize(self):
-        return {'type':str(type(self)), 'tag':self.tag(), 'name':self.name}
+        return {'type':str(type(self)), 'tag':self.tag, 'name':self.name}
 
     def handle_request(self, component, ext):
         if self.__parent:

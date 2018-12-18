@@ -11,7 +11,7 @@ class ExOutputBlock(ExBlock):
         return self
 
     def port_start(self):
-        return self.top() + 5
+        return self.top + 5
 
 
 
