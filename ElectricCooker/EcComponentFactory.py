@@ -5,8 +5,8 @@ from PyExecutorFactory import *
 from ElectricCooker.EcConnector import *
 from ElectricCooker.OpPanel import *
 from ElectricCooker.TempSensor import *
-from ElectricCooker.XiaomiCommFun import *
-from ElectricCooker.HuaweiCommFun import *
+from ElectricCooker.CommInputFun import *
+from ElectricCooker.CommOutputFun import *
 from ElectricCooker.HeatingController import *
 from ElectricCooker.Display import *
 from ElectricCooker.Heater import *
@@ -22,7 +22,7 @@ class EcComponentFactory(ExComponentFactory):
         return EcConnector(parent, '')
 
     def element_types(self):
-        types = ['OpPanel', 'TempSensor', 'XiaomiCom', 'HuaweiCom','Controller', 'Display', 'Heater']
+        types = ['OpPanel', 'TempIn', 'ComIn', 'ComOut','Contr', 'Disp', 'Heater']
         parent_types = ExComponentFactory.element_types(self)
         for t in parent_types:
             types.append(t)
@@ -31,15 +31,15 @@ class EcComponentFactory(ExComponentFactory):
     def make_element(self, parent, type):
         if type=='OpPanel':
             return OpPanel(parent, 'OpPanel').construct()
-        elif type=='TempSensor':
+        elif type=='TempIn':
             return TempSensor(parent, 'TempSensor').construct()
-        elif type=='XiaomiCom':
-            return XiaomiCommFun(parent).construct()
-        elif type=='HuaweiCom':
-            return HuaweiCommFun(parent).construct()
-        elif type=='Controller':
+        elif type=='ComIn':
+            return CommInputFun(parent).construct()
+        elif type=='ComOut':
+            return CommOutputFun(parent).construct()
+        elif type=='Contr':
             return HeatingController(parent, 'Controller').construct()
-        elif type=='Display':
+        elif type=='Disp':
             return Display(parent, 'Display').construct()
         elif type == 'Heater':
             return Heater(parent, 'Heater').construct()

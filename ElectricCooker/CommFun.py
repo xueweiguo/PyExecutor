@@ -1,14 +1,19 @@
 from ExFramework.ExBlock import *
+from ElectricCooker.CommFunTab import *
 
 class CommFun(ExBlock):
     def __init__(self, parent, name, comment):
         ExBlock.__init__(self, parent, name, comment)
+        self.protocal = None
         self.port = None
 
     def construct(self):
         ExBlock.construct(self)
-        ExInputPort(self, 'In1', '输入1').construct()
-        ExInputPort(self, 'In2', '输入2').construct()
-        ExInputPort(self, 'In3', '输入3').construct()
-        ExOutputPort(self, 'Sta', '通信方式').construct()
+        ExOutputPort(self, 'Sta', '通讯状态').construct()
         return self
+
+    # 生成属性对话框
+    def create_property_dlg(self):
+        dlg = ExBlock.create_property_dlg(self)
+        dlg.add_tab(CommFunTab(dlg.notebook(), '通讯', self))
+        return dlg
