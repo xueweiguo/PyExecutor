@@ -1,3 +1,4 @@
+import json
 from ExFramework.ExComponent import *
 
 #信息标签
@@ -23,6 +24,9 @@ class ExPort(ExComponent):
         self._canvas.itemconfigure(self._frame, outline=color)
 
     def value(self):
+        return 0
+
+    def set_value(self, v):
         return 0
 
     @staticmethod

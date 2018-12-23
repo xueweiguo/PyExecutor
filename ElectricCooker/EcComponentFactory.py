@@ -5,8 +5,6 @@ from PyExecutorFactory import *
 from ElectricCooker.EcConnector import *
 from ElectricCooker.OpPanel import *
 from ElectricCooker.TempSensor import *
-from ElectricCooker.CommInputFun import *
-from ElectricCooker.CommOutputFun import *
 from ElectricCooker.HeatingController import *
 from ElectricCooker.Display import *
 from ElectricCooker.Heater import *
