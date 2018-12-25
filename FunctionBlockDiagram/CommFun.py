@@ -1,3 +1,4 @@
+import json
 from ExFramework.ExBlock import *
 from FunctionBlockDiagram.CommFunTab import *
 
@@ -37,12 +38,12 @@ class CommFun(ExBlock):
         self.security = sec
 
     #发送数据
-    def send_data(self, data):
-        return self.port.send_data(self.security.encode(data))
+    def send_list(self, list):
+        return self.port.send_data(self.security.encode(json.dumps(list)))
 
     #接收数据
-    def recv_data(self):
-        return self.security.decode(self.port.recv_data())
+    def recv_list(self):
+        return json.loads(self.security.decode(self.port.recv_data()))
 
 
 

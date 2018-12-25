@@ -5,10 +5,10 @@ class CommPort:
         self.address = address
 
     #发送数据
-    def send_data(self, data):
+    def send_str(self, str):
         return None
 
     #接收数据
-    def recv_data(self):
+    def recv_str(self):
         return None
 

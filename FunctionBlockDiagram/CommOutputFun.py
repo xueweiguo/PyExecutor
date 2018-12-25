@@ -1,4 +1,3 @@
-import json
 from FunctionBlockDiagram.CommFun import *
 
 class CommOutputFun(CommFun):
@@ -16,11 +15,11 @@ class CommOutputFun(CommFun):
     #发送计算结果
     def send_value(self, value):
         values = [self.findChild('CH1').value(),self.findChild('CH2').value()]
-        self.send_data(json.dumps(values))
+        self.send_list(values)
 
     #接收反馈信息
     def recv_response(self):
-        resp = json.loads(self.recv_data())
+        resp = self.recv_list()
         if len(resp) == 1 and resp[0] == 'VALUE_OK':
             self.set_status(True)
         else:

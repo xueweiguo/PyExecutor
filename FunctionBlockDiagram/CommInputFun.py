@@ -1,4 +1,3 @@
-import json
 from FunctionBlockDiagram.CommFun import *
 
 class CommInputFun(CommFun):
@@ -13,7 +12,7 @@ class CommInputFun(CommFun):
         return self
     #接收计算数据
     def recv_value(self):
-        values = json.loads(self.recv_data())
+        values = self.recv_list()
         vi = 0
         data_ok = True
         for p in self.children():
@@ -31,7 +30,7 @@ class CommInputFun(CommFun):
             response.append('Data OK')
         else:
             response.append('Data NG')
-        self.send_data(json.dumps(response))
+        self.send_list(response)
 
 
 
