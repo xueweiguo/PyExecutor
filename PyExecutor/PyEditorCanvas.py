@@ -145,10 +145,7 @@ class PyEditorCanvas(ScrollCanvas):
         return list
 
     def grid(self, event):
-        half = 2
-        event.x = self.canvas.canvasx(event.x)
-        event.x = int((event.x + half) / (half * 2)) * (half * 2)
-        event.y = self.canvas.canvasy(event.y)
-        event.y = int((event.y + half) / (half * 2)) * (half * 2)
+        event.x = self.canvas.canvasx(event.x, gridspacing=4)
+        event.y = self.canvas.canvasy(event.y, gridspacing=4)
         return event
 
