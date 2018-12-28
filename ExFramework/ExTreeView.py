@@ -4,17 +4,23 @@ from ExFramework.ExTreeAccessor import *
 from ExFramework.ExObserver import *
 
 class ExTreeView(Frame, ExObserver):
-    #accessor:提供访问树状数据的接口
     def __init__(self, parent, accessor, side):
         Frame.__init__(self, parent, relief=GROOVE)
         self.pack(side=side, fill=Y, ipadx=2, ipady=2)
+        # accessor:提供访问树状数据的接口
         self.accessor = accessor
         self.accessor.attach_observer(self)
+        #准备TreeView
         self.tree = Treeview(self)
         self.tree.heading('#0', text='BlockTree', anchor='w')
         self.build_tree('', self.accessor.get_root())
         self.tree.bind('<<TreeviewSelect>>', self.treeview_select)
         self.tree.pack(side=LEFT, expand=YES, fill=BOTH)
+        #垂直滚动条
+        sbar = Scrollbar(self)
+        sbar.config(command=self.tree.yview)
+        self.tree.config(yscrollcommand=sbar.set)
+        sbar.pack(side=RIGHT, fill=Y)
 
     #构建表示节点
     def build_tree(self, parent, node):
