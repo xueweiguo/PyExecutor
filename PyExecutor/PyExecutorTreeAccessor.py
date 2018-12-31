@@ -11,7 +11,6 @@ class PyExecutorTreeAccessor(ExTreeAccessor):
     def __init__(self, main_wnd):
         ExTreeAccessor.__init__(self)
         self.wnd = main_wnd
-        self.__tree__ = None
         self.__blk_image__ = PhotoImage(file='images\\block.gif')
         self.__diagram_image__ = PhotoImage(file='images\\diagram.gif')
 

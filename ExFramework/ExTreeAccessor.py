@@ -1,29 +1,37 @@
-class ExTreeAccessor:
+import abc
+
+
+class ExTreeAccessor(metaclass=abc.ABCMeta):
     def __init__(self):
         self.__observer__ = None
 
-    #取得根节点
+    # 取得根节点
+    @abc.abstractmethod
     def get_root(self):
         pass
 
-    #取得父节点
+    # 取得父节点
+    @abc.abstractmethod
     def get_parent(self, node):
         pass
 
-    #取得下级节点
+    # 取得下级节点
+    @abc.abstractmethod
     def get_children(self, node):
         pass
-    #取得节点名称
+
+    # 取得节点名称
+    @abc.abstractmethod
     def get_name(self, node):
         pass
 
     # 取得节点iid
     def get_iid(self, node):
-        pass
+        return None
 
     # 取得节点图标
     def get_image(self, node):
-        pass
+        return None
 
     #聚焦节点
     def focus(self, iid):
