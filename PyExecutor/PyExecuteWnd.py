@@ -2,15 +2,16 @@ import sys
 import os
 import shelve
 import json
-sys.path.append('..')
 from tkinter import * # get widget classes
 from tkinter.messagebox import * # get standard dialogs
 from tkinter.filedialog import *
+
 from ExFramework.ExTreeView import *
 from PyExecutorTreeAccessor import *
 from PyEditorCanvas import *
 from PyExecutorFactory import *
 from TopDiagram import *
+from PyDiagramObserver import *
 from SelModeDlg import *
 
 
@@ -27,11 +28,15 @@ class PyExecuteWnd(Tk):
         self.minsize(400, 300)
         self.maxsize(1200, 900)
         self.top_diagram = TopDiagram(None, 'Top').construct()
-        accessor = PyExecutorTreeAccessor(self)
-        self.top_diagram.attach_observer(accessor)
+
         self.makemenu()
         self.makeToolbar()
+
+        accessor = PyExecutorTreeAccessor(self)
         self.tree = ExTreeView(self, accessor, LEFT)
+        observer = PyDiagramObserver(self.tree)
+        self.top_diagram.attach_observer(observer)
+
         self.canvas = PyEditorCanvas(self)
         self.canvas.diagram = self.top_diagram
 

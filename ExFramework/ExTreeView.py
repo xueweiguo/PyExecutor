@@ -3,13 +3,12 @@ from tkinter.ttk import *
 from ExFramework.ExTreeAccessor import *
 from ExFramework.ExObserver import *
 
-class ExTreeView(Frame, ExObserver):
+class ExTreeView(Frame):
     def __init__(self, parent, accessor, side):
         Frame.__init__(self, parent, relief=GROOVE)
         self.pack(side=side, fill=Y, ipadx=2, ipady=2)
         # accessor:提供访问树状数据的接口
         self.accessor = accessor
-        self.accessor.attach_observer(self)
         #准备TreeView
         self.tree = Treeview(self)
         self.tree.heading('#0', text='BlockTree', anchor='w')
@@ -40,12 +39,6 @@ class ExTreeView(Frame, ExObserver):
 
     def treeview_select(self, event):
         self.accessor.focus(self.tree.focus())
-
-    def update(self, invoker, ext):
-        if ext == 'append':
-            self.append_node(invoker)
-        elif ext == 'remove':
-            self.remove_node(invoker)
 
     def append_node(self, node):
         parent = self.accessor.get_parent(node)

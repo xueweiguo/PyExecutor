@@ -29,12 +29,4 @@ class ExTreeAccessor:
     def focus(self, iid):
         pass
 
-    #设定Observer
-    def attach_observer(self, observer):
-        self.__observer__ = observer
-
-    #节点操作通知
-    def notify(self, invoker, ext):
-        if self.__observer__:
-            self.__observer__.update(invoker, ext)
 

@@ -1,13 +1,13 @@
 import sys
 import tkinter
 from ExFramework.ExTreeAccessor import *
-from ExFramework.ExObserver import *
 from ExFramework.ExBlock import *
 from ExFramework.ExDiagram import *
 from ExFramework.ExCustomBlock import *
 from ExFramework.ExComponentDict import *
 
-class PyExecutorTreeAccessor(ExTreeAccessor, ExObserver):
+
+class PyExecutorTreeAccessor(ExTreeAccessor):
     def __init__(self, main_wnd):
         ExTreeAccessor.__init__(self)
         self.wnd = main_wnd
@@ -21,24 +21,27 @@ class PyExecutorTreeAccessor(ExTreeAccessor, ExObserver):
     def get_parent(self, node):
         return node.parent
 
-    #取得节点名称
+    # 取得节点名称
     def get_name(self, node):
         return node.name
+
     # 取得节点图标
     def get_image(self, node):
-        #根据节点类型返回图标
+        # 根据节点类型返回图标
         if isinstance(node, ExDiagram):
             return self.__diagram_image__
         else:
             return self.__blk_image__
-    #取得节点iid
+
+    # 取得节点iid
     def get_iid(self, node):
-        #返回ExComponent的tag
+        # 返回ExComponent的tag
         return node.tag
+
     # 取得下级节点
     def get_children(self, node):
         children = []
-        #如果时ExDiagram对象，返回下级ExBlock节点
+        # 如果时ExDiagram对象，返回下级ExBlock节点
         if isinstance(node, ExDiagram):
             for c in node.children():
                 if isinstance(c, ExBlock):
@@ -47,7 +50,7 @@ class PyExecutorTreeAccessor(ExTreeAccessor, ExObserver):
         elif isinstance(node, ExCustomBlock):
             children.append(node.diagram())
         else:
-            #其他类型节点，表示对象外。
+            # 其他类型节点，表示对象外。
             pass
         return children
 
@@ -56,9 +59,7 @@ class PyExecutorTreeAccessor(ExTreeAccessor, ExObserver):
         if isinstance(component, ExDiagram):
             self.wnd.canvas.diagram = component
 
-    def update(self, component, ext):
-        if isinstance(component, ExBlock):
-            self.notify(component, ext)
+
 
 
 
