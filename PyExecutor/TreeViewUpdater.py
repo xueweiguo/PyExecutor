@@ -2,7 +2,9 @@ from ExFramework.ExObserver import *
 from ExFramework.ExTreeView import *
 from ExFramework.ExBlock import *
 
-class PyDiagramObserver(ExObserver):
+
+# 根据接收到的TopDigram的通知，更新TreeView的内容
+class TreeViewUpdater(ExObserver):
     def __init__(self, tree_view):
         self.tree = tree_view
 

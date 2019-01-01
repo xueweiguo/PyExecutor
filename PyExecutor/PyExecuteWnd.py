@@ -11,12 +11,12 @@ from PyExecutorTreeAccessor import *
 from PyEditorCanvas import *
 from PyExecutorFactory import *
 from TopDiagram import *
-from PyDiagramObserver import *
+from TreeViewUpdater import *
 from SelModeDlg import *
 
 
 class PyExecuteWnd(Tk):
-    #初始化
+    # 初始化
     def __init__(self, title, parent=None):
         Tk.__init__(self, parent)
         self.title(title)
@@ -34,14 +34,14 @@ class PyExecuteWnd(Tk):
 
         accessor = PyExecutorTreeAccessor(self)
         self.tree = ExTreeView(self, accessor, LEFT)
-        observer = PyDiagramObserver(self.tree)
-        self.top_diagram.attach_observer(observer)
+        observer = TreeViewUpdater(self.tree)
+        self.top_diagram.attach(observer)
 
         self.canvas = PyEditorCanvas(self)
         self.canvas.diagram = self.top_diagram
 
 
-    #构建菜单
+    # 构建菜单
     def makemenu(self):
         self.top_menu = Menu(self)
         self.config(menu=self.top_menu) # set its menu option
