@@ -1,33 +1,19 @@
+from Interpreter.CalculateFunction import *
+class FunctionManager:
+	def __init__(self, context):
+		self.systemContext = context
+		self.functionMap = dict()
 
+	def registerFunction(self, fun):
+		if(self.functionMap.get(fun.getName()) == None):
+			self.functionMap[fun.getName()] = fun
+			return True
+		else:
+			return False
 
-import java.util.HashMap
-import java.util.Set
-
-import android.content.Context
-
-class FunctionManager {
-	Context systemContext
-	
-	FunctionManager(Context context){
-		systemContext = context
-	}
-	
-	boolean registerFunction(CalculateFunction fun){
-		if(functionMap.get(fun.getName()) == null)
-	    {
-	       functionMap.put(fun.getName(), fun)
-	       return true
-	    }
-	    else
-	    {
-	        return False
-	    }
-	}
-	
-	int registerUserDefineFunction(String key, String funName, String funText){
-		CalculateFunction fun = getFunction(funName)
-		
-		if(fun != null){
+	def registerUserDefineFunction(self, key, funName, funText):
+		fun = self.getFunction(funName)
+		if(fun != None):
 			if(fun.getClass().getSimpleName().compareTo("UserDefineFunction") != 0){
 				//Has been registered as a system function.
 				return R_string.error_used_fun_name

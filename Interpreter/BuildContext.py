@@ -3,6 +3,7 @@ class BuildContext:
         self.systemContext = context
         self.constManager = _manager
         self.tokenList = list
+        self.errorMessage = ''
 
     def getSystemContext(self):
         return self.systemContext

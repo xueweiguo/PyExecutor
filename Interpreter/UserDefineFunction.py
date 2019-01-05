@@ -1,9 +1,5 @@
 
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.content.SharedPreferences.Editor
-
 class UserDefineFunction extends CustomFunction{
 	static final String PREFS_NAME = "CustomFunction"
 	

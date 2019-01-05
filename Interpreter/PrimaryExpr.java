@@ -24,7 +24,7 @@ class PrimaryExpr extends TerminalExpr
 	            
 	            if(context.tokenList.size() > 0){
 	            	token = context.tokenList.removeFirst()
-		            if(token.getType() == Token.EType.Parenthese && token.getContent().compareTo(")") == 0)
+		            if(token.getType() == TokenType.Parenthese && token.getContent().compareTo(")") == 0)
 		            {
 		                return expr
 		            }

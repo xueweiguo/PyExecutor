@@ -73,12 +73,12 @@ class CalculateEngine:
 	        	String funPattern = PatternBuilder.build(functionManager.functions())
 	            
 	            if(funPattern.length() > 0){
-	            	list.add(new TokenPattern(Token.EType.FunctionName, funPattern))
+	            	list.add(new TokenPattern(TokenType.FunctionName, funPattern))
 	            }
-	            list.add(new TokenPattern(Token.EType.Parameter, "#[1-9]"))
+	            list.add(new TokenPattern(TokenType.Parameter, "#[1-9]"))
 	            
 	            String constPattern = PatternBuilder.build(constManager.consts())
-	            list.add(new TokenPattern(Token.EType.Number, "(" + constPattern + ")"))
+	            list.add(new TokenPattern(TokenType.Number, "(" + constPattern + ")"))
 
 	            String numberPattern = "(((\\.[0-9]+)|([0-9]+(\\.[0-9]*)?))[eE][+-]?[0-9]+)"
 	            numberPattern += "|"
@@ -87,13 +87,13 @@ class CalculateEngine:
 	            numberPattern += "([0-9]+)"
 	            
 	            CharSequence degree = systemContext.getText(R_string.character_degree)
-	            list.add(new TokenPattern(Token.EType.Number, "((\\.[0-9]+)|([0-9]+\\.[0-9]*)|([0-9]+))%"))
-	            list.add(new TokenPattern(Token.EType.Number, "(" + numberPattern + ")[" + degree + "i]?"))
-	            list.add(new TokenPattern(Token.EType.Number, "[i]"))
+	            list.add(new TokenPattern(TokenType.Number, "((\\.[0-9]+)|([0-9]+\\.[0-9]*)|([0-9]+))%"))
+	            list.add(new TokenPattern(TokenType.Number, "(" + numberPattern + ")[" + degree + "i]?"))
+	            list.add(new TokenPattern(TokenType.Number, "[i]"))
 	            CharSequence angle = systemContext.getText(R_string.character_angle)
-	            list.add(new TokenPattern(Token.EType.Operator, "[-+×/" + angle + "]"))
-	            list.add(new TokenPattern(Token.EType.Parenthese, "[()]"))
-	            list.add(new TokenPattern(Token.EType.Comma, ","))
+	            list.add(new TokenPattern(TokenType.Operator, "[-+×/" + angle + "]"))
+	            list.add(new TokenPattern(TokenType.Parenthese, "[()]"))
+	            list.add(new TokenPattern(TokenType.Comma, ","))
 	            return list.size()
 	        }
 	    })
@@ -241,7 +241,7 @@ class CalculateEngine:
 	    String unknownToken = new String()
 	    for(Token token : tokenList)
 	    {
-	        if(token.getType() == Token.EType.NoType)
+	        if(token.getType() == TokenType.NoType)
 	        {
 	            if(unknownToken.length() > 0)
 	            {

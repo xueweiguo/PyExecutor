@@ -47,6 +47,7 @@ class Complex:
             self.r = temp
         else:
             self.r = self.r / other.r
+
     @staticmethod
     def div(c1, c2):
         result = copy.copy(c1)

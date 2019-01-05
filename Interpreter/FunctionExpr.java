@@ -11,7 +11,7 @@ class FunctionExpr extends NonterminalExpr {
 	    String functionName = new String()
 
 	    token = context.tokenList.getFirst()
-	    if(token.getType() != Token.EType.FunctionName){
+	    if(token.getType() != TokenType.FunctionName){
 	    	context.errorMessage = "Invalid function name:" + token.getContent()
 	    	return null
 	    }
@@ -25,7 +25,7 @@ class FunctionExpr extends NonterminalExpr {
 	    }
 
 	    token = context.tokenList.getFirst()
-	    if(token.getType() != Token.EType.Parenthese || token.getContent().compareTo("(") != 0) // != "(")
+	    if(token.getType() != TokenType.Parenthese || token.getContent().compareTo("(") != 0) // != "(")
 	    {
 	        context.errorMessage = "\'(\'is necessary"
 	        return null
@@ -41,7 +41,7 @@ class FunctionExpr extends NonterminalExpr {
 	    FunctionExpr funExpr = new FunctionExpr(functionName)
 
 	    token = context.tokenList.getFirst()
-	    if(token.getType() == Token.EType.Parenthese && token.getContent().compareTo(")") == 0) //== ")")
+	    if(token.getType() == TokenType.Parenthese && token.getContent().compareTo(")") == 0) //== ")")
 	    {
 	        context.tokenList.removeFirst()
 	        return funExpr
@@ -60,11 +60,11 @@ class FunctionExpr extends NonterminalExpr {
 	        }
 
 	        token = context.tokenList.getFirst()
-	        if(token.getType() == Token.EType.Comma)
+	        if(token.getType() == TokenType.Comma)
 	        {
 	            context.tokenList.removeFirst()
 	        }
-	        else if(token.getType() == Token.EType.Parenthese && token.getContent().compareTo(")") == 0)
+	        else if(token.getType() == TokenType.Parenthese && token.getContent().compareTo(")") == 0)
 	        {
 	            context.tokenList.removeFirst()
 	            return funExpr
