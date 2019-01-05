@@ -1,30 +1,30 @@
-package calculator.xwg;
 
-import java.util.LinkedList;
 
-public class LogeFun extends CalculateFunction {
+
+
+class LogeFun (CalculateFunction):
 	String getName(){
-		return "loge";
+		return "loge"
 	}
 	
-	boolean execute(LinkedList<Complex> paraList, EvaluateContext context){
-		if(paraList.size() != 1)
+	boolean execute(self, paraList, context){
+		if(len(paraList) != 1)
 	    {
-	        context.setErrorMessage(getName(), R.string.error_invalid_parameter_count);
-	        return false;
+	        context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
+	        return False
 	    }
-	    Complex para = paraList.getFirst();
+	    Complex para = paraList.getFirst()
 	    if(para.r < 0)
 	    {
-	    	context.setErrorMessage(getName(), R.string.error_invalid_input);
-	        return false;
+	    	context.setErrorMessage(self.getName(), R_string.error_invalid_input)
+	        return False
 	    }
 	    if(para.i != 0)
 	    {
-	        context.setErrorMessage(getName(), R.string.error_invalid_date_type);
-	        return false;
+	        context.setErrorMessage(self.getName(), R_string.error_invalid_date_type)
+	        return False
 	    }
-	    context.setCurrentResult(new Complex(Math.log(para.r)));
-	    return checkResult(context);
+	    context.setCurrentResult(Complex(math.log(para.r)))
+	    return self.checkResult(context)
 	}
 }

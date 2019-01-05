@@ -1,40 +1,40 @@
-package calculator.xwg;
 
-import java.util.LinkedList;
 
-public class TanFun extends CalculateFunction {
-	static final double MIN_NUMBER = 1e-15;
+
+
+class TanFun (CalculateFunction):
+	static final double MIN_NUMBER = 1e-15
 	
 	String getName(){
-		return "tan";
+		return "tan"
 	}
 	
-	boolean execute(LinkedList<Complex> paraList, EvaluateContext context){
-		if(paraList.size() != 1)
+	boolean execute(self, paraList, context){
+		if(len(paraList) != 1)
 	    {
-			context.setErrorMessage(getName(), R.string.error_invalid_parameter_count);
-	        return false;
+			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
+	        return False
 	    }
-	    Complex para = paraList.getFirst();
+	    Complex para = paraList.getFirst()
 	    if(para.i != 0)
 	    {
-	    	context.setErrorMessage(getName(), R.string.error_invalid_date_type);
-	        return false;
+	    	context.setErrorMessage(self.getName(), R_string.error_invalid_date_type)
+	        return False
 	    }
 	    
-	    double cycles = StrictMath.floor(para.r / 2 / StrictMath.PI);
+	    double cycles = math.floor(para.r / 2 / math.PI)
 		if(cycles < 0){
-			cycles += 1;
+			cycles += 1
 		}
-		double angle = para.r - cycles * 2 * StrictMath.PI;
-		if((StrictMath.abs(angle - StrictMath.PI / 2) < MIN_NUMBER)
-				||(StrictMath.abs(angle - StrictMath.PI * 3 / 2) < MIN_NUMBER)){
-			context.setErrorMessage(getName(), R.string.error_invalid_input);
-	        return false;
+		double angle = para.r - cycles * 2 * math.PI
+		if((math.abs(angle - math.PI / 2) < MIN_NUMBER)
+				||(math.abs(angle - math.PI * 3 / 2) < MIN_NUMBER)){
+			context.setErrorMessage(self.getName(), R_string.error_invalid_input)
+	        return False
 		}
 	    
-	    double result = Math.tan(angle);
-	    context.setCurrentResult(new Complex(result));
-	    return true;
+	    double result = math.tan(angle)
+	    context.setCurrentResult(Complex(result))
+	    return true
 	}
 }

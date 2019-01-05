@@ -1,26 +1,26 @@
-package calculator.xwg;
 
-import java.util.LinkedList;
 
-public class SinhFun extends CalculateFunction {
+
+
+class SinhFun (CalculateFunction):
 	String getName(){
-		return "sinh";
+		return "sinh"
 	}
 	
-	boolean execute(LinkedList<Complex> paraList, EvaluateContext context){
-		if(paraList.size() != 1)
+	boolean execute(self, paraList, context){
+		if(len(paraList) != 1)
 	    {
-			context.setErrorMessage(getName(), R.string.error_invalid_parameter_count);
-	        return false;
+			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
+	        return False
 	    }
-	    Complex para = paraList.getFirst();
+	    Complex para = paraList.getFirst()
 	    if(para.i != 0)
 	    {
-	    	context.setErrorMessage(getName(), R.string.error_invalid_date_type);
-	        return false;
+	    	context.setErrorMessage(self.getName(), R_string.error_invalid_date_type)
+	        return False
 	    }
-	    double result = Math.sinh(para.r);
-	    context.setCurrentResult(new Complex(result));
-	    return true;
+	    double result = math.sinh(para.r)
+	    context.setCurrentResult(Complex(result))
+	    return true
 	}
 }

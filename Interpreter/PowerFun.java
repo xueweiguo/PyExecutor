@@ -1,31 +1,31 @@
-package calculator.xwg;
 
-import java.util.LinkedList;
 
-public class PowerFun extends CalculateFunction {
+
+
+class PowerFun (CalculateFunction):
 	String getName(){
-		return "pow";
+		return "pow"
 	}
 	
-	boolean execute(LinkedList<Complex> paraList, EvaluateContext context){
-		if(paraList.size() != 2)
+	boolean execute(self, paraList, context){
+		if(len(paraList) != 2)
 	    {
-	        context.setErrorMessage(getName(), R.string.error_invalid_parameter_count);
-	        return false;
+	        context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
+	        return False
 	    }
-	    Complex x = paraList.removeFirst();
+	    Complex x = paraList.removeFirst()
 	    if(x.i != 0)
 	    {
-	    	context.setErrorMessage(getName(), R.string.error_invalid_date_type);
-	        return false;
+	    	context.setErrorMessage(self.getName(), R_string.error_invalid_date_type)
+	        return False
 	    }
-	    Complex y = paraList.removeFirst();
+	    Complex y = paraList.removeFirst()
 	    if(y.i != 0)
 	    {
-	    	context.setErrorMessage(getName(), R.string.error_invalid_date_type);
-	        return false;
+	    	context.setErrorMessage(self.getName(), R_string.error_invalid_date_type)
+	        return False
 	    }
-	    context.setCurrentResult(new Complex(Math.pow(x.r, y.r)));
-	    return checkResult(context);
+	    context.setCurrentResult(Complex(math.pow(x.r, y.r)))
+	    return self.checkResult(context)
 	}
 }

@@ -1,7 +1,7 @@
-package calculator.xwg;
 
-import java.util.LinkedList;
 
-public interface TokenPatternFactory{
-	public int createPatterns(LinkedList<TokenPattern> list);
+
+
+interface TokenPatternFactory{
+	int createPatterns(LinkedList<TokenPattern> list)
 }

@@ -1,35 +1,35 @@
-package calculator.xwg;
 
-import java.util.LinkedList;
 
-public class FactorialFun extends CalculateFunction {
+
+
+class FactorialFun (CalculateFunction):
 	String getName(){
-		return "n!";
+		return "n!"
 	}
 	
-	boolean execute(LinkedList<Complex> paraList, EvaluateContext context){
-		if(paraList.size() != 1)
+	boolean execute(self, paraList, context){
+		if(len(paraList) != 1)
 	    {
-			context.setErrorMessage(getName(), R.string.error_invalid_parameter_count);
-	        return false;
+			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
+	        return False
 	    }
-	    Complex para = paraList.getFirst();
+	    Complex para = paraList.getFirst()
 	    if(para.i != 0)
 	    {
-	    	context.setErrorMessage(getName(), R.string.error_invalid_date_type);
-	        return false;
+	    	context.setErrorMessage(self.getName(), R_string.error_invalid_date_type)
+	        return False
 	    }
-	    if(para.r < 1 || para.r != StrictMath.floor(para.r))
+	    if(para.r < 1 || para.r != math.floor(para.r))
 	    {
-	    	context.setErrorMessage(getName(), R.string.error_invalid_input);
-	        return false;
+	    	context.setErrorMessage(self.getName(), R_string.error_invalid_input)
+	        return False
 	    }
 	    
-	    double result = 1;
-	    for(int i = 1; i <= (int)para.r; ++i){
-	    	result *= i;
+	    double result = 1
+	    for(int i = 1 i <= (int)para.r ++i){
+	    	result *= i
 	    }
-	    context.setCurrentResult(new Complex(result));
-	    return true;
+	    context.setCurrentResult(Complex(result))
+	    return true
 	}
 }

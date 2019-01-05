@@ -1,49 +1,49 @@
-package calculator.xwg;
 
-public class PrimaryExpr extends TerminalExpr
+
+class PrimaryExpr extends TerminalExpr
 {
-	public static Expr buildExpr(BuildContext context){
+	static Expr buildExpr(BuildContext context){
 		if(context.tokenList.size() == 0){
-	        context.errorMessage = "Expression is't complete";
-	        return null;
+	        context.errorMessage = "Expression is't complete"
+	        return null
 	    }
     	
-		Token token = context.tokenList.getFirst();
+		Token token = context.tokenList.getFirst()
     	
 	    switch(token.getType())
 	    {
 	    case Number:
-	        return NumberExpr.buildExpr(context);
+	        return NumberExpr.buildExpr(context)
 	    case Parenthese:
 	    	if(token.getContent().compareTo("(") == 0)
 	        {
-	            context.tokenList.removeFirst();
+	            context.tokenList.removeFirst()
 	            
-	            Expr expr = AdditiveExpr.buildExpr(context);
-	            if(expr == null) return null;
+	            Expr expr = AdditiveExpr.buildExpr(context)
+	            if(expr == null) return null
 	            
 	            if(context.tokenList.size() > 0){
-	            	token = context.tokenList.removeFirst();
+	            	token = context.tokenList.removeFirst()
 		            if(token.getType() == Token.EType.Parenthese && token.getContent().compareTo(")") == 0)
 		            {
-		                return expr;
+		                return expr
 		            }
 	            }
-	            context.errorMessage = "\')\'is necessary";
-	            return null;
+	            context.errorMessage = "\')\'is necessary"
+	            return null
 	        }
 	        else
 	        {
-	            context.errorMessage = "\'(\'is necessary";
-	            return null;
+	            context.errorMessage = "\'(\'is necessary"
+	            return null
 	        }
 	    case FunctionName:
-	        return FunctionExpr.buildExpr(context);
+	        return FunctionExpr.buildExpr(context)
 	    case Parameter:
-	    	return ParameterExpr.buildExpr(context); 
+	    	return ParameterExpr.buildExpr(context)
 	    default:
-	    	context.errorMessage = context.getSystemContext().getText(R.string.error_invalid_input).toString();
-	        return null;
+	    	context.errorMessage = context.getSystemContext().getText(R_string.error_invalid_input).toString()
+	        return null
 	    }
 	}
 }

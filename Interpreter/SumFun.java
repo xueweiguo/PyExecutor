@@ -1,24 +1,24 @@
-package calculator.xwg;
 
-import java.util.LinkedList;
 
-public class SumFun extends CalculateFunction {
+
+
+class SumFun (CalculateFunction):
 	String getName(){
-		return "sum";
+		return "sum"
 	}
 	
-	boolean execute(LinkedList<Complex> paraList, EvaluateContext context){
-		if(paraList.size() == 0)
+	boolean execute(self, paraList, context){
+		if(len(paraList) == 0)
 	    {
-	        context.setErrorMessage(getName(), R.string.error_invalid_parameter_count);
-	        return false;
+	        context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
+	        return False
 	    }
-	    Complex result = new Complex();
+	    Complex result = Complex()
 	    for(Complex c : paraList){
-	    	result = Complex.add(result, c);
+	    	result = Complex.add(result, c)
 	    }
-	    context.setCurrentResult(result);
-	    return checkResult(context);
+	    context.setCurrentResult(result)
+	    return self.checkResult(context)
 	}
 }
 
