@@ -1,54 +1,42 @@
+from Interpreter.CustomFunction import *
 
 
-class UserDefineFunction extends CustomFunction{
-	static final String PREFS_NAME = "CustomFunction"
+class UserDefineFunction(CustomFunction):
+	PREFS_NAME = "CustomFunction"
 	
-	UserDefineFunction(String key, String name, String expr){
-		super(name)
-		functionKey = key
-		functionExpr = expr
-	}
-	
-	String getKey(){
-		return functionKey
-	}
-	
-	String getExprString(){
-		return functionExpr
-	}
-	
-	static UserDefineFunction load(Context context, String key){
-		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0)
-	    String funInfo = settings.getString(key, "")
-	    
-	    if(funInfo.length() == 0) return null
-	    
-	    int pre_expr = funInfo.indexOf(":")
-	    if(pre_expr >= 1 && pre_expr < (funInfo.length() - 1)){ 
-	    	// Must has name and expression
-	    	return new UserDefineFunction(key, 
-	    								funInfo.substring(0, pre_expr),
-	    								funInfo.substring(pre_expr + 1))
-	    }else{
-	    	return null
-	    }
-	}
-	
-	static void clear(Context context, String key){
-		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0)
-		Editor editor = settings.edit()
+	def __init__(self, key, name, expr):
+		CustomFunction.__init__(self, name)
+		self.functionKey = key
+		self.functionExpr = expr
+
+	def getKey(self):
+		return self.functionKey
+
+	def getExprString(self):
+		return self.functionExpr
+
+	def load(self, context, key):
+		settings = context.getSharedPreferences(self.PREFS_NAME, 0)
+		funInfo = settings.getString(key, "")
+
+		if len(funInfo) == 0:
+			return None
+		pre_expr = funInfo.index(":")
+		if pre_expr >= 1 and pre_expr < (len(funInfo) - 1):
+			#Must has name and expression
+			return UserDefineFunction(key, funInfo[0:pre_expr], funInfo[pre_expr + 1:])
+		else:
+			return None
+
+	@staticmethod
+	def clear(cls, context, key):
+		settings = context.getSharedPreferences(cls.PREFS_NAME, 0)
+		editor = settings.edit()
 		editor.putString(key, "")
 		editor.commit()
-	}
-	
-	void saveMe(Context context){
-		SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0)
-		Editor editor = settings.edit()
-		editor.putString(functionKey, getName() + ":" + functionExpr)
+
+	def saveMe(self, context):
+		settings = context.getSharedPreferences(self.PREFS_NAME, 0)
+		editor = settings.edit()
+		editor.putString(self.functionKey, self.getName() + ":" + self.functionExpr)
 		editor.commit()
-	    
-	}
-	
-	private String functionKey
-	private String functionExpr
-}

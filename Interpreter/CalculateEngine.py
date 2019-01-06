@@ -2,6 +2,11 @@ from Interpreter.FunctionManager import *
 from Interpreter.ConstManager import *
 from Interpreter.R_string import *
 from Interpreter.Complex import *
+from Interpreter.PreDefineFunction import *
+from Interpreter.TokenPatternFactory import *
+from Interpreter.PatternBuilder import *
+from Interpreter.TokenPattern import *
+from Interpreter.TokenAnalyzer import *
 
 from Interpreter.AcosFun import *
 from Interpreter.AcoshFun import *
@@ -10,22 +15,43 @@ from Interpreter.AsinhFun import *
 from Interpreter.AtanFun import *
 from Interpreter.AtanhFun import *
 from Interpreter.AverageFun import *
+from Interpreter.CosFun import *
+from Interpreter.CoshFun import *
+from Interpreter.Log10Fun import *
+from Interpreter.LogeFun import *
+from Interpreter.LogeFun import *
+from Interpreter.PowerFun import *
+from Interpreter.RootFun import *
+from Interpreter.SinFun import *
+from Interpreter.SinhFun import *
+from Interpreter.SumFun import *
+from Interpreter.TanFun import *
+from Interpreter.FactorialFun import *
+from Interpreter.ConvertFormatFun import *
+from Interpreter.RadiusAngleFormatter import *
+from Interpreter.DegreesFormatter import *
 
 class CalculateEngine:
 	CUSTOM_FUN_COUNT = 12
+
+	class Record:
+		def __init__(self):
+			self.success = None
+			self.question = None
+			self.result = None
 
 	def __init__(self, context):
 		self.systemContext = context
 		self.functionManager = FunctionManager(context)
 		self.constManager = ConstManager()
+		self.recordList = []
 		self.registerConst()
 		self.registerStandardFunctions()
 
 	def registerConst(self):
-		self.constManager.registerConst(self.systemContext.getText(R_string.character_pi).toString(), Complex(math.PI))
-		self.constManager.registerConst("e", Complex(math.E))
+		self.constManager.registerConst(R_string.character_pi, Complex(math.pi))
+		self.constManager.registerConst("e", Complex(math.e))
 
-	
 	def registerStandardFunctions(self):
 		self.functionManager.registerFunction(AcosFun())
 		self.functionManager.registerFunction(AcoshFun())
@@ -57,254 +83,179 @@ class CalculateEngine:
 		self.functionManager.registerFunction(PreDefineFunction("3" + self.systemContext.getText(R_string.character_sqrt), "root(#1,3)"))
 		self.functionManager.registerFunction(PreDefineFunction("ex", "pow(e,#1)"))
 		
-		for(int i = 1 i <= CUSTOM_FUN_COUNT ++i){
-			UserDefineFunction udf = UserDefineFunction.load(systemContext, "F" + i)
-			if(udf != null){
-				functionManager.registerUserDefineFunction(udf)
-			}
-		}
-	}
-	
-	LinkedList<Token> analyzeToken(String strQuestion){
-		TokenAnalyzer analyzer = new TokenAnalyzer()
-	    LinkedList<Token> tokenList = analyzer.analyzeToken(strQuestion, new TokenPatternFactory(){
-	    	int createPatterns(LinkedList<TokenPattern> list)
-	        {
-	        	String funPattern = PatternBuilder.build(functionManager.functions())
-	            
-	            if(funPattern.length() > 0){
-	            	list.add(new TokenPattern(TokenType.FunctionName, funPattern))
-	            }
-	            list.add(new TokenPattern(TokenType.Parameter, "#[1-9]"))
-	            
-	            String constPattern = PatternBuilder.build(constManager.consts())
-	            list.add(new TokenPattern(TokenType.Number, "(" + constPattern + ")"))
+		for i in range(1, self.CUSTOM_FUN_COUNT + 1):
+			key = 'F' + str(i)
+			udf = UserDefineFunction.load(self.systemContext, key)
+			if udf:
+				self.functionManager.registerUserDefineFunction1(udf)
 
-	            String numberPattern = "(((\\.[0-9]+)|([0-9]+(\\.[0-9]*)?))[eE][+-]?[0-9]+)"
-	            numberPattern += "|"
-	            numberPattern += "((\\.[0-9]+)|([0-9]+\\.[0-9]*))"
-	            numberPattern += "|"
-	            numberPattern += "([0-9]+)"
-	            
-	            CharSequence degree = systemContext.getText(R_string.character_degree)
-	            list.add(new TokenPattern(TokenType.Number, "((\\.[0-9]+)|([0-9]+\\.[0-9]*)|([0-9]+))%"))
-	            list.add(new TokenPattern(TokenType.Number, "(" + numberPattern + ")[" + degree + "i]?"))
-	            list.add(new TokenPattern(TokenType.Number, "[i]"))
-	            CharSequence angle = systemContext.getText(R_string.character_angle)
-	            list.add(new TokenPattern(TokenType.Operator, "[-+×/" + angle + "]"))
-	            list.add(new TokenPattern(TokenType.Parenthese, "[()]"))
-	            list.add(new TokenPattern(TokenType.Comma, ","))
-	            return list.size()
-	        }
-	    })
-	    return tokenList
-	}
-	
-	String calculate(String strQuestion, boolean convertFormat){
-		if(currentRecord == null){
-			currentRecord = new Record()
-		}
-	    LinkedList<Token> tokenList = analyzeToken(strQuestion)
-	    if(!convertFormat){
-	    	currentRecord.question = strQuestion
-	    }
-	    String result = calculate(tokenList)
-	    tokenList = null
-	    return result
-	}
+	def analyzeToken(self, strQuestion):
+		patern_list = []
+		funPattern = PatternBuilder.build(self.functionManager.functions())
 
-	boolean isFunction(String name){
-		return (functionManager.getFunction(name) != null)
-	}
+		if funPattern.length() > 0:
+			patern_list.append(TokenPattern(TokenType.FunctionName, funPattern))
+			patern_list.append(TokenPattern(TokenType.Parameter, "#[1-9]"))
+
+			constPattern = PatternBuilder.build(self.constManager.consts())
+			patern_list.append(TokenPattern(TokenType.Number, "(" + constPattern + ")"))
+
+			numberPattern = "(((\\.[0-9]+)|([0-9]+(\\.[0-9]*)?))[eE][+-]?[0-9]+)"
+			numberPattern = numberPattern + "|"
+			numberPattern = numberPattern +  "((\\.[0-9]+)|([0-9]+\\.[0-9]*))"
+			numberPattern = numberPattern + "|"
+			numberPattern = numberPattern + "([0-9]+)"
+
+			degree = R_string.character_degree
+			patern_list.append(TokenPattern(TokenType.Number, "((\\.[0-9]+)|([0-9]+\\.[0-9]*)|([0-9]+))%"))
+			patern_list.append(TokenPattern(TokenType.Number, "(" + numberPattern + ")[" + str(degree) + "i]?"))
+			patern_list.append(TokenPattern(TokenType.Number, "[i]"))
+			angle = R_string.character_angle
+			patern_list.append(TokenPattern(TokenType.Operator, "[-+×/" + str(angle) + "]"))
+			patern_list.append(TokenPattern(TokenType.Parenthese, "[()]"))
+			patern_list.append(TokenPattern(TokenType.Comma, ","))
+
+		return TokenAnalyzer().analyzeToken(strQuestion, patern_list)
+
+	def calculate(self, strQuestion, convertFormat):
+		if not self.currentRecord:
+			self.currentRecord = self.Record()
+
+		tokenList = self.analyzeToken(strQuestion)
+		if not convertFormat:
+			self.currentRecord.question = strQuestion
+
+		result = self.calculate1(tokenList)
+		return result
+
+	def isFunction(self, name):
+		return (self.functionManager.getFunction(name) != None)
 	
-	CharSequence[] getCustomFunctionItems(){
-		CharSequence items[] = new CharSequence[CUSTOM_FUN_COUNT]
+	def getCustomFunctionItems(self):
+		items = []
 		
-		for(int i = 1 i <= CUSTOM_FUN_COUNT ++i){
-			String key = "F" + i
-			String item = null
-			
-			UserDefineFunction udf = functionManager.getUserDefineFunction(key)
-			if(udf != null){
+		for i in range(1, self.CUSTOM_FUN_COUNT + 1):
+			key = "F" + str(i)
+			item = None
+			udf = self.functionManager.getUserDefineFunction(key)
+			if udf:
 				item = udf.getName() + ":" + udf.getExprString()
-			}else{
+			else:
 				item = key + ":Empty"
-			}
-			
-			items[i - 1] = item
-		}
+			items.append(item)
+
 		return items
-	}
-	
-	int saveCustomFunction(String key, String funName, String funText){
-		return functionManager.registerUserDefineFunction(key, funName, funText)
-	}
-	
-	void clearCustomFunctions(){
-		for(int i = 1 i <= CUSTOM_FUN_COUNT ++i){
-			UserDefineFunction.clear(systemContext, "F" + i)
-		}
-	}
-	
-	ConstManager getConstManager(){
-		return constManager
-	}
-	
-	CharSequence[] getConstItems(){
-		int count = constManager.getConstCount()
-		CharSequence items[] = new CharSequence[count]
-		
-		Set<String> set = constManager.consts()
-		
-		StandardFormatter formatter = new StandardFormatter(systemContext)
-		
-		int index = 0
-        for(String key : set)
-        {
-        	String item = key + ":" + formatter.toString(constManager.find(key))
-        	items[index] = item
-        	index++
-        }
-        return items
-	}
 
-	class Record
-	{
-		boolean success
-	    String question
-	    Complex result
-	}
+	def saveCustomFunction(self, key, funName, funText):
+		return self.functionManager.registerUserDefineFunction(key, funName, funText)
 
-	int getRecordCount(){
-		return recordList.size()
-	}
-	
-	Record getRecord(int index){
-		if(index >= 0 && index < recordList.size())
-	    {
-	        return recordList.get(index)
-	    }
-	    else
-	    {
-	        return null
-	    }
-	}
-	
-	boolean saveRecord(){
-		if(currentRecord != null && currentRecord.success)
-	    {
-	        recordList.add(currentRecord)
-	        currentRecord = null
-	        return true
-	    }else{
-	    	return False
-	    }
-	}
-	
-	CharSequence[] getRecordItems(){
-		StandardFormatter formator = new StandardFormatter(systemContext)
-		int record_count = getRecordCount()
-		CharSequence items[] = new CharSequence[record_count]
-		for(int i = 0 i < record_count ++i){
-			Record record = getRecord(i)
-			String recordString = formator.toString(record.result) + ":" + record.question
-			items[i] = recordString
-		}
+	def clearCustomFunctions(self):
+		for i in range(1, self.CUSTOM_FUN_COUNT + 1):
+			UserDefineFunction.clear(self.systemContext, "F" + str(i))
+
+	def getConstManager(self):
+		return self.constManager
+
+	def getConstItems(self):
+		count = self.constManager.getConstCount()
+		items = []
+		
+		list = self.constManager.consts()
+		
+		formatter = StandardFormatter(self.systemContext)
+		
+		index = 0
+		for key in list:
+			item = key + ":" + formatter.toString(self.constManager.find(key))
+			items.append(item)
+			index = index + 1
+
 		return items
-	}
-	
-	boolean clearRecord(int index){
-		if(index >= 0 && index < recordList.size())
-	    {
-	        recordList.remove(index)
-	                                                               
-	        return true
-	    }
-	    else
-	    {
-	        return False
-	    }
-	}
-	
-	boolean clearAllRecord(){
-		recordList.clear()
-	    return true
-	}
-	
-	Context getSystemContext(){
-    	return systemContext
-    }
-	
-	String calculate(LinkedList<Token> tokenList){
-		String result = new String()
 
-	    String unknownToken = new String()
-	    for(Token token : tokenList)
-	    {
-	        if(token.getType() == TokenType.NoType)
-	        {
-	            if(unknownToken.length() > 0)
-	            {
-	                unknownToken += ","
-	            }
-	            unknownToken += token.getContent()
-	        }
-	    }
-	    if(unknownToken.length() > 0)
-	    {
-	        currentRecord.success = false
-	        return systemContext.getString(R_string.error_unknown_keyword) + unknownToken
-	    }
-	    
-	    BuildContext bContext = new BuildContext(systemContext, constManager, tokenList)
+	def getRecordCount(self):
+		return len(self.recordList)
 
-	    Expr expr = AdditiveExpr.buildExpr(bContext)
-	    if(expr != null){
-	    	if(bContext.tokenList.size() > 0){
-	    		String tokenString = new String()
-	    		for(Token token : tokenList){
-	    			if(tokenString.length() != 0){
-	    				tokenString += ","
-	    			}
-	    			tokenString += token.getContent()
-	    		}
-	    		currentRecord.success = false
-    	        result = systemContext.getString(R_string.error_unnecessary_keyword) + tokenString
-	    	}else{
-		        EvaluateContext eContext = new EvaluateContext(systemContext, this)
-		        eContext.pushResult(Complex(0))
-		        if(expr.evaluate(eContext))
-		        {
-		        	Complex value = eContext.popResult()
-		        	result = eContext.getFormatter().toString(value)
-		        	if(result != null){
-		        		currentRecord.success = true
-		        		currentRecord.result = value
-		        	}else{
-		        		currentRecord.success = false
-		    	        result = systemContext.getString(R_string.error_invalid_input)
-		        	}
-		        }
-		        else
-		        {
-		            currentRecord.success = false
-		            result = eContext.getErrorMessage()
-		        }
-	    	}
-	    }
-	    else
-	    {
-	        currentRecord.success = false
-	        result = bContext.errorMessage
-	    }
-	    return result
-		
-	}
+	def getRecord(self, index):
+		if(index >= 0) and (index < len(self.recordList)):
+			return self.recordList[index]
+		else:
+			return None
+
+	def saveRecord(self):
+		if(self.currentRecord != None) and (self.currentRecord.success):
+			self.recordList.append(self.currentRecord)
+			self.currentRecord = None
+			return True
+		else:
+			return False
 	
-	boolean isSuccess(){
-		return currentRecord.success
-	}
+	def getRecordItems(self):
+		formator = StandardFormatter(self.systemContext)
+		record_count = self.getRecordCount()
+		items = []
+		for i in range(0, record_count):
+			record = self.getRecord(i)
+			recordString = formator.toString(record.result) + ":" + record.question
+			items.append(recordString)
+		return items
+
+	def clearRecord(self, index):
+		if(index >= 0) and (index < len(self.recordList)):
+			self.recordList.pop(index)
+			return True
+		else:
+			return False
 	
-	private Record currentRecord
-	private LinkedList<Record> recordList = new LinkedList<Record>()
-}
+	def clearAllRecord(self):
+		self.recordList.clear()
+		return True
+	
+	def getSystemContext(self):
+		return self.systemContext
+
+	def calculate1(self, tokenList):
+		result = ''
+		unknownToken = ''
+		for token in tokenList:
+			if token.getType() == TokenType.NoType:
+				if len(unknownToken) > 0:
+					unknownToken = unknownToken + ','
+				unknownToken += token.getContent()
+
+		if len(unknownToken) > 0:
+			self.currentRecord.success = False
+			return R_string.error_unknown_keyword + unknownToken
+
+		bContext = BuildContext(self.systemContext, self.constManager, tokenList)
+		expr = AdditiveExpr.buildExpr(bContext)
+		if expr:
+			if len(bContext.tokenList) > 0:
+				tokenString = ''
+				for token in tokenList:
+					if len(tokenString) != 0:
+						tokenString += ","
+					tokenString += token.getContent()
+				self.currentRecord.success = False
+				result = R_string.error_unnecessary_keyword + tokenString
+			else:
+				eContext = EvaluateContext(self.systemContext, self)
+				eContext.pushResult(Complex(0))
+				if expr.evaluate(eContext):
+					value = eContext.popResult()
+					result = eContext.getFormatter().toStringV(value)
+					if result:
+						self.currentRecord.success = True
+						self.currentRecord.result = value
+					else:
+						self.currentRecord.success = False
+						result = R_string.error_invalid_input
+				else:
+					self.currentRecord.success = False
+					result = eContext.getErrorMessage()
+		else:
+			self.currentRecord.success = False
+			result = bContext.errorMessage
+		return result
+
+	def isSuccess(self):
+		return self.currentRecord.success

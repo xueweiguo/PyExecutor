@@ -8,7 +8,7 @@ class AcosFun(CalculateFunction):
         return 'acos'
 
     def execute(self, paraList, context):
-        if(len(paraList) != 1):
+        if len(paraList) != 1:
             context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
             return False
 

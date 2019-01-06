@@ -1,20 +1,19 @@
-import math
 from Interpreter.CalculateFunction import *
 from Interpreter.Complex import *
 
-
-class AtanhFun(CalculateFunction):
+class CoshFun (CalculateFunction):
 	def getName(self):
-		return 'atanh'
+		return 'cosh'
 
 	def execute(self, paraList, context):
 		if len(paraList) != 1:
 			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
 			return False
-
 		para = paraList[0]
 		if(para.i != 0):
-			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
+			context.setErrorMessage(self.getName(), R_string.error_invalid_date_type)
 			return False
-		context.setCurrentResult(Complex((math.log(1 + para.r) - math.log(1 - para.r)) / 2))
-		return self.checkResult(context)
+
+		result = math.cosh(para.r)
+		context.setCurrentResult(Complex(result))
+		return True

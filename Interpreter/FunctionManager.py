@@ -1,11 +1,13 @@
 from Interpreter.CalculateFunction import *
+from Interpreter.UserDefineFunction import *
 class FunctionManager:
 	def __init__(self, context):
 		self.systemContext = context
 		self.functionMap = dict()
+		self.userDefineMap = dict()
 
 	def registerFunction(self, fun):
-		if(self.functionMap.get(fun.getName()) == None):
+		if self.functionMap.get(fun.getName()):
 			self.functionMap[fun.getName()] = fun
 			return True
 		else:
@@ -14,43 +16,32 @@ class FunctionManager:
 	def registerUserDefineFunction(self, key, funName, funText):
 		fun = self.getFunction(funName)
 		if(fun != None):
-			if(fun.getClass().getSimpleName().compareTo("UserDefineFunction") != 0){
-				//Has been registered as a system function.
+			if not isinstance(fun, UserDefineFunction):
+				# Has been registered as a system function.
 				return R_string.error_used_fun_name
-			}
-			UserDefineFunction udf = (UserDefineFunction)fun
-			if(udf.getKey().compareTo(key) != 0){
-				//The name has been used by other UserDefineFunctio.
+
+			if fun.getKey().compareTo(key) != 0 :
+				# The name has been used by other UserDefineFunctio.
 				return R_string.error_used_fun_name
-			}
-			functionMap.remove(udf.getName())
-			userDefineMap.remove(key)
-		}
-		
-		//Now, we can register the UserdefineFunction safety.
-		UserDefineFunction udf_new = new UserDefineFunction(key, funName, funText)
-		udf_new.saveMe(systemContext)
-		return registerUserDefineFunction(udf_new)
-	}
-	
-	int registerUserDefineFunction(UserDefineFunction udf){
-		userDefineMap.put(udf.getKey(), udf)
-		functionMap.put(udf.getName(), udf)
-		return 0
-	}
-	
-	UserDefineFunction getUserDefineFunction(String key){
-		return userDefineMap.get(key)
-	}
-	
-	Set<String> functions(){
-		return functionMap.keySet()
-	}
-	
-	CalculateFunction getFunction(String name){
-		return functionMap.get(name)
-	}
-	
-	private HashMap<String, CalculateFunction> functionMap = new HashMap<String, CalculateFunction>()
-	private HashMap<String, UserDefineFunction> userDefineMap = new HashMap<String, UserDefineFunction>()
-}
+
+			self.functionMap.pop(fun.getName())
+			self.userDefineMap.pop(key)
+
+		# Now, we can register the UserdefineFunction safety.
+		udf_new = UserDefineFunction(key, funName, funText)
+		udf_new.saveMe(self.systemContext)
+		return self.registerUserDefineFunction1(udf_new)
+
+	def registerUserDefineFunction1(self, udf):
+		self.userDefineMap[udf.getKey()] = udf
+		self.functionMap[udf.getName()] = udf
+
+	def getUserDefineFunction(self, key):
+		return self.userDefineMap.get(key)
+
+	def functions(self):
+		return self.functionMap.keys()
+
+	def getFunction(self, name):
+		return self.functionMap.get(name)
+
