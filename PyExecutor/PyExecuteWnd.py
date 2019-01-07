@@ -7,10 +7,10 @@ from tkinter.messagebox import * # get standard dialogs
 from tkinter.filedialog import *
 
 from ExFramework.ExTreeView import *
+from ExFramework.TopDiagram import *
 from PyExecutorTreeAccessor import *
 from PyEditorCanvas import *
 from PyExecutorFactory import *
-from TopDiagram import *
 from TreeViewUpdater import *
 from SelModeDlg import *
 
