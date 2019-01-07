@@ -29,7 +29,9 @@ class TopDiagram(ExDiagram, ExObservable):
         class_name = class_info[module_end + 1:]
         module_meta = __import__(module_name, globals(), locals(), [class_name])
         class_meta = getattr(module_meta, class_name)
-        return class_meta()
+        factory = class_meta()
+        self.factorys[class_info] = factory
+        return factory
 
 
 

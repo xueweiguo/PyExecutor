@@ -1,8 +1,7 @@
 from tkinter import *
 from tkinter.ttk import *
 from ExFramework.ExPropertyTab import *
-from FunctionBlockDiagram.WifiPort import *
-from FunctionBlockDiagram.BluetoothPort import *
+from FunctionBlockDiagram.CommPortFactory import *
 
 from FunctionBlockDiagram.DesEncryptor import *
 from FunctionBlockDiagram.IdeaEncryptor import *
@@ -13,7 +12,6 @@ from FunctionBlockDiagram.AesEncryptor import *
 from FunctionBlockDiagram.BccValidator import *
 from FunctionBlockDiagram.CrcValidator import *
 from FunctionBlockDiagram.Md5Validator import *
-
 
 class CommFunTab(ExPropertyTab):
     def __init__(self, parent, name, element):
@@ -64,12 +62,16 @@ class CommFunTab(ExPropertyTab):
 
     def apply(self):
         #设定通讯方式
+        factory = self.element.handle_request(self.element, 'get_factory',
+                            ['FunctionBlockDiagram.CommPortFactory.CommPortFactory'])
         if self.port.get() == 'Wifi':
-            self.element.setPort(WifiPort(self.address.get()))
+            self.element.set_port(factory.get_wifi(self.address.get()))
         elif self.port.get() == 'Bluetooth':
-            self.element.setPort(BluetoothPort(self.address.get()))
+            self.element.set_port(factory.get_bluetooth(self.address.get()))
         else:
-            self.element.setPort(None)
+            self.element.set_port(None)
+
+        factory.release_idle()
 
         packer = None
         #  设定加密方式
@@ -85,6 +87,7 @@ class CommFunTab(ExPropertyTab):
             packer = AesEncryptor(packer)
         else:
             pass
+
         # 设定校验方式
         if self.ecc.get() == 'BCC':
             packer = BccValidator(packer)
@@ -94,7 +97,7 @@ class CommFunTab(ExPropertyTab):
             packer = Md5Validator(packer)
 
         # 设定数据处理方式
-        self.element.setSecurity(packer)
+        self.element.set_security(packer)
 
         #调用基类方法
         ExPropertyTab.apply(self)

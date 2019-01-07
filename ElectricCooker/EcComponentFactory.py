@@ -20,7 +20,7 @@ class EcComponentFactory(ExComponentFactory):
         return EcConnector(parent, '')
 
     def element_types(self):
-        types = ['OpPanel', 'TempIn', 'ComIn', 'ComOut','Contr', 'Disp', 'Heater']
+        types = ['OpPanel', 'TempIn', 'Contr', 'Disp', 'Heater']
         parent_types = ExComponentFactory.element_types(self)
         for t in parent_types:
             types.append(t)
@@ -31,10 +31,6 @@ class EcComponentFactory(ExComponentFactory):
             return OpPanel(parent, 'OpPanel').construct()
         elif type=='TempIn':
             return TempSensor(parent, 'TempSensor').construct()
-        elif type=='ComIn':
-            return CommInputFun(parent).construct()
-        elif type=='ComOut':
-            return CommOutputFun(parent).construct()
         elif type=='Contr':
             return HeatingController(parent, 'Controller').construct()
         elif type=='Disp':
