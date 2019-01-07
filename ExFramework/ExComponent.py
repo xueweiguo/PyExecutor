@@ -60,9 +60,9 @@ class ExComponent:
     def serialize(self):
         return {'type':str(type(self)), 'tag':self.tag, 'name':self.name}
 
-    def handle_request(self, component, ext):
+    def handle_request(self, component, req, params=None):
         if self.__parent:
-            return self.__parent.handle_request(component, ext)
+            return self.__parent.handle_request(component, req, params)
         else:
             return None
 
