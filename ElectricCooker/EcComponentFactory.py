@@ -1,8 +1,7 @@
-from ExFramework.ExComponentFactory import *
-from ExFramework.ExJsonEncoder import *
-from PyExecutorFactory import *
+from Framework.ComponentFactory import *
 
 from ElectricCooker.EcConnector import *
+from ElectricCooker.EcContext import *
 from ElectricCooker.OpPanel import *
 from ElectricCooker.TempSensor import *
 from ElectricCooker.HeatingController import *
@@ -10,33 +9,38 @@ from ElectricCooker.Display import *
 from ElectricCooker.Heater import *
 
 
-class EcComponentFactory(ExComponentFactory):
-
+class EcComponentFactory(ComponentFactory):
     def __init__(self):
-        PyExecutorFactory().register('ecd', 'element', self)
+        ComponentFactory.__init__(self)
 
     # 添加链接线
     def make_connector(self, parent):
-        return EcConnector(parent, '')
+        return EcConnector(parent.dict).construct(parent)
 
     def element_types(self):
         types = ['OpPanel', 'TempIn', 'Contr', 'Disp', 'Heater']
-        parent_types = ExComponentFactory.element_types(self)
+        parent_types = ComponentFactory.element_types(self)
         for t in parent_types:
             types.append(t)
         return types
 
-    def make_element(self, parent, type):
+    def make_element(self, cd, type):
         if type=='OpPanel':
-            return OpPanel(parent, 'OpPanel').construct()
+            return OpPanel(cd, 'OpPanel').construct(None)
         elif type=='TempIn':
-            return TempSensor(parent, 'TempSensor').construct()
+            return TempSensor(cd, 'TempSensor').construct(None)
         elif type=='Contr':
-            return HeatingController(parent, 'Controller').construct()
+            return HeatingController(cd, 'Controller').construct(None)
         elif type=='Disp':
-            return Display(parent, 'Display').construct()
+            return Display(cd, 'Display').construct(None)
         elif type == 'Heater':
-            return Heater(parent, 'Heater').construct()
-        return ExComponentFactory.make_element(self, parent, type)
+            return Heater(cd, 'Heater').construct(None)
+        return ComponentFactory.make_element(self, cd, type)
+
+    def source_types(self):
+        return None
+
+    def make_context(self):
+        return EcContext()
 
 EcComponentFactory()

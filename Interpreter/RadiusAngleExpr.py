@@ -7,7 +7,8 @@ from Interpreter.UnaryExpr import *
 
 class RadiusAngleExpr(NonterminalExpr):
     @staticmethod
-    def buildExpr(cls, context):
+    #def buildExpr(cls):
+    def buildExpr(context):
         class MyProxy(ChildExprBuildProxy):
             def buildExpr(self, context):
                 return UnaryExpr.buildExpr(context)
@@ -15,7 +16,8 @@ class RadiusAngleExpr(NonterminalExpr):
             def newInstance(self):
                 return RadiusAngleExpr()
 
-        exprOperator = context.getSystemContext().getText(R_string.character_angle)
+        #exprOperator = context.getSystemContext().getText(R_string.character_angle)
+        exprOperator = '∠'
         return NonterminalExpr.buildExpr4(MyProxy(), MyCreater(), context, "[" + exprOperator + "]")
 
     def getValueOperator(self, content):

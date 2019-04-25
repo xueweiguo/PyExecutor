@@ -15,7 +15,7 @@ class UserDefineFunction(CustomFunction):
 	def getExprString(self):
 		return self.functionExpr
 
-	def load(self, context, key):
+	def load(self, key):
 		settings = context.getSharedPreferences(self.PREFS_NAME, 0)
 		funInfo = settings.getString(key, "")
 
@@ -29,13 +29,13 @@ class UserDefineFunction(CustomFunction):
 			return None
 
 	@staticmethod
-	def clear(cls, context, key):
+	def clear(cls, key):
 		settings = context.getSharedPreferences(cls.PREFS_NAME, 0)
 		editor = settings.edit()
 		editor.putString(key, "")
 		editor.commit()
 
-	def saveMe(self, context):
+	def saveMe(self):
 		settings = context.getSharedPreferences(self.PREFS_NAME, 0)
 		editor = settings.edit()
 		editor.putString(self.functionKey, self.getName() + ":" + self.functionExpr)

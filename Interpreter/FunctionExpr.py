@@ -8,7 +8,7 @@ class FunctionExpr(NonterminalExpr):
 		self.functionName = name
 
 	@staticmethod
-	def buildExpr(cls, context):
+	def buildExpr(cls):
 		functionName = ''
 		token = context.tokenList[0]
 		if token.getType() != TokenType.FunctionName:
@@ -76,5 +76,5 @@ class FunctionExpr(NonterminalExpr):
 		if not fun:
 			context.setErrorMessage("Can't found the function:" + self.functionName)
 			return False
-		return fun.execute(self, paraList, context)
+		return fun.execute(self, paraList)
 

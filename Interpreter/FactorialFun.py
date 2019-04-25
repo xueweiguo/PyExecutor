@@ -6,7 +6,7 @@ class FactorialFun (CalculateFunction):
 	def getName(self):
 		return 'n!'
 
-	def execute(self, paraList, context):
+	def execute(self, paraList):
 		if len(paraList) != 1:
 			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
 			return False

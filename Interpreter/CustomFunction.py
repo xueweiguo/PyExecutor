@@ -14,7 +14,7 @@ class CustomFunction (CalculateFunction):
 	def getExprString(self):
 		return None
 
-	def execute(self, paraList, context):
+	def execute(self, paraList):
 		functionString = self.getExprString()
 
 		if(not functionString) or (len(functionString) == 0):

@@ -1,18 +1,18 @@
 import sys
 sys.path.append('..')
-from ExFramework.ExBlock import *
+from Framework.Block import *
 
-class HeatingController(ExBlock):
-    def __init__(self, parent, name):
-        ExBlock.__init__(self, parent, name,'煮饭控制器')
+class HeatingController(Block):
+    def __init__(self, cd = None, name = None):
+        Block.__init__(self, cd, name,'煮饭控制器')
 
-    def construct(self):
-        ExBlock.construct(self)
-        ExInputPort(self, 'Md', '1:PID控制,2:模糊控制，3:AI控制').construct()
-        ExInputPort(self, 'Run', '控制有效').construct()
-        ExInputPort(self, 'Act', '温度实际值(°C）').construct()
-        ExOutputPort(self, 'Out', '控制输出').construct()
-        ExOutputPort(self, 'Sta', '控制器状态').construct()
+    def construct(self, parent):
+        Block.construct(self, parent)
+        InputPort(self.dict, 0, 'Md', '1:PID控制,2:模糊控制，3:AI控制').construct(self)
+        InputPort(self.dict, 1, 'Run', '控制有效').construct(self)
+        InputPort(self.dict, 2, 'Act', '温度实际值(°C）').construct(self)
+        OutputPort(self.dict, 0, 'Out', '控制输出').construct(self)
+        OutputPort(self.dict, 1, 'Sta', '控制器状态').construct(self)
         return self
 
 

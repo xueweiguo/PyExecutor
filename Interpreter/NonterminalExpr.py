@@ -4,7 +4,7 @@ from Interpreter.Expr import *
 from Interpreter.Token import *
 
 class ChildExprBuildProxy:
-    def buildExpr(self, context):
+    def buildExpr(self):
         return None
 
 class ParentCreater:
@@ -37,13 +37,17 @@ class NonterminalExpr(Expr):
             return False
 
         ex_index = ex_index + 1
+        #ex_index = 0
 
         #ListIterator < Token > operator_it = operatorList.listIterator()
         op_index = 0
         while ex_index < len(self.exprList):
             expr = self.exprList[ex_index]
             token = self.operatorList[op_index]
+            ex_index = ex_index + 1
             op_index = op_index + 1
+            if op_index >= len(self.operatorList):
+                op_index = len(self.operatorList) -1
 
             res_prev = context.getCurrentResult()
             if expr.evaluate(context):
@@ -65,11 +69,12 @@ class NonterminalExpr(Expr):
         return None
 
     @staticmethod
+    #def buildExpr4(proxy, creator, operatorRegex):
     def buildExpr4(proxy, creator, context, operatorRegex):
         firstExpr = proxy.buildExpr(context)
         if firstExpr == None:
             return None
-        if len(context.tokenList):
+        if not len(context.tokenList):
             return firstExpr
         token = context.tokenList[0]
         if ((token.getType() != TokenType.Operator)
@@ -80,12 +85,13 @@ class NonterminalExpr(Expr):
 
         content = token.getContent()
         m = re.match(operatorRegex, content)
-        if not m.matches(): return firstExpr
+        if not m:
+            return firstExpr
 
         parentExpr = creator.newInstance()
         parentExpr.appendExpr(firstExpr)
         parentExpr.appendOperator(token)
-        context.tokenList.removeFirst()
+        context.tokenList.pop(0)
         while True:
             expr = proxy.buildExpr(context)
             if not expr:
@@ -100,10 +106,10 @@ class NonterminalExpr(Expr):
 
             content = token.getContent()
             m = re.match(operatorRegex, content)
-            if (not m.matches()): return parentExpr
+            if not m: return parentExpr
 
             parentExpr.appendOperator(token)
-            context.tokenList.removeFirst()
+            context.tokenList.pop(0)
 
             if len(context.tokenList) == 0:
                 context.errorMessage = "Expression is't complete!"

@@ -3,7 +3,7 @@ import math
 from Interpreter.R_string import *
 
 class CalculateFunction(metaclass=abc.ABCMeta):
-    def checkResult(self, context):
+    def checkResult(self):
         if math.isnan(context.getCurrentResult().r):
             context.setErrorMessage(self.getName(), R_string.error_mathmatic_error)
             return False
@@ -13,5 +13,5 @@ class CalculateFunction(metaclass=abc.ABCMeta):
         return ''
 
     @abc.abstractmethod
-    def execute(self, paraList, context):
+    def execute(self, paraList):
         return False

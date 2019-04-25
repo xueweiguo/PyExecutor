@@ -10,5 +10,5 @@ class DegreesFormatter(ComplexFormatter):
 		if complex.i:
 			return self.toStringV(math.degrees(complex.r), 12) + R_string.character_degree
 		else:
-			formatter = RadiusAngleFormatter(self.context, True)
+			formatter = RadiusAngleFormatter(self.view, True)
 			return formatter.toString(complex)

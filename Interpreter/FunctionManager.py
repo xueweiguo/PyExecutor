@@ -7,7 +7,7 @@ class FunctionManager:
 		self.userDefineMap = dict()
 
 	def registerFunction(self, fun):
-		if self.functionMap.get(fun.getName()):
+		if not self.functionMap.get(fun.getName()):
 			self.functionMap[fun.getName()] = fun
 			return True
 		else:

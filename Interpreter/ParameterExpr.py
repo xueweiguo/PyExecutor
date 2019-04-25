@@ -3,7 +3,7 @@ from Interpreter.R_string import *
 
 class ParameterExpr(TerminalExpr):
 	@staticmethod
-	def buildExpr(cls, context):
+	def buildExpr(cls):
 		token = context.tokenList.pop(0)
 		return ParameterExpr(int(token.getContent()[1:]))
 

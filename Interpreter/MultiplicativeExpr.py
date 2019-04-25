@@ -4,21 +4,22 @@ from Interpreter.RadiusAngleExpr import *
 
 class MultiplicativeExpr(NonterminalExpr):
     @staticmethod
-    def buildExpr(cls, context):
+    #def buildExpr(cls):
+    def buildExpr(context):
         class MyProxy(ChildExprBuildProxy):
-            def buildExpr(self, context):
+            def buildExpr(self,context):
                 return RadiusAngleExpr.buildExpr(context)
 
         class MyCreater(ParentCreater):
             def newInstance(self):
                 return MultiplicativeExpr()
 
-        return NonterminalExpr.buildExpr4(MyProxy(), MyCreater(), context, "[×/]")
+        return NonterminalExpr.buildExpr4(MyProxy(), MyCreater(), context,"[*/]")
 
     def getValueOperator(self, operatorContent):
         class MyOperator(ValueOperator):
             def evaluate(self, value1, value2):
-                if(self.operatorString.compareTo("×") == 0):
+                if self.operatorString == '*':
                     self.evaluateResult = Complex.mul(value1, value2)
                     return True
                 else: #operatorString.compareTo("/") == 0

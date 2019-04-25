@@ -10,7 +10,8 @@ class UnaryExpr(TerminalExpr):
         self.primaryExpr = expr
 
     @staticmethod
-    def buildExpr(cls, context):
+    #def buildExpr(cls):
+    def buildExpr(context):
         minusCount = 0
         while (len(context.tokenList) > 0) and (context.tokenList[0].getType() == TokenType.Operator):
             content = context.tokenList[0].getContent()
@@ -24,7 +25,7 @@ class UnaryExpr(TerminalExpr):
         if (len(context.tokenList) == 0):
             context.errorMessage = "Expression is't complete"
             return None
-        expr = PrimaryExpr.buildExpr(context)
+        expr = UnaryExpr.method_name(context)
         if expr == None:
             return None
         if ((minusCount % 2) == 1):
@@ -33,6 +34,11 @@ class UnaryExpr(TerminalExpr):
             return unary
         else:
             return expr
+
+    @staticmethod
+    def method_name(context):
+        expr = PrimaryExpr.buildExpr(context)
+        return expr
 
     def evaluate(self, context):
         if (self.primaryExpr.evaluate(context)):

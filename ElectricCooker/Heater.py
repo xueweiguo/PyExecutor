@@ -1,15 +1,15 @@
 import sys
 sys.path.append('..')
-from ExFramework.ExBlock import *
+from Framework.Block import *
 
-class Heater(ExBlock):
-    def __init__(self, parent, name):
-        ExBlock.__init__(self, parent, name, '加热器')
+class Heater(Block):
+    def __init__(self, cd=None, name=None):
+        Block.__init__(self, cd, name, '加热器')
 
-    def construct(self):
-        ExBlock.construct(self)
-        ExInputPort(self, 'Mode', '1：模拟量，2：PWM').construct()
-        ExInputPort(self, 'In', '控制输入').construct()
+    def construct(self, parent):
+        Block.construct(self, parent)
+        InputPort(self.dict, 0, 'Mode', '1：模拟量，2：PWM').construct(self)
+        InputPort(self.dict, 1, 'In', '控制输入').construct(self)
         return self
 
 

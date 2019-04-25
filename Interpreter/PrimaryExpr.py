@@ -1,10 +1,12 @@
 from Interpreter.Token import *
 from Interpreter.TerminalExpr import *
 from Interpreter.AdditiveExpr import *
+from Interpreter.NumberExpr import *
 
 class PrimaryExpr(TerminalExpr):
     @staticmethod
-    def buildExpr(cls, context):
+    #def buildExpr(cls):
+    def buildExpr(context):
         if (len(context.tokenList) == 0):
             context.errorMessage = "Expression is't complete"
             return None

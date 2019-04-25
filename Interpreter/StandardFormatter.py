@@ -19,7 +19,8 @@ class StandardFormatter(ComplexFormatter):
 		else:
 			imaginary = ComplexFormatter.toStringV(self, complex.i, 12)
 
-		if(imaginary.compareTo("0") != 0):
+		#if(imaginary.compareTo("0") != 0):
+		if imaginary != "0":
 			if(complex.i > 0):
 				valueString = valueString + "+"
 				imaginary = imaginary + "i"

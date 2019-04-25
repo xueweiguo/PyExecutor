@@ -9,7 +9,7 @@ class ConvertFormatFun(CalculateFunction):
 	def getName(self):
 		return self.funName
 
-	def execute(self, paraList, context):
+	def execute(self, paraList):
 		if len(paraList) != 1:
 			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
 			return False

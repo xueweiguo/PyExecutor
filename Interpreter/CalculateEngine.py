@@ -1,3 +1,4 @@
+import math
 from Interpreter.FunctionManager import *
 from Interpreter.ConstManager import *
 from Interpreter.R_string import *
@@ -44,12 +45,13 @@ class CalculateEngine:
 		self.systemContext = context
 		self.functionManager = FunctionManager(context)
 		self.constManager = ConstManager()
+		self.currentRecord = None
 		self.recordList = []
 		self.registerConst()
 		self.registerStandardFunctions()
 
 	def registerConst(self):
-		self.constManager.registerConst(R_string.character_pi, Complex(math.pi))
+		self.constManager.registerConst("PI", Complex(math.pi))
 		self.constManager.registerConst("e", Complex(math.e))
 
 	def registerStandardFunctions(self):
@@ -72,48 +74,44 @@ class CalculateEngine:
 		self.functionManager.registerFunction(TanFun())
 		self.functionManager.registerFunction(FactorialFun())
 				
-		self.functionManager.registerFunction(ConvertFormatFun("to" + self.systemContext.getText(R_string.character_angle),
+		self.functionManager.registerFunction(ConvertFormatFun("to" + str(R_string.character_angle),
 										RadiusAngleFormatter(self.systemContext, False)))
-		self.functionManager.registerFunction(ConvertFormatFun("to" + self.systemContext.getText(R_string.character_degree),
+		self.functionManager.registerFunction(ConvertFormatFun("to" + str(R_string.character_degree),
 										DegreesFormatter(self.systemContext)))
 
 		self.functionManager.registerFunction(PreDefineFunction("x2", "pow(#1,2)"))
 		self.functionManager.registerFunction(PreDefineFunction("x3", "pow(#1,3)"))
-		self.functionManager.registerFunction(PreDefineFunction("2" + self.systemContext.getText(R_string.character_sqrt), "root(#1,2)"))
-		self.functionManager.registerFunction(PreDefineFunction("3" + self.systemContext.getText(R_string.character_sqrt), "root(#1,3)"))
+		self.functionManager.registerFunction(PreDefineFunction("2" + str(R_string.character_sqrt), "root(#1,2)"))
+		self.functionManager.registerFunction(PreDefineFunction("3" + str(R_string.character_sqrt), "root(#1,3)"))
 		self.functionManager.registerFunction(PreDefineFunction("ex", "pow(e,#1)"))
-		
-		for i in range(1, self.CUSTOM_FUN_COUNT + 1):
-			key = 'F' + str(i)
-			udf = UserDefineFunction.load(self.systemContext, key)
-			if udf:
-				self.functionManager.registerUserDefineFunction1(udf)
 
 	def analyzeToken(self, strQuestion):
 		patern_list = []
 		funPattern = PatternBuilder.build(self.functionManager.functions())
 
-		if funPattern.length() > 0:
-			patern_list.append(TokenPattern(TokenType.FunctionName, funPattern))
-			patern_list.append(TokenPattern(TokenType.Parameter, "#[1-9]"))
+		if len(funPattern) > 0:
+			#patern_list.append(TokenPattern(TokenType.FunctionName, funPattern))
+			#patern_list.append(TokenPattern(TokenType.Parameter, "#[1-9]"))
 
-			constPattern = PatternBuilder.build(self.constManager.consts())
-			patern_list.append(TokenPattern(TokenType.Number, "(" + constPattern + ")"))
+			#constPattern = PatternBuilder.build(self.constManager.consts())
+			#patern_list.append(TokenPattern(TokenType.Number, "(" + constPattern + ")"))
 
-			numberPattern = "(((\\.[0-9]+)|([0-9]+(\\.[0-9]*)?))[eE][+-]?[0-9]+)"
+			numberPattern = r"(((\.[0-9]+)|([0-9]+(\.[0-9]*)?))[eE][+-]?[0-9]+)"
 			numberPattern = numberPattern + "|"
-			numberPattern = numberPattern +  "((\\.[0-9]+)|([0-9]+\\.[0-9]*))"
+			numberPattern = numberPattern +  r"((\.[0-9]+)|([0-9]+\.[0-9]*))"
 			numberPattern = numberPattern + "|"
 			numberPattern = numberPattern + "([0-9]+)"
 
-			degree = R_string.character_degree
-			patern_list.append(TokenPattern(TokenType.Number, "((\\.[0-9]+)|([0-9]+\\.[0-9]*)|([0-9]+))%"))
-			patern_list.append(TokenPattern(TokenType.Number, "(" + numberPattern + ")[" + str(degree) + "i]?"))
-			patern_list.append(TokenPattern(TokenType.Number, "[i]"))
-			angle = R_string.character_angle
-			patern_list.append(TokenPattern(TokenType.Operator, "[-+×/" + str(angle) + "]"))
-			patern_list.append(TokenPattern(TokenType.Parenthese, "[()]"))
-			patern_list.append(TokenPattern(TokenType.Comma, ","))
+			#degree ='\°'
+			#patern_list.append(TokenPattern(TokenType.Number, r"((\.[0-9]+)|([0-9]+\.[0-9]*)|([0-9]+))%"))
+			#patern_list.append(TokenPattern(TokenType.Number, "(" + numberPattern + ")[" + str(degree) + "i]?"))
+			patern_list.append(TokenPattern(TokenType.Number, "(" + numberPattern + ")"))
+			#patern_list.append(TokenPattern(TokenType.Number, "[i]"))
+			#angle = R_string.character_angle
+			#patern_list.append(TokenPattern(TokenType.Operator, "[-+×/" + str(angle) + "]"))
+			patern_list.append(TokenPattern(TokenType.Operator, r"[-+*/]"))
+			#patern_list.append(TokenPattern(TokenType.Parenthese, "[()]"))
+			#patern_list.append(TokenPattern(TokenType.Comma, ","))
 
 		return TokenAnalyzer().analyzeToken(strQuestion, patern_list)
 
@@ -224,7 +222,7 @@ class CalculateEngine:
 
 		if len(unknownToken) > 0:
 			self.currentRecord.success = False
-			return R_string.error_unknown_keyword + unknownToken
+			return str(R_string.error_unknown_keyword) + unknownToken
 
 		bContext = BuildContext(self.systemContext, self.constManager, tokenList)
 		expr = AdditiveExpr.buildExpr(bContext)
@@ -242,7 +240,7 @@ class CalculateEngine:
 				eContext.pushResult(Complex(0))
 				if expr.evaluate(eContext):
 					value = eContext.popResult()
-					result = eContext.getFormatter().toStringV(value)
+					result = eContext.getFormatter().toString(value)
 					if result:
 						self.currentRecord.success = True
 						self.currentRecord.result = value

@@ -1,11 +1,11 @@
 import sys
 sys.path.append('..')
 
-from ExFramework.ExConnector import *
+from Framework.Connector import *
 
-class EcConnector(ExConnector):
-    def _init__(self, parent, name):
-        ExElement.__init__(self, parent, name)
+class EcConnector(Connector):
+    def __init__(self, cd=None):
+        Connector.__init__(self, cd, '')
 
 
 

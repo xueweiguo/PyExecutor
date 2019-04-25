@@ -1,7 +1,7 @@
 import abc
 from Interpreter.Complex import *
 
-class ValueOperator(metaclass=Me):
+class ValueOperator():
     def __init__(self, string):
         self.operatorString = string
         self.evaluateResult = Complex()

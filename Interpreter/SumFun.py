@@ -5,7 +5,7 @@ class SumFun(CalculateFunction):
 	def getName(self):
 		return "sum"
 
-	def execute(self, paraList, context):
+	def execute(self, paraList):
 		if len(paraList) == 0:
 			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
 			return False

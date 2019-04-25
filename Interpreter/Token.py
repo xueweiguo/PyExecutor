@@ -29,7 +29,7 @@ class Token:
         self.mType = type
 
     def isNoType(self):
-        return (self.mType == EType.NoType)
+        return self.mType == TokenType.NoType
 
     def setContent(self, content):
         self.mContent = content

@@ -6,7 +6,7 @@ class PowerFun (CalculateFunction):
 	def getName(self):
 		return "pow"
 
-	def execute(self, paraList, context):
+	def execute(self, paraList):
 		if(len(paraList) != 2):
 			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
 			return False
