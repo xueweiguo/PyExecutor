@@ -4,7 +4,7 @@ from FunctionBlock.CommPort import *
 # 通信端口类，负责处理通信ID
 class SectionPortProxy(CommPort):
     # 对象初始化
-    def __init__(self, port, usr, pwd):
+    def __init__(self, port=None, usr=None, pwd=None):
         CommPort.__init__(self)
         self.port = port
         self.usr = usr

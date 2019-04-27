@@ -13,9 +13,9 @@ class CommStrategy(FbdStrategy):
     def set_port(self, port):
         self.port = port
 
-    # 设定加密方式
-    def set_security(self, sec):
-        self.packer = sec
+    # 设定数据打包方式
+    def set_packer(self, packer):
+        self.packer = packer
 
     # 启动通信
     def start(self, context):
@@ -43,6 +43,14 @@ class CommStrategy(FbdStrategy):
             # 处理接收数据
             self.handle_response(context, response)
 
+    # 生成请求数据
+    def create_command(self, context):
+        pass
+
+    # 处理接收数据
+    def handle_response(self, context, response):
+        pass
+
     def copy(self, memo):
         c = copy.copy(self)
         if self.port:
@@ -58,12 +66,6 @@ class CommStrategy(FbdStrategy):
         else:
             c.status = None
         return c
-
-    def create_command(self, context):
-        pass
-
-    def handle_response(self, context, response):
-        pass
 
 
 

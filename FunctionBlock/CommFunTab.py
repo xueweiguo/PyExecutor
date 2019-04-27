@@ -115,7 +115,7 @@ class CommFunTab(PropertyTab):
             packer = Md5Validator(packer)
 
         # 设定数据处理方式
-        self.element.set_security(packer)
+        self.element.set_packer(packer)
 
         #调用基类方法
         PropertyTab.apply(self)

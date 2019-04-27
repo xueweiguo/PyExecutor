@@ -25,9 +25,9 @@ class CommPort:
             self.response = 'logout OK!'
         elif data[0:8] == 'get_data':
             values = []
-            values.append(math.sin(self.t / 20) * 2)
-            values.append(math.sin(self.t / 30) * 3)
-            values.append(math.sin(self.t / 50) * 5)
+            values.append(math.sin(self.t / 20) * 3)
+            values.append(math.sin(self.t / 30) * 6)
+            values.append(math.sin(self.t / 50) * 9)
             self.t = self.t + 1
             self.response = json.dumps(values)
             self.response = self.response + '.des.bcc'
