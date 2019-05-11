@@ -68,12 +68,6 @@ class CustomBlock(Block):
         dlg.add_tab(CustomBlockTab(dlg.notebook(), '参数', self))
         return dlg
 
-    # 请求处理
-    def handle_request(self, component, req, params=None):
-        if self.parent:
-            return self.parent.handle_request(component, req, params)
-        else:
-            return None
 
 
 

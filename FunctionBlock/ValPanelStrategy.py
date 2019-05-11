@@ -24,7 +24,7 @@ class ValPanelStrategy(FbdStrategy):
             except Exception as e:
                 print('ValPanelStrategy.execute error:', e)
 
-    def attach_canvas(self, block):
+    def attach_view(self, block):
         for i in range(0, 3):
             area = self.get_value_area(block, i)
             # value = block.port(block.input_names()[i]).value
@@ -32,7 +32,7 @@ class ValPanelStrategy(FbdStrategy):
             block.canvas.create_text(area[0], area[1], anchor=NW,
                                tags=[block.tag, self.value_id(block, i)])
 
-    def detach_canvas(self, block):
+    def detach_view(self, block):
         for i in range(0, 3):
             block.canvas.delete(self.frame_id(block, i))
             block.canvas.delete(self.value_id(block, i))

@@ -4,6 +4,7 @@ from Framework.Diagram import *
 class TopDiagram(Diagram):
     def __init__(self, cd=None, name=None, type=None):
         Diagram.__init__(self, None, name)
+
         self._dict = cd
         self.type = type
         self.factorys = dict()
@@ -35,14 +36,6 @@ class TopDiagram(Diagram):
         factory = class_meta()
         self.factorys[class_info] = factory
         return factory
-
-    # 绑定Observer
-    def attach(self, observer):
-        self.observable.attach(observer)
-
-    # 解绑Observer
-    def detach(self, observer):
-        self.observable.detach(observer)
 
 
 

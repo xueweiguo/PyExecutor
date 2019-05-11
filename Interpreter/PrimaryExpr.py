@@ -1,6 +1,5 @@
 from Interpreter.Token import *
 from Interpreter.TerminalExpr import *
-from Interpreter.AdditiveExpr import *
 from Interpreter.NumberExpr import *
 
 class PrimaryExpr(TerminalExpr):
@@ -15,15 +14,16 @@ class PrimaryExpr(TerminalExpr):
         if token.getType() == TokenType.Number:
             return NumberExpr.buildExpr(context)
         elif token.getType() == TokenType.Parenthese:
-            if (token.getContent().compareTo("(") == 0):
-                context.tokenList.removeFirst()
+            if token.getContent()== '(':
+                context.tokenList.pop(0)
+                from Interpreter.AdditiveExpr import AdditiveExpr
                 expr = AdditiveExpr.buildExpr(context)
                 if (expr == None):
                     return None
 
                 if (len(context.tokenList) > 0):
-                    token = context.tokenList.removeFirst()
-                    if (token.getType() == TokenType.Parenthese and token.getContent().compareTo(")") == 0):
+                    token = context.tokenList.pop(0)
+                    if token.getType() == TokenType.Parenthese and token.getContent()==')':
                         return expr
                 context.errorMessage = "\')\'is necessary"
                 return None
@@ -31,7 +31,8 @@ class PrimaryExpr(TerminalExpr):
                 context.errorMessage = "\'(\'is necessary"
                 return None
 
-        elif token.getType() == TokenType.casecFunctionName:
+        elif token.getType() == TokenType.FunctionName:
+            from Interpreter.FunctionExpr import FunctionExpr
             return FunctionExpr.buildExpr(context)
         elif token.getType() == TokenType.Parameter:
             return ParameterExpr.buildExpr(context)

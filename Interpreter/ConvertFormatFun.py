@@ -6,12 +6,12 @@ class ConvertFormatFun(CalculateFunction):
 		self.funName = name
 		self.complexFormatter = formatter
 
-	def getName(self):
+	def get_name(self):
 		return self.funName
 
 	def execute(self, paraList):
 		if len(paraList) != 1:
-			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
+			context.setErrorMessage(self.get_name(), R_string.error_invalid_parameter_count)
 			return False
 
 		para = paraList[0]

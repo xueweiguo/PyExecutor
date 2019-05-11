@@ -38,18 +38,18 @@ class Connector(Component):
     def add_cancel(self):
         self.handle_request(self, 'cancel_macro')
 
-    def attach_canvas(self, canvas):
-        Component.attach_canvas(self, canvas)
+    def attach_view(self, view):
+        Component.attach_view(self, view)
         if self.coords:
             self.canvas.create_line(self.coords, tag=self.tag, arrow=LAST)
 
-    def detach_canvas(self):
+    def detach_view(self):
         try:
             self.canvas.delete(self.tag)
         except:
             pass
         else:
-            Component.detach_canvas(self)
+            Component.detach_view(self)
 
     def accept(self, visitor, mode='DLR'):
         visitor.visit_connector(self)

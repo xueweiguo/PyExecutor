@@ -41,25 +41,25 @@ class Composite(Component):
     def insert(self, child, index):
         self.__children.insert(index, child.tag)
         if self.canvas:
-            child.attach_canvas(self.canvas)
+            child.attach_view(self.view)
         self.handle_request(child, 'insert', {'parent': self, 'index': index})
 
     #移除子要素
     def remove(self, child):
-        child.detach_canvas()
+        child.detach_view()
         index = self.__children.index(child.tag)
         self.__children.remove(child.tag)
         self.handle_request(child, 'remove', {'index': index})
 
-    def attach_canvas(self, canvas):
-        Component.attach_canvas(self, canvas)
+    def attach_view(self, view):
+        Component.attach_view(self, view)
         for c in self.iter():
-            c.attach_canvas(canvas)
+            c.attach_view(view)
 
-    def detach_canvas(self):
+    def detach_view(self):
         for c in self.iter():
-            c.detach_canvas()
-        Component.detach_canvas(self)
+            c.detach_view()
+        Component.detach_view(self)
 
     # 取得子节点迭代器
     def iter(self, mode=''):

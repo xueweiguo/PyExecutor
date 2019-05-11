@@ -34,13 +34,13 @@ class InputPort(DataPort):
         else:
             return self
 
-    def attach_canvas(self, canvas):
+    def attach_view(self, view):
         self.calculate_position()
-        canvas.create_rectangle(self.x - 10, self.y - 3, self.x, self.y + 3, fill='cyan',
+        view.canvas.create_rectangle(self.x - 10, self.y - 3, self.x, self.y + 3, fill='cyan',
                                tags=[self.parent.tag, self.tag, self.frame])
-        canvas.create_text(self.x + 2, self.y, tags=[self.parent.tag, self.tag, self.caption],
+        view.canvas.create_text(self.x + 2, self.y, tags=[self.parent.tag, self.tag, self.caption],
                            text=self.name, anchor=W, fill=self.color)
-        DataPort.attach_canvas(self, canvas)
+        DataPort.attach_view(self, view)
 
     def point(self):
         bound_rect = self.canvas.coords(self.frame)

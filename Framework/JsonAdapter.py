@@ -43,7 +43,7 @@ class JsonAdapter(object):
             return self.element2JsonDictInner(element)
         elif isinstance(element, ExecContext):
             return {}
-        elif isinstance(element, Canvas):
+        elif isinstance(element, Frame):
             return {}
         elif isinstance(element, ComponentDict):
             return {}
@@ -91,12 +91,14 @@ class JsonAdapter(object):
 
         dataDict = element["__ClassData__"]
         for datakey, data in dataDict.items():
-            #子对象有无
-            if data != None and isinstance(data, dict) and "__ClassData__" in data:
-                subObj = self.createObject(data)
-                setattr(obj, datakey, subObj)
-            else:
-                # print(datakey, data)
-                setattr(obj, datakey, data)
+            try:
+                #子对象有无
+                if data != None and isinstance(data, dict) and "__ClassData__" in data:
+                    subObj = self.createObject(data)
+                    setattr(obj, datakey, subObj)
+                else:
+                    setattr(obj, datakey, data)
+            except Exception as e:
+                print(e, ',class=', class_, ',obj=', obj)
         return obj
 

@@ -4,12 +4,12 @@ from Interpreter.Complex import *
 
 
 class AverageFun(CalculateFunction):
-	def getName(self):
+	def get_name(self):
 		return 'avg'
 
-	def execute(self, paraList):
+	def execute(self, context, paraList):
 		if(len(paraList) == 0):
-			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
+			context.setErrorMessage(self.get_name(), R_string.error_invalid_parameter_count)
 			return False
 
 		result = Complex(0)

@@ -15,12 +15,12 @@ class UnaryExpr(TerminalExpr):
         minusCount = 0
         while (len(context.tokenList) > 0) and (context.tokenList[0].getType() == TokenType.Operator):
             content = context.tokenList[0].getContent()
-            if (content.compareTo("-") == 0): # == "-")
+            if content == '-': # == "-")
                 minusCount = minusCount + 1
-            elif content.compareTo("+"): # != "+")
+            elif content != '+': # != "+")
                 context.errorMessage = "Invalid token:" + content
                 return None
-            context.tokenList.removeFirst()
+            context.tokenList.pop(0)
 
         if (len(context.tokenList) == 0):
             context.errorMessage = "Expression is't complete"

@@ -3,21 +3,21 @@ from Interpreter.Complex import *
 
 
 class FactorialFun (CalculateFunction):
-	def getName(self):
+	def get_name(self):
 		return 'n!'
 
 	def execute(self, paraList):
 		if len(paraList) != 1:
-			context.setErrorMessage(self.getName(), R_string.error_invalid_parameter_count)
+			context.setErrorMessage(self.get_name(), R_string.error_invalid_parameter_count)
 			return False
 
 		para = paraList[0]
 		if para.i:
-			context.setErrorMessage(self.getName(), R_string.error_invalid_date_type)
+			context.setErrorMessage(self.get_name(), R_string.error_invalid_date_type)
 			return False
 
 		if (para.r < 1) or (para.r != math.floor(para.r)):
-			context.setErrorMessage(self.getName(), R_string.error_invalid_input)
+			context.setErrorMessage(self.get_name(), R_string.error_invalid_input)
 			return False
 
 		result = 1

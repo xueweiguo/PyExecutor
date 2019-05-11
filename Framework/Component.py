@@ -12,7 +12,7 @@ class Component(object):
         self.__comment = comment
         self._dict = cd
         self._frame = None
-        self.canvas = None
+        self.view = None
 
     def construct(self, parent):
         self.set_parent(parent)
@@ -36,7 +36,7 @@ class Component(object):
         c = copy.copy(self)
         c.__parent = None
         c._frame = None
-        c.canvas = None
+        c.view = None
         c.tag = self.dict.create_tag()
         self.dict.register(c)
         memo[self.tag] = c.tag
@@ -100,12 +100,18 @@ class Component(object):
     def comment(self, comment):
         self.set_comment(comment)
 
-    #@canvas.setter
-    def attach_canvas(self, canvas):
-        self.canvas = canvas
+    def attach_view(self, view):
+        self.view = view
 
-    def detach_canvas(self):
-        self.canvas = None
+    def detach_view(self):
+        self.view = None
+
+    @property
+    def canvas(self):
+        if self.view:
+            return self.view.canvas
+        else:
+            return None
 
     def find_child(self, tag):
         return None

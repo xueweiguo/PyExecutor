@@ -1,18 +1,21 @@
 from Foundation.Timer import *
-from Foundation.ScrollCanvas import *
+from Foundation.CanvasView import *
+from Foundation.Observable import *
 from Framework.BuilderDirector import *
 from Framework.ExecuteStarter import *
 from Framework.ExecuteStopper import *
 from Framework.ExecuteDriver import *
 
 
-class DiagramView(ScrollCanvas):
+class DiagramView(CanvasView, Observable):
     def __init__(self, parent, observer, color):
-        ScrollCanvas.__init__(self, parent, ExecCanvas, color)
-        self.canvas.observable().attach(observer)
-        self.timer = Timer(parent, 10, self.on_timer)
+        CanvasView.__init__(self, parent, color)
+        Observable.__init__(self)
+        self.attach(observer)
+        self.timer = Timer(parent, 100, self.on_timer)
         # 构建元素字典
         self._dict = ComponentDict()
+        self.__uc = {}
         self.__diagram = None
         self.element_type = None
         self.drawn = None
@@ -41,10 +44,10 @@ class DiagramView(ScrollCanvas):
     def set_diagram(self, diagram):
         if not self.__diagram == diagram:
             if self.__diagram:
-                self.__diagram.detach_canvas()
+                self.__diagram.detach_view()
             self.__diagram = diagram
             if self.__diagram:
-                self.__diagram.attach_canvas(self.canvas)
+                self.__diagram.attach_view(self)
         self.drawn = None
         self.element_type = None
         self.drawn = None
@@ -193,7 +196,7 @@ class DiagramView(ScrollCanvas):
         self.top_changed()
 
     def save(self, fn):
-        self.canvas.clear_state()
+        self.clear_state()
         self.dict.save(fn)
 
     def show_info(self):
@@ -202,6 +205,24 @@ class DiagramView(ScrollCanvas):
         self.top_diagram.accept(sv)
         sv.get_result()
 
+    # 清除编辑动作记录
+    def clear_state(self):
+        self.__uc.clear()
 
+    # 取得撤销控制器
+    def undo_controller(self, key):
+        from Framework.DiagramUC import DiagramUC
+        uc = self.__uc.get(key)
+        if not uc:
+            uc = DiagramUC(key)
+            self.__uc[key] = uc
+        return uc
 
+    # 通过确认所有Diagram的撤销控制器中的动作记录
+    # 判断整个逻辑是否已经被修改
+    def modified(self):
+        for am in self.__uc.values():
+            if not am.undone():  # 可以undo意味着有过修改。
+                return True
+        return False
 

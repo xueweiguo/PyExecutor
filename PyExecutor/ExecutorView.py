@@ -1,6 +1,6 @@
 from Framework.DiagramView import *
 from Framework.EditCommand import *
-from CanvasStateMachine import *
+from PyExecutor.CanvasStateMachine import *
 
 
 class ExecutorView(DiagramView):

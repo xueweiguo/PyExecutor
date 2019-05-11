@@ -8,7 +8,7 @@ class FunctionExpr(NonterminalExpr):
 		self.functionName = name
 
 	@staticmethod
-	def buildExpr(cls):
+	def buildExpr(context):
 		functionName = ''
 		token = context.tokenList[0]
 		if token.getType() != TokenType.FunctionName:
@@ -23,7 +23,7 @@ class FunctionExpr(NonterminalExpr):
 			return None
 
 		token = context.tokenList[0]
-		if(token.getType() != TokenType.Parenthese) or (token.getContent().compareTo("(") != 0):
+		if (token.getType() != TokenType.Parenthese) or (token.getContent()!='('):
 			# != "(")
 			context.errorMessage = '\'(\'is necessary'
 			return None
@@ -54,7 +54,7 @@ class FunctionExpr(NonterminalExpr):
 			token = context.tokenList[0]
 			if token.getType() == TokenType.Comma:
 				context.tokenList.pop(0)
-			elif (token.getType() == TokenType.Parenthese) and (token.getContent().compareTo(")") == 0):
+			elif (token.getType() == TokenType.Parenthese) and (token.getContent()==')'):
 				context.tokenList.pop(0)
 				return funExpr
 			else:
@@ -76,5 +76,5 @@ class FunctionExpr(NonterminalExpr):
 		if not fun:
 			context.setErrorMessage("Can't found the function:" + self.functionName)
 			return False
-		return fun.execute(self, paraList)
+		return fun.execute(context,paraList)
 

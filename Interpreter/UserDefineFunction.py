@@ -38,5 +38,5 @@ class UserDefineFunction(CustomFunction):
 	def saveMe(self):
 		settings = context.getSharedPreferences(self.PREFS_NAME, 0)
 		editor = settings.edit()
-		editor.putString(self.functionKey, self.getName() + ":" + self.functionExpr)
+		editor.putString(self.functionKey, self.get_name() + ":" + self.functionExpr)
 		editor.commit()

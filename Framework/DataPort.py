@@ -13,15 +13,15 @@ class DataPort(Component):
 
     def construct(self, parent):
         Component.construct(self, parent)
-        if parent.canvas:
-            self.attach_canvas(parent.canvas)
+        if parent.view:
+            self.attach_view(parent.view)
         parent.append(self)
         return self
 
-    def detach_canvas(self):
+    def detach_view(self):
         self.canvas.delete(self.frame)
         self.canvas.delete(self.caption)
-        Component.detach_canvas(self)
+        Component.detach_view(self)
 
     def set_color(self, color):
         self.canvas.itemconfigure(self.frame, outline=color)

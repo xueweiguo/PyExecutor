@@ -54,6 +54,6 @@ class Complex:
         result.divBy(c2)
         return result
 
-    def getAbs(self):
+    def abs(self):
         return math.hypot(self.r, self.i)
 

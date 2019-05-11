@@ -48,26 +48,6 @@ class DiagramWnd(Tk):
     def make_toolbar(self):
         raise NotImplementedError
 
-    # Observer.update()
-    def on_update(self, invoker, req, params):
-        self.after(0, self.do_update, invoker, req, params)
-
-    def do_update(self, invoker, req, params):
-        # print('PyMediator.update(', invoker, req,')')
-        if isinstance(invoker, Block):
-            if req == 'append':
-                self.tree.append_node(invoker)
-            elif req == 'remove':
-                self.tree.remove_node(invoker)
-            elif req == 'insert':
-                self.tree.insert_node(invoker, params['index'])
-            elif req == 'change_name':
-                self.tree.update_node(invoker)
-        self.view.update()
-
-    def focus_diagram(self, diagram):
-        self.view.set_diagram(diagram)
-
     def new(self, sel_type = True):
         if self.ask_clear():
             if sel_type:
@@ -100,7 +80,7 @@ class DiagramWnd(Tk):
             self.quit()
 
     def ask_clear(self):
-        if self.view.canvas.modified():
+        if self.view.modified():
             confirm = askyesnocancel("Save?", "The diagram has been modified, do you want to save it?")
             if confirm is None: # Cancel
                 return False

@@ -7,9 +7,9 @@ from Framework.CustomBlock import *
 
 
 class DiagramTreeAccessor(TreeAccessor):
-    def __init__(self, wnd):
+    def __init__(self, mediator):
         TreeAccessor.__init__(self)
-        self.wnd = wnd
+        self.mediator = mediator
         cur_path = os.path.abspath(os.path.dirname(__file__))
         self.__blk_image = PhotoImage(file=cur_path + '\\images\\block.gif')
         self.__diagram_image = PhotoImage(file=cur_path + '\\images\\diagram.gif')
@@ -39,9 +39,8 @@ class DiagramTreeAccessor(TreeAccessor):
         return node.iter('tree_node')
 
     def focus(self, iid):
-        component = self.wnd.view.dict[iid]
-        if isinstance(component, Diagram):
-            self.wnd.focus_diagram(component)
+        self.mediator.focus(iid)
+
 
 
 

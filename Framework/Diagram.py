@@ -16,21 +16,23 @@ class Diagram(Composite):
         self.dict.register(self)
         return self
 
-     # 添加子要素
+    # 添加子要素
     def append(self, child):
         Composite.append(self, child)
         if self.canvas:
-            child.attach_canvas(self.canvas)
+            child.attach_view(self.view)
 
     def remove(self, child):
+        # 如果删除对象是Block
         if isinstance(child, Block):
             self.handle_request(child, 'begin_macro')
+            # 遍历所有输入端口，删除输入连接线
             for port in child.iter('input_port'):
                 if port.connector:
                     c = port.connector
                     c.disconnect()
                     Composite.remove(self, c)
-
+            # 遍历所有出端口，删除所有输出连接线
             for port in child.iter('output_port'):
                 for i in range(0, port.c_count()):
                     c = port.connector(i)
@@ -67,16 +69,9 @@ class Diagram(Composite):
             visitor.visit_diagram(self)
 
     @property
-    def observable(self):
-        if self.canvas:
-            return self.canvas.observable()
-        else:
-            return None
-
-    @property
     def uc(self):
-        if self.canvas:
-            return self.canvas.undo_controller(self.tag)
+        if self.view:
+            return self.view.undo_controller(self.tag)
         else:
             return None
 
@@ -94,9 +89,13 @@ class Diagram(Composite):
 
     # 请求处理
     def handle_request(self, component, req, params=None):
+        # 记录操作请求，用于撤销和重做处理
         if self.uc:
             self.uc.handle_request(component, req, params)
+        # 请求转发
         ret = Composite.handle_request(self, component, req, params)
-        if self.observable:
-            self.observable.notify(component, req, params)
+        # 如果Diagram正好被DiagramView表示，则调用DiagramView的Observable接口
+        if self.view:
+            self.view.notify(component, req, params)
         return ret
+

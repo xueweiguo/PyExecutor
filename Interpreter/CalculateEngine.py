@@ -9,29 +9,7 @@ from Interpreter.PatternBuilder import *
 from Interpreter.TokenPattern import *
 from Interpreter.TokenAnalyzer import *
 
-from Interpreter.AcosFun import *
-from Interpreter.AcoshFun import *
-from Interpreter.AsinFun import *
-from Interpreter.AsinhFun import *
-from Interpreter.AtanFun import *
-from Interpreter.AtanhFun import *
-from Interpreter.AverageFun import *
-from Interpreter.CosFun import *
-from Interpreter.CoshFun import *
-from Interpreter.Log10Fun import *
-from Interpreter.LogeFun import *
-from Interpreter.LogeFun import *
-from Interpreter.PowerFun import *
-from Interpreter.RootFun import *
-from Interpreter.SinFun import *
-from Interpreter.SinhFun import *
-from Interpreter.SumFun import *
-from Interpreter.TanFun import *
-from Interpreter.FactorialFun import *
-from Interpreter.ConvertFormatFun import *
-from Interpreter.RadiusAngleFormatter import *
-from Interpreter.DegreesFormatter import *
-
+#计算引擎
 class CalculateEngine:
 	CUSTOM_FUN_COUNT = 12
 
@@ -47,84 +25,55 @@ class CalculateEngine:
 		self.constManager = ConstManager()
 		self.currentRecord = None
 		self.recordList = []
-		self.registerConst()
-		self.registerStandardFunctions()
+		self.patterns = []
+		self.build_basic_patterns()
+	# 创建四则运算规则
+	def build_basic_patterns(self):
+		numberPattern = r"(((\.[0-9]+)|([0-9]+(\.[0-9]*)?))[eE][+-]?[0-9]+)"
+		numberPattern = numberPattern + "|"
+		numberPattern = numberPattern + r"((\.[0-9]+)|([0-9]+\.[0-9]*))"
+		numberPattern = numberPattern + "|"
+		numberPattern = numberPattern + "([0-9]+)"
+		self.patterns.append(TokenPattern(TokenType.Number, "(" + numberPattern + ")"))
+		self.patterns.append(TokenPattern(TokenType.Operator, r"[-+*/]"))
+		self.patterns.append(TokenPattern(TokenType.Parenthese, "[()]"))
+		self.patterns.append(TokenPattern(TokenType.Comma, ","))
 
-	def registerConst(self):
-		self.constManager.registerConst("PI", Complex(math.pi))
-		self.constManager.registerConst("e", Complex(math.e))
+	def register_const(self, name, value):
+		self.constManager.registerConst(name, value)
 
-	def registerStandardFunctions(self):
-		self.functionManager.registerFunction(AcosFun())
-		self.functionManager.registerFunction(AcoshFun())
-		self.functionManager.registerFunction(AsinFun())
-		self.functionManager.registerFunction(AsinhFun())
-		self.functionManager.registerFunction(AtanFun())
-		self.functionManager.registerFunction(AtanhFun())
-		self.functionManager.registerFunction(AverageFun())
-		self.functionManager.registerFunction(CosFun())
-		self.functionManager.registerFunction(CoshFun())
-		self.functionManager.registerFunction(Log10Fun())
-		self.functionManager.registerFunction(LogeFun())
-		self.functionManager.registerFunction(PowerFun())
-		self.functionManager.registerFunction(RootFun())
-		self.functionManager.registerFunction(SinFun())
-		self.functionManager.registerFunction(SinhFun())
-		self.functionManager.registerFunction(SumFun())
-		self.functionManager.registerFunction(TanFun())
-		self.functionManager.registerFunction(FactorialFun())
-				
-		self.functionManager.registerFunction(ConvertFormatFun("to" + str(R_string.character_angle),
-										RadiusAngleFormatter(self.systemContext, False)))
-		self.functionManager.registerFunction(ConvertFormatFun("to" + str(R_string.character_degree),
-										DegreesFormatter(self.systemContext)))
+	def register_function(self, fun):
+		self.functionManager.registerFunction(fun)
 
-		self.functionManager.registerFunction(PreDefineFunction("x2", "pow(#1,2)"))
-		self.functionManager.registerFunction(PreDefineFunction("x3", "pow(#1,3)"))
-		self.functionManager.registerFunction(PreDefineFunction("2" + str(R_string.character_sqrt), "root(#1,2)"))
-		self.functionManager.registerFunction(PreDefineFunction("3" + str(R_string.character_sqrt), "root(#1,3)"))
-		self.functionManager.registerFunction(PreDefineFunction("ex", "pow(e,#1)"))
-
-	def analyzeToken(self, strQuestion):
-		patern_list = []
-		funPattern = PatternBuilder.build(self.functionManager.functions())
-
-		if len(funPattern) > 0:
-			#patern_list.append(TokenPattern(TokenType.FunctionName, funPattern))
-			#patern_list.append(TokenPattern(TokenType.Parameter, "#[1-9]"))
-
-			#constPattern = PatternBuilder.build(self.constManager.consts())
-			#patern_list.append(TokenPattern(TokenType.Number, "(" + constPattern + ")"))
-
-			numberPattern = r"(((\.[0-9]+)|([0-9]+(\.[0-9]*)?))[eE][+-]?[0-9]+)"
-			numberPattern = numberPattern + "|"
-			numberPattern = numberPattern +  r"((\.[0-9]+)|([0-9]+\.[0-9]*))"
-			numberPattern = numberPattern + "|"
-			numberPattern = numberPattern + "([0-9]+)"
-
-			#degree ='\°'
-			#patern_list.append(TokenPattern(TokenType.Number, r"((\.[0-9]+)|([0-9]+\.[0-9]*)|([0-9]+))%"))
-			#patern_list.append(TokenPattern(TokenType.Number, "(" + numberPattern + ")[" + str(degree) + "i]?"))
-			patern_list.append(TokenPattern(TokenType.Number, "(" + numberPattern + ")"))
-			#patern_list.append(TokenPattern(TokenType.Number, "[i]"))
-			#angle = R_string.character_angle
-			#patern_list.append(TokenPattern(TokenType.Operator, "[-+×/" + str(angle) + "]"))
-			patern_list.append(TokenPattern(TokenType.Operator, r"[-+*/]"))
-			#patern_list.append(TokenPattern(TokenType.Parenthese, "[()]"))
-			#patern_list.append(TokenPattern(TokenType.Comma, ","))
-
-		return TokenAnalyzer().analyzeToken(strQuestion, patern_list)
-
+	# 计算表达式
 	def calculate(self, strQuestion, convertFormat):
 		if not self.currentRecord:
 			self.currentRecord = self.Record()
-
-		tokenList = self.analyzeToken(strQuestion)
+		# 替换表达式中的变量名
+		strSrc = strQuestion
+		strAnalyze = strQuestion
+		for k, v in self.systemContext.get_values().items():
+			strAnalyze = strSrc.replace(k, v)
+			strSrc  = strAnalyze
+		# 对表达式进行分析，返回语法树
+		tokenList = self.analyzeToken(strAnalyze)
 		if not convertFormat:
 			self.currentRecord.question = strQuestion
+		# 对语法树进行计算，返回运算结果
+		return self.calculate1(tokenList)
 
-		result = self.calculate1(tokenList)
-		return result
+	# 表达式分析
+	def analyzeToken(self, strQuestion):
+		# 生成分析语法对象集合
+		patterns = []
+		fun_pattern = PatternBuilder.build(self.functionManager.functions())
+		if len(fun_pattern) > 0:
+			#函数语法定义
+			patterns.append(TokenPattern(TokenType.FunctionName, fun_pattern))
+		#基本语法定义
+		patterns.extend(self.patterns)
+		# 对表达式进行分析，返回语法树
+		return TokenAnalyzer().analyzeToken(strQuestion, patterns)
 
 	def isFunction(self, name):
 		return (self.functionManager.getFunction(name) != None)
@@ -137,7 +86,7 @@ class CalculateEngine:
 			item = None
 			udf = self.functionManager.getUserDefineFunction(key)
 			if udf:
-				item = udf.getName() + ":" + udf.getExprString()
+				item = udf.get_name() + ":" + udf.getExprString()
 			else:
 				item = key + ":Empty"
 			items.append(item)

@@ -7,8 +7,8 @@ class FunctionManager:
 		self.userDefineMap = dict()
 
 	def registerFunction(self, fun):
-		if not self.functionMap.get(fun.getName()):
-			self.functionMap[fun.getName()] = fun
+		if not self.functionMap.get(fun.get_name()):
+			self.functionMap[fun.get_name()] = fun
 			return True
 		else:
 			return False
@@ -24,7 +24,7 @@ class FunctionManager:
 				# The name has been used by other UserDefineFunctio.
 				return R_string.error_used_fun_name
 
-			self.functionMap.pop(fun.getName())
+			self.functionMap.pop(fun.get_name())
 			self.userDefineMap.pop(key)
 
 		# Now, we can register the UserdefineFunction safety.
@@ -34,7 +34,7 @@ class FunctionManager:
 
 	def registerUserDefineFunction1(self, udf):
 		self.userDefineMap[udf.getKey()] = udf
-		self.functionMap[udf.getName()] = udf
+		self.functionMap[udf.get_name()] = udf
 
 	def getUserDefineFunction(self, key):
 		return self.userDefineMap.get(key)

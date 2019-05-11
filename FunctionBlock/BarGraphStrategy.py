@@ -5,7 +5,7 @@ class BarGraphStrategy(GraphStrategy):
     def __init__(self, block=None):
         GraphStrategy.__init__(self, block)
 
-    def attach_canvas(self, block):
+    def attach_view(self, block):
         for i in range(0, 3):
             l,t,r,b = self.get_bar_area(block, i)
             block.canvas.create_rectangle(l, t, r, b, tags=[block.tag, self.frame_id(block, i)],
@@ -14,7 +14,7 @@ class BarGraphStrategy(GraphStrategy):
             block.canvas.create_rectangle(l, t, r, b, tags=[block.tag, self.graph_id(block, i)],
                                           fill=self.colors[self.channel_name(i)])
 
-    def detach_canvas(self, block):
+    def detach_view(self, block):
         for i in range(0, 3):
             block.canvas.delete(self.graph_id(block, i))
             block.canvas.delete(self.frame_id(block, i))

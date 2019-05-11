@@ -27,11 +27,11 @@ class FbdStrategy:
         pass
 
     # 绑定canvas
-    def attach_canvas(self, block):
+    def attach_view(self, block):
         pass
 
     # 取消绑定的canvas
-    def detach_canvas(self, block):
+    def detach_view(self, block):
         pass
 
     # 取得输入端口的当前值

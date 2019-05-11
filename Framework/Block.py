@@ -65,19 +65,19 @@ class Block(Composite):
         self.canvas.itemconfigure(self.__frame, outline=color)
 
     # 挂接Canvas
-    def attach_canvas(self, canvas):
-        canvas.create_rectangle(self.left, self.top, self.right, self.bottom,
+    def attach_view(self, view):
+        view.canvas.create_rectangle(self.left, self.top, self.right, self.bottom,
                                      tags=[self.tag, self.__frame], fill='white', outline='black')
-        canvas.create_text(self.left + 40, self.top, tags=[self.tag, self.__caption], text=self.name, anchor=N)
+        view.canvas.create_text(self.left + 40, self.top, tags=[self.tag, self.__caption], text=self.name, anchor=N)
         # 调用父类功能
-        Composite.attach_canvas(self, canvas)
+        Composite.attach_view(self, view)
 
     # 脱离Canvas
-    def detach_canvas(self):
+    def detach_view(self):
         self.canvas.delete(self.__frame)
         self.canvas.delete(self.__caption)
         # 调用父类功能
-        Composite.detach_canvas(self)
+        Composite.detach_view(self)
 
     def create_memento(self):
         memento = blk_memento(self.x, self.y)

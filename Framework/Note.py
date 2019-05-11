@@ -29,8 +29,8 @@ class Note(Component):
     def get_position(self):
         return self.x, self.y
 
-    def attach_canvas(self, canvas):
-        Component.attach_canvas(self, canvas)
+    def attach_view(self, view):
+        Component.attach_view(self, view)
         self.canvas.create_text(self.x, self.y, anchor=SW,
                                 tags=[self.tag, self.caption], text=self.name)
         self.canvas.create_rectangle(self.x, self.y, self.x + 100, self.y + 60,
@@ -38,7 +38,7 @@ class Note(Component):
                                      tags=[self.tag, self.frame])
         self.canvas.create_text(self.x, self.y , anchor=NW,
                                 tags=[self.tag, self.note_id], text=self.__note)
-        Component.attach_canvas(self, canvas)
+        Component.attach_view(self, view)
 
     def create_memento(self):
         return self.get_position()
@@ -46,11 +46,11 @@ class Note(Component):
     def set_memento(self, memento):
         self.move(memento.x - self.x, memento.y - self.y)
 
-    def detach_canvas(self):
+    def detach_view(self):
         self.canvas.delete(self.caption)
         self.canvas.delete(self.frame)
         self.canvas.delete(self.note_id)
-        Component.detach_canvas(self)
+        Component.detach_view(self)
 
     def accept(self, visitor, mode='DLR'):
         visitor.visit_note(self)

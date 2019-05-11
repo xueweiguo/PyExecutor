@@ -31,13 +31,13 @@ class FbdBlock(Block):
                 self.reset_strategy(int(new))
         return Block.handle_request(self, component, req, params)
 
-    def attach_canvas(self, canvas):
-        Block.attach_canvas(self, canvas)
-        self.strategy.attach_canvas(self)
+    def attach_view(self, view):
+        Block.attach_view(self, view)
+        self.strategy.attach_view(self)
 
-    def detach_canvas(self):
-        self.strategy.detach_canvas(self)
-        Block.detach_canvas(self)
+    def detach_view(self):
+        self.strategy.detach_view(self)
+        Block.detach_view(self)
 
     # 生成保管箱
     def deposit_box(self):
@@ -65,10 +65,10 @@ class FbdBlock(Block):
             # 执行中策略对象被变更时的处理
             if box.strategy != self.strategy:
                 if self.canvas:
-                    box.strategy.detach_canvas(self)
+                    box.strategy.detach_view(self)
                 box.strategy.stop(context)
                 if self.canvas:
-                    self.strategy.attach_canvas(self)
+                    self.strategy.attach_view(self)
                 self.strategy.start(context)
                 box.strategy = self.strategy
             box.strategy.execute(context)
@@ -79,12 +79,12 @@ class FbdBlock(Block):
     def reset_strategy(self, t):
         # 解除canvas绑定
         if self.strategy and self.canvas:
-            self.strategy.detach_canvas(self)
+            self.strategy.detach_view(self)
         # 替换策略对象
         self.strategy = self.create_strategy(t)
         # 绑定canvas
         if self.canvas:
-            self.strategy.attach_canvas(self)
+            self.strategy.attach_view(self)
 
     def reset_connections(self, memo):
         self.strategy.key = memo.get(self.strategy.key)
