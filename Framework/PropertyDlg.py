@@ -17,6 +17,7 @@ class PropertyDlg:
         self.cancel.bind("<Button-1>", self.__on_button)
         self.__tabs = []
 
+
     def notebook(self):
         return self.__notebook
 
@@ -27,6 +28,8 @@ class PropertyDlg:
 
     def do_modal(self):
         self.top.grab_set()
+        self.top.update()
+        self.center_window()
         self.top.mainloop()
 
     def __apply(self):
@@ -43,3 +46,11 @@ class PropertyDlg:
 
     def __on_button(self, event):
         self.top.focus_force()
+
+    def center_window(self):
+        width = self.top.winfo_width()
+        height = self.top.winfo_height()
+        s_width = self.top.winfo_screenwidth()
+        s_height = self.top.winfo_screenheight()
+        size = '%dx%d+%d+%d' % (width, height, (s_width - width) / 2, (s_height - height) / 2)
+        self.top.geometry(size)

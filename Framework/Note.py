@@ -13,7 +13,7 @@ class Note(Component):
         self.__note = '自由记述'
 
     def construct(self, parent):
-        return Component.construct(parent)
+        return Component.construct(self, parent)
 
     def copy(self, memo):
         c = Component.copy(self, memo)

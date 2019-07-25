@@ -9,48 +9,48 @@ class TokenAnalyzer:
             self.index = 0
             self.pattern = None
             self.content = None
-    #分析上下文
-    def analyzeContent(self, context):
-        token = context.tokenList[context.index]
-        m = re.search(context.pattern.pattern, context.content)
+
+    # 对表达是进行语法分析
+    def analyze_token(self, strInput, pattern_list):
+        # 初始化Token列表2
+        tokenList = []
+        # 导入原始文字序列
+        tokenList.append(Token(strInput))
+        # 用全部TokenPattern输入字符序列进行拆分
+        for pattern in pattern_list:
+            index = 0
+            #对表达式进行语法范式解释
+            while index < len(tokenList):
+                if tokenList[index].isNoType():
+                    # Token内容拆分
+                    index = self.analyze_content(tokenList, index, pattern)
+                else:
+                    index = index + 1
+        return tokenList
+
+    # 拆分Token
+    def analyze_content(self, tokenList, index, pattern):
+        token = tokenList[index]
+        content = token.getContent()
+        # 检查匹配部分
+        m = re.search(pattern.pattern, content)
         if m:
             start = m.start()
             end = m.end()
             if start > 0:
-                str = context.content[0:start]
-                context.tokenList.insert(context.index, Token(str))
-                context.index = context.index + 1
-            if end < len(context.content):
-                context.tokenList.insert(context.index, Token(context.pattern.type,context.content[start:end]))
-                context.index = context.index + 1
-                context.content = context.content[end:len(context.content)]
-                self.analyzeContent(context)
-            else:
-                token.setContent(context.content[start:end])
-                token.setType(context.pattern.type)
-                context.content = context.content[end:len(context.content)]
-        else:
-            token.setContent(context.content)
-
-    #对表达是进行语法分析
-    def analyzeToken(self, strInput, pattern_list):
-        tokenList = []
-        #设定初始状态
-        tokenList.append(Token(strInput))
-        #进行递归语法分析，返回语法树
-        for pattern in pattern_list:
-            index = 0
-            while index < len(tokenList):
-                token = tokenList[index]
-                if token.isNoType():
-                    content = token.getContent()
-                    context = self.Context()
-                    context.tokenList = tokenList
-                    context.index = index
-                    context.pattern = pattern
-                    context.content = content
-                    self.analyzeContent(context)
+                # 开始位置不是最开始，截取开始位置之前的内容插入TokenList
+                str = content[0:start]
+                tokenList.insert(index, Token(str))
                 index = index + 1
-        return tokenList
-
-
+            if end < len(content):
+                # 结束位置之后还有其他内容
+                tokenList.insert(index, Token(pattern.type, content[start:end]))
+                token.setContent(content[end:len(content)])
+                return index + 1  # 下次解析剩余部分
+            else:
+                # 结束位置没有其他内容
+                token.setContent(content[start:end])
+                token.setType(pattern.type)
+                return index + 1  # 下次解析下一个Token
+        else:
+            return index + 1

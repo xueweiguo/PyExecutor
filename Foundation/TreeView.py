@@ -7,19 +7,24 @@ from Foundation.Observer import *
 class TreeView(Frame):
     def __init__(self, parent, accessor, side):
         Frame.__init__(self, parent, relief=GROOVE)
-        self.pack(side=side, fill=Y, ipadx=2, ipady=2)
         # accessor:提供访问树状数据的接口
         self.accessor = accessor
         # 准备TreeView
         self.tree = Treeview(self)
         self.tree.heading('#0', text='BlockTree', anchor='w')
         self.tree.bind('<<TreeviewSelect>>', self.select_node)
-        self.tree.pack(side=LEFT, expand=YES, fill=BOTH)
+        self.tree.grid(row = 0, column = 0, sticky=W+N+E+S)
         # 垂直滚动条
-        sbar = Scrollbar(self)
-        sbar.config(command=self.tree.yview)
-        self.tree.config(yscrollcommand=sbar.set)
-        sbar.pack(side=RIGHT, fill=Y)
+        vbar = Scrollbar(self, orient=VERTICAL)
+        vbar.config(command=self.tree.yview)
+        self.tree.config(yscrollcommand=vbar.set)
+        vbar.grid(row = 0, column = 1, sticky=N+S)
+        hbar = Scrollbar(self, orient=HORIZONTAL)
+        hbar.config(command=self.tree.xview)
+        self.tree.config(xscrollcommand=hbar.set)
+        hbar.grid(row=1, column=0, sticky=E+W)
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_columnconfigure(0, weight=1)
 
     # 构建表示节点
     def build_tree(self, parent, node, index='end'):

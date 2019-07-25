@@ -35,6 +35,8 @@ class DiagramWnd(Tk):
         # 构建菜单栏
         self.make_toolbar()
         self.create_view()
+        self.grid_rowconfigure(2, weight=1)
+        self.grid_columnconfigure(0, weight=1)
         # 构建新逻辑
         self.new(False)
 

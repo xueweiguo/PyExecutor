@@ -73,7 +73,7 @@ class CalculateEngine:
 		#基本语法定义
 		patterns.extend(self.patterns)
 		# 对表达式进行分析，返回语法树
-		return TokenAnalyzer().analyzeToken(strQuestion, patterns)
+		return TokenAnalyzer().analyze_token(strQuestion, patterns)
 
 	def isFunction(self, name):
 		return (self.functionManager.getFunction(name) != None)

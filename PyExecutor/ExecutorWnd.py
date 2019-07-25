@@ -22,11 +22,14 @@ class ExecutorWnd(DiagramWnd):
 
     # 构建Tree View和编辑区
     def create_view(self):
+        paned_window = PanedWindow(self, sashpad=0, sashrelief=RAISED)
         # 构建TreeView,并准备接收通知
-        self.tree = TreeView(self, DiagramTreeAccessor(self.mediator), LEFT)
+        self.tree = TreeView(paned_window, DiagramTreeAccessor(self.mediator), LEFT)
+        paned_window.add(self.tree)
         # 构建编辑区,并准备接收通知
         self.view = ExecutorView(self, self.mediator)
-
+        paned_window.add(self.view)
+        paned_window.grid(row=2, column=0, sticky=W+N+E+S)
     # 构建菜单
     def make_menu(self):
         self.top_menu = Menu(self)
@@ -42,9 +45,9 @@ class ExecutorWnd(DiagramWnd):
 
     def make_toolbar(self):
         self.edit_bar = Frame(self, relief=SUNKEN, bd=2)
-        self.edit_bar.pack(side=TOP, fill=X)
+        self.edit_bar.grid(row=0, column=0, sticky=W)
         self.toolbar = Frame(self, relief=SUNKEN, bd=2)
-        self.toolbar.pack(side=TOP, fill=X)
+        self.toolbar.grid(row=1, column=0, sticky=W)
 
     def info(self):
         self.view.show_info()

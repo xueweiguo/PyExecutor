@@ -3,8 +3,8 @@ from FunctionBlock.FbdComponentFactory import *
 from FunctionBlock.FbdBuilderFactory import *
 
 
-FactoryManager().register('fbd', 'element', FbdComponentFactory())
-FactoryManager().register('fbd', 'builder', FbdBuilderFactory())
+FactoryManager().register('Function Block Diagram', 'element', FbdComponentFactory())
+FactoryManager().register('Function Block Diagram', 'builder', FbdBuilderFactory())
 JsonAdapter().register_serializable(FbdStrategy)
 JsonAdapter().register_serializable(Generator)
 JsonAdapter().register_serializable(Filter)

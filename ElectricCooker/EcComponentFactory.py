@@ -13,9 +13,9 @@ class EcComponentFactory(ComponentFactory):
     def __init__(self):
         ComponentFactory.__init__(self)
 
-    # 添加链接线
-    def make_connector(self, parent):
-        return EcConnector(parent.dict).construct(parent)
+    # 添加连接线
+    def make_connector(self, cd):
+        return EcConnector(cd).construct(None)
 
     def element_types(self):
         types = ['OpPanel', 'TempIn', 'Contr', 'Disp', 'Heater']

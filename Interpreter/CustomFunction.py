@@ -22,7 +22,7 @@ class CustomFunction (CalculateFunction):
 			return False
 
 		engine = context.getCalculateEngine()
-		tokenList = engine.analyzeToken(functionString)
+		tokenList = engine.analyze_token(functionString)
 		unknownToken = ''
 		for token in tokenList:
 			if(token.getType() == TokenType.NoType):

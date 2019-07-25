@@ -14,7 +14,7 @@ from ElectricCooker.Factories import *
 from ExecutorWnd import *
 
 if __name__ == '__main__':
-    FactoryManager().mode = 'fbd'
+    FactoryManager().mode = 'Function Block Diagram'
     dialog = TopWnd(SelectDiagramType())
     dialog.mainloop()
     main_wnd = ExecutorWnd('PyExecutor V0.1')

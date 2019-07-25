@@ -2,6 +2,7 @@ from Interpreter.NonterminalExpr import *
 from Interpreter.AdditiveExpr import *
 from Interpreter.Complex import *
 
+
 class FunctionExpr(NonterminalExpr):
 	def __init__(self,  name):
 		NonterminalExpr.__init__(self)
@@ -9,7 +10,6 @@ class FunctionExpr(NonterminalExpr):
 
 	@staticmethod
 	def buildExpr(context):
-		functionName = ''
 		token = context.tokenList[0]
 		if token.getType() != TokenType.FunctionName:
 			context.errorMessage = "Invalid function name:" + token.getContent()

@@ -30,6 +30,9 @@ class FactoryManager(object):
     # name:工厂名称
     # 模式有使用者指定
     def factory(self, name):
+        print(self.mode, name)
+        if self.mode == 'fbd':
+            self.mode = 'Function Block Diagram'
         return self.__factory_dict.get(self.__key(self.mode, name))
 
     # 取得已经登录过的所有模式

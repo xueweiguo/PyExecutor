@@ -1,20 +1,12 @@
 from Interpreter.NonterminalExpr import *
 from Interpreter.ValueOperator import *
-from Interpreter.RadiusAngleExpr import *
+from Interpreter.UnaryExpr import *
+
 
 class MultiplicativeExpr(NonterminalExpr):
     @staticmethod
-    #def buildExpr(cls):
     def buildExpr(context):
-        class MyProxy(ChildExprBuildProxy):
-            def buildExpr(self,context):
-                return RadiusAngleExpr.buildExpr(context)
-
-        class MyCreater(ParentCreater):
-            def newInstance(self):
-                return MultiplicativeExpr()
-
-        return NonterminalExpr.buildExpr4(MyProxy(), MyCreater(), context,"[*/]")
+        return NonterminalExpr.buildExpr4(context, MultiplicativeExpr, UnaryExpr, "[*/]")
 
     def getValueOperator(self, operatorContent):
         class MyOperator(ValueOperator):

@@ -8,7 +8,7 @@ class SelectDiagramType:
 
     def construct(self, master):
         self.master = master
-        Label(master, text='Select the type of the  diagram.').pack()
+        Label(master, text='Please select the type of diagram：         ').pack()
         modes = FactoryManager().modes()
         for m in modes:
             b = Button(master, text=m, command=(lambda arg=m: self.on_button(arg)))

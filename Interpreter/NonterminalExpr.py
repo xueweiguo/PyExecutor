@@ -3,13 +3,6 @@ from Interpreter.Complex import *
 from Interpreter.Expr import *
 from Interpreter.Token import *
 
-class ChildExprBuildProxy:
-    def buildExpr(self):
-        return None
-
-class ParentCreater:
-    def newInstance(self):
-        return None
 
 class NonterminalExpr(Expr):
     def __init__(self):
@@ -23,23 +16,17 @@ class NonterminalExpr(Expr):
         self.operatorList.append(token)
 
     def evaluate(self, context):
-        if (len(self.exprList) - len(self.operatorList) != 1):
+        if len(self.exprList) - len(self.operatorList) != 1:
             context.clearResult()
             context.setErrorMessage('Operator count and Expr count is not match.')
             return False
 
-        #ListIterator < Expr > expr_it = exprList.listIterator()
         ex_index = 0
-
         context.pushResult(Complex())
-
         if not self.exprList[ex_index].evaluate(context):
             return False
 
         ex_index = ex_index + 1
-        #ex_index = 0
-
-        #ListIterator < Token > operator_it = operatorList.listIterator()
         op_index = 0
         while ex_index < len(self.exprList):
             expr = self.exprList[ex_index]
@@ -65,17 +52,14 @@ class NonterminalExpr(Expr):
         context.setCurrentResult(context.popResult())
         return True
 
-    def getValueOperator(self, operatorContent):
-        return None
-
     @staticmethod
-    #def buildExpr4(proxy, creator, operatorRegex):
-    def buildExpr4(proxy, creator, context, operatorRegex):
-        firstExpr = proxy.buildExpr(context)
-        if firstExpr == None:
+    def buildExpr4(context, ParentExpr, ChildExpr, operators):
+        # 构建第一个下级表达式
+        first_expr = ChildExpr.buildExpr(context)
+        if first_expr == None:
             return None
         if not len(context.tokenList):
-            return firstExpr
+            return first_expr
         token = context.tokenList[0]
         if ((token.getType() != TokenType.Operator)
             and (token.getType() != TokenType.Parenthese)
@@ -83,40 +67,51 @@ class NonterminalExpr(Expr):
             context.errorMessage = 'Invalid token'
             return None
 
+        # 下一个Token不是期待的操作符，则退出当前表达式的解析
         content = token.getContent()
-        m = re.match(operatorRegex, content)
+        m = re.match(operators, content)
         if not m:
-            return firstExpr
+            return first_expr
 
-        parentExpr = creator.newInstance()
-        parentExpr.appendExpr(firstExpr)
+        # 构建父表达式
+        parentExpr = ParentExpr()
+        # 添加第一个子表达式
+        parentExpr.appendExpr(first_expr)
+        # 添加操作符
         parentExpr.appendOperator(token)
         context.tokenList.pop(0)
         while True:
-            expr = proxy.buildExpr(context)
+            # 构建想下一个子表达式
+            expr = ChildExpr.buildExpr(context)
             if not expr:
                 break
+            # 添加子表达式
             parentExpr.appendExpr(expr)
 
-            if (len(context.tokenList) == 0): return parentExpr
+            if (len(context.tokenList) == 0):
+                return parentExpr
+
             token = context.tokenList[0]
             if ((token.getType() != TokenType.Operator)
                 and (token.getType() != TokenType.Parenthese)):
                 return parentExpr
 
+            # 取得下一个操作符
             content = token.getContent()
-            m = re.match(operatorRegex, content)
+            m = re.match(operators, content)
             if not m: return parentExpr
 
+            #添加操作符
             parentExpr.appendOperator(token)
             context.tokenList.pop(0)
 
+            # 异常退出
             if len(context.tokenList) == 0:
                 context.errorMessage = "Expression is't complete!"
                 break
         return None
 
-
-
+    def getValueOperator(self, operatorContent):
+        return None
 
 
