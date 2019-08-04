@@ -5,7 +5,7 @@ from FunctionBlock.CommFunTab import *
 
 class CommOutputFun(FbdBlock):
     def __init__(self, cd=None):
-        FbdBlock.__init__(self, cd, 'ComOutput', '计算结果输出')
+        FbdBlock.__init__(self, cd, 'CommOutput', '计算结果输出')
 
     #构建数据通道
     def construct_io(self, parent):
