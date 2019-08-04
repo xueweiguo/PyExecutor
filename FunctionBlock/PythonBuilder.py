@@ -43,7 +43,7 @@ class PythonBuilder:
         self.current = self.current + 'Config("' + str(n) + '", "' + str(contents) + '")'
 
     def end_fun(self):
-        self.current = self.current + ')'
+        self.current = self.current + '))'
         self.funs.append(self.current)
         self.current = None
 
@@ -51,7 +51,7 @@ class PythonBuilder:
         if self.current:
             self.end_fun()
 
-        print('# Python source code created by PyExecutor.')
+        print('# 代码由PyExecutor生成.')
         self.output_classes()
 
         print('# 数据存储配置')
@@ -80,7 +80,7 @@ class PythonBuilder:
             return t
 
     def output_classes(self):
-        print(r'# Import necessary libraries.')
+        print(r'# 可以根据需要导入其他功能库.')
         print(r'from ExecuteEnging import *')
         print(r'from DataStorage import *')
         print(r'from DataManager import *')
