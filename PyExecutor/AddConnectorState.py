@@ -16,7 +16,10 @@ class AddConnectorState(State):
         if type_str == 'MouseMove':
             self.context.connector.drag_last(event.x, event.y)
         elif type_str == "LButtonDown":
-            self.context.connector.append_last()
+            # 修改连线失败问题
+            hit = self.context.diagram.find_in_port(event.x, event.y)
+            if not hit:
+                self.context.connector.append_last()
         elif type_str == "RButtonDown":
             self.context.connector.remove_last()
             if not self.context.connector.coords:
@@ -24,7 +27,8 @@ class AddConnectorState(State):
                 self.context.connector.add_cancel()
                 self.context.connector = None
         elif type_str == 'LButtonDoubleClick':
-            hit = self.context.find_overlapping(event.x, event.y)
+            # 修改连线失败问题
+            hit = self.context.diagram.find_in_port(event.x, event.y)
             if hit and isinstance(hit, InputPort):
                 self.context.connector.attach_input(hit)
                 self.context.connector.add_end()

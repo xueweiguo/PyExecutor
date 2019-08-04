@@ -14,8 +14,8 @@ class EcComponentFactory(ComponentFactory):
         ComponentFactory.__init__(self)
 
     # 添加连接线
-    def make_connector(self, cd):
-        return EcConnector(cd).construct(None)
+    def make_connector(self, cd, parent):
+        return EcConnector(cd).construct(parent)
 
     def element_types(self):
         types = ['OpPanel', 'TempIn', 'Contr', 'Disp', 'Heater']
@@ -24,13 +24,13 @@ class EcComponentFactory(ComponentFactory):
             types.append(t)
         return types
 
-    def make_element(self, cd, type):
+    def make_element(self, cd, parent, type):
         if type=='OpPanel':
-            return OpPanel(cd, 'OpPanel').construct(None)
+            return OpPanel(cd, 'OpPanel').construct(parent)
         elif type=='TempIn':
-            return TempSensor(cd, 'TempSensor').construct(None)
+            return TempSensor(cd, 'TempSensor').construct(parent)
         elif type=='Contr':
-            return HeatingController(cd, 'Controller').construct(None)
+            return HeatingController(cd, 'Controller').construct(parent)
         elif type=='Disp':
             return Display(cd, 'Display').construct(None)
         elif type == 'Heater':

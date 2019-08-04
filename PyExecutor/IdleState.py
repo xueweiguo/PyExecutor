@@ -40,6 +40,7 @@ class IdleState(State):
         elif event_type == 'LButtonDoubleClick':
             if self.context.element_type:
                 element = self.factory.make_element(self.context.dict,
+                                                    self.context.diagram,
                                                     self.context.element_type)
                 element.set_position(event.x, event.y)
                 self.context.append_element(element)
@@ -48,7 +49,7 @@ class IdleState(State):
                 hit = self.context.find_overlapping(event.x, event.y)
                 if hit:
                     if isinstance(hit, OutputPort):
-                        connector = self.factory.make_connector(self.context.dict)
+                        connector = self.factory.make_connector(self.context.dict, self.context.diagram)
                         connector.add_begin()
                         self.context.append_element(connector)
                         connector.attach_output(hit)
