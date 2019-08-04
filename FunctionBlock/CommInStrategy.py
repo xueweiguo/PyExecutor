@@ -9,7 +9,6 @@ class CommInStrategy(CommStrategy):
         return 'get_data'
 
     def handle_response(self, context, response):
-        # print(response)
         response = json.loads(response)
         box = context.get_box(self.key)
         value_index = 0
