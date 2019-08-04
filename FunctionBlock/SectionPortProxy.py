@@ -26,14 +26,14 @@ class SectionPortProxy(CommPort):
             logout_str = "logout, user={}".format(self.usr, self.pwd)
             self.port.send_data(logout_str)
             if self.port.recv_data() == 'logout OK!':
-                # 取消成功是，关闭端口
+                # 取消成功时，关闭端口
                 self.port.close()
                 self.section = None
 
     # 发送数据
     def send_data(self, data):
         if self.section:
-            # 发送数据是增加section信息作为前缀
+            # 发送数据时增加section信息作为前缀
             return self.port.send_data(self.section + ',' + data)
 
     # 接收数据
