@@ -16,31 +16,31 @@ class FbdComponentFactory(ComponentFactory):
         # FactoryManager().register('fbd', 'element', self)
         ComponentFactory.__init__(self)
 
-    def make_connector(self, cd):
-        return FbdConnector(cd).construct(None)
+    def make_connector(self, cd, parent):
+        return FbdConnector(cd).construct(parent)
 
     def element_types(self):
         types = ['Gentor', 'Filter', 'Math', 'ComIn', 'ComOut', 'ValPanel', 'Graph']
         types.extend(ComponentFactory.element_types(self))
         return types
 
-    def make_element(self, cd, type):
+    def make_element(self, cd, parent, type):
         element = None
 
         if type == 'Gentor':
-            return GeneratorFun(cd, 'Generator').construct(None)
+            return GeneratorFun(cd, 'Generator').construct(parent)
         elif type == 'Filter':
-            return FilterFun(cd, 'Filter').construct(None)
+            return FilterFun(cd, 'Filter').construct(parent)
         elif type == 'Math':
-            return MathFun(cd, 'Math').construct(None)
+            return MathFun(cd, 'Math').construct(parent)
         elif type == 'ComIn':
-            return CommInputFun(cd).construct(None)
+            return CommInputFun(cd).construct(parent)
         elif type == 'ComOut':
-            return CommOutputFun(cd).construct(None)
+            return CommOutputFun(cd).construct(parent)
         elif type == 'ValPanel':
-            return ValPanelFun(cd, 'ValPanel').construct(None)
+            return ValPanelFun(cd, 'ValPanel').construct(parent)
         elif type == 'Graph':
-            return GraphFun(cd, 'Graph').construct(None)
+            return GraphFun(cd, 'Graph').construct(parent)
         return ComponentFactory.make_element(self, cd, type)
 
     def make_context(self):
