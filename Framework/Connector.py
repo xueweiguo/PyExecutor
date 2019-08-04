@@ -62,8 +62,7 @@ class Connector(Component):
 
     def attach_output(self, port):
         if isinstance(port, OutputPort):
-            self.coords = port.point()
-            self.startLine(self.coords[0] , self.coords[1])
+            self.__start(port.point()[0], port.point()[1])
             self.set_output(port)
             return True
         else:
@@ -80,10 +79,17 @@ class Connector(Component):
     def attach_input(self, port):
         if not isinstance(port, InputPort):
             return False
+        # (self)
         pt = port.point()
+        coords = self.canvas.coords(self.tag)
+        pt_count = (int)(len(coords) / 2)
+        # print('pt_count:', pt_count)
+        if pt_count % 2 != 0:
+            self.append_last()
         self.move_last(pt[0], pt[1])
-        self.__arrange_line()
+        # self.__arrange_line()
         self.set_input(port)
+        # print(self)
 
     def set_input(self, port):
         if port:
@@ -104,10 +110,7 @@ class Connector(Component):
                                 {'setter': Connector.set_input, 'getter': Connector.input})
             self.set_input(None)
 
-    def startLine(self, x, y):
-        self.canvas.create_line(x, y, x, y, tag=self.tag, arrow=LAST)
-
-    def move_first(self, x, y):
+    def move_first(self, pt_x, pt_y):
         try:
             coords = self.canvas.coords(self.tag)
         except:
@@ -120,9 +123,9 @@ class Connector(Component):
                 coords.insert(2, x)
                 coords.insert(2, y)
                 coords.insert(2, x)
-            coords[0] = x
-            coords[1] = y
-            coords[3] = y
+            coords[0] = pt_x
+            coords[1] = pt_y
+            coords[3] = pt_y
             self.__set_coords(coords)
 
     def drag_last(self, x, y):
@@ -131,12 +134,15 @@ class Connector(Component):
         except:
             pass
         else:
-            last_index = int(len(coords) / 2) - 1
-            if last_index % 2 != 0:
-                coords[last_index * 2] = x
+            pt_count = (int)(len(coords) / 2)
+            index = pt_count - 1
+            if  index % 2 != 0:
+                coords[index * 2] = x
             else:
-                coords[last_index * 2 + 1] = y
+                coords[index * 2 + 1] = y
             self.__set_coords(coords)
+            # print('drag_last')
+            # print(self)
 
     def remove_last(self):
         try:
@@ -144,16 +150,16 @@ class Connector(Component):
         except:
             pass
         else:
-            length = len(coords)
-            if length > 2:
+            pt_count = (int)(len(coords) / 2)
+            if pt_count > 2:
                 coords.pop()
                 coords.pop()
-                if len(coords) >= 4:
-                    self.__set_coords(coords)
-                else:
-                    self.__set_coords(None)
+                self.__set_coords(coords)
+            else:
+                self.__set_coords(None)
 
     def append_last(self):
+        # print('append_last')
         try:
             coords = self.canvas.coords(self.tag)
         except:
@@ -249,7 +255,7 @@ class Connector(Component):
         self.coords = coords
         self.handle_request(self, 'connector_coords_changed')
 
-    def move_last(self, x, y):
+    def move_last(self, port_x, port_y):
         try:
             coords = self.canvas.coords(self.tag)
         except:
@@ -264,12 +270,25 @@ class Connector(Component):
                 coords.insert(2, x)
 
             last_index = len(coords) - 1
-            coords[last_index - 1] = x
-            coords[last_index] =  y
-            coords[last_index - 2] = y
+            coords[last_index - 1] = port_x
+            coords[last_index] =  port_y
+            coords[last_index - 2] = port_y
             self.__set_coords(coords)
-            #print('move_last:', coords)
 
     @property
     def x(self):
         return self.coords[0]
+
+    def __start(self, x, y):
+        self.canvas.create_line(x, y, x, y, tag=self.tag, arrow=LAST)
+        self.coords = self.canvas.coords(self.tag)
+
+    def __str__(self):
+        coords = self.canvas.coords(self.tag)
+        pt_count = (int)(len(coords)/2)
+        ret = 'Tag:{},Pts:{},'.format(self.tag, pt_count)
+        for pi in range(0, pt_count):
+            ret += '({},{}),'.format(coords[pi * 2], coords[pi * 2 + 1])
+        return ret
+
+

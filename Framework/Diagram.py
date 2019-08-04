@@ -4,6 +4,7 @@ from Framework.TagFactory import *
 from Framework.InputBlock import *
 from Framework.OutputBlock import *
 from Framework.Connector import *
+from Framework.InputPortFinder import *
 
 
 class Diagram(Composite):
@@ -67,6 +68,21 @@ class Diagram(Composite):
         if mode=='LRD':
             Component.accept(self, visitor)
             visitor.visit_diagram(self)
+
+    def find_in_port(self, x, y):
+        #for block in reversed(type_filter(self.iter(), Block)):
+        try:
+            blocks = list(type_filter(self.iter(), Block))
+            for block in reversed(blocks):
+                finder = InputPortFinder(x, y)
+                block.accept(finder)
+                if finder.in_port:
+                    return finder.in_port
+            return None
+        except Exception as e:
+            print('Error:', e, '.')
+            return None
+
 
     @property
     def uc(self):
