@@ -22,6 +22,7 @@ class Diagram(Composite):
         Composite.append(self, child)
         if self.canvas:
             child.attach_view(self.view)
+        # print(self)
 
     def remove(self, child):
         # 如果删除对象是Block
@@ -48,6 +49,7 @@ class Diagram(Composite):
             self.handle_request(child, 'end_macro')
         else:
             Composite.remove(self, child)
+        # print(self)
 
     def iter(self, mode=''):
         if mode == 'tree_node':
@@ -93,12 +95,14 @@ class Diagram(Composite):
 
     def redo(self):
         self.uc.redo()
+        # print(self)
 
     def redone(self):
          return self.uc.redone()
 
     def undo(self):
         self.uc.undo()
+        # print(self)
 
     def undone(self):
         return self.uc.undone()
@@ -114,4 +118,10 @@ class Diagram(Composite):
         if self.view:
             self.view.notify(component, req, params)
         return ret
+
+    def __str__(self):
+        str = '<Diagram>\n'
+        for c in self.iter(self):
+            str += c.__str__() + '\n'
+        return str
 
