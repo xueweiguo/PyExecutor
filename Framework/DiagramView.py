@@ -167,6 +167,7 @@ class DiagramView(CanvasView, Observable):
             if act:
                 act.set_color('red')
                 self.__selected = act
+                # print(act)
 
     def selected(self):
         return self.__selected
