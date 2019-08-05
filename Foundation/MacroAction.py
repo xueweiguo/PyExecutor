@@ -7,6 +7,7 @@ class MacroAction(EditAction):
         self.actions = []
 
     def add_action(self, action):
+        action.set_level(self.level + 1)
         self.actions.append(action)
 
     def do(self):
@@ -16,3 +17,14 @@ class MacroAction(EditAction):
     def undo(self):
         for c in reversed(self.actions):
             c.undo()
+
+    def __str__(self):
+        str = "<MacroAction Begin>\n"
+        prefix = ''
+        for l in range(0, self.level + 1):
+            prefix += '\t'
+        for c in self.actions:
+            str += prefix +c.__str__() + '\n'
+        str += "<MacroAction End>"
+        return str
+
