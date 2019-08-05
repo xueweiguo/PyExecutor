@@ -16,6 +16,7 @@ class IdleState(State):
         self.context.drawn = None
         self.context.new_connector = None
         State.entry(self)
+        # print(self.context.diagram)
 
     def event_handling(self, event_type, event):
         if event_type == 'LButtonDown':
