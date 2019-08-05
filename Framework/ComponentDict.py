@@ -10,11 +10,11 @@ class ComponentDict(object):
         self.register(factory)
 
     def register(self, component):
-        #print('register,', component, component.tag)
+        # print('register,', component, component.tag)
         self.__dict[component.tag] = component
 
     def unregister(self, component):
-        #print('unregister,', component, component.tag)
+        # print('unregister,', component, component.tag)
         if self[component.tag] == component:
             self.__dict.pop(component.tag)
         else:
