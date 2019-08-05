@@ -112,3 +112,9 @@ class OutputPort(DataPort):
 
     def connected(self):
         return len(self.__c_tags) > 0
+
+    def __str__(self):
+        str = '<OutputPort>'
+        for c in self.connector_iter():
+            str += c.tag + ','
+        return str

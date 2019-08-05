@@ -78,3 +78,11 @@ class InputPort(DataPort):
 
     def connected(self):
         return self.connector is not None
+
+    def __str__(self):
+        str = '<InputPort>'
+        str += self.name + ','
+        if self.__connector:
+            str += self.__connector
+        str += ','
+        return str
