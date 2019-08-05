@@ -64,6 +64,7 @@ class Connector(Component):
         if isinstance(port, OutputPort):
             self.__start(port.point()[0], port.point()[1])
             self.set_output(port)
+            port.attach_connector(self)
             return True
         else:
             return False
@@ -71,9 +72,7 @@ class Connector(Component):
     def set_output(self, port):
         if port:
             self.__out_tag = port.tag
-            port.attach_connector(self)
         else:
-            self.output().detach_connector(self)
             self.__out_tag = None
 
     def attach_input(self, port):
@@ -103,6 +102,7 @@ class Connector(Component):
         if self.output():
             self.handle_request(self, 'change_member',
                                 {'setter': Connector.set_output, 'getter': Connector.output})
+            self.output().detach_connector(self)
             self.set_output(None)
 
         if self.input():
@@ -284,11 +284,15 @@ class Connector(Component):
         self.coords = self.canvas.coords(self.tag)
 
     def __str__(self):
-        coords = self.canvas.coords(self.tag)
-        pt_count = (int)(len(coords)/2)
-        ret = 'Tag:{},Pts:{},'.format(self.tag, pt_count)
-        for pi in range(0, pt_count):
-            ret += '({},{}),'.format(coords[pi * 2], coords[pi * 2 + 1])
-        return ret
+        if self.canvas:
+            coords = self.canvas.coords(self.tag)
+            pt_count = (int)(len(coords)/2)
+            ret = 'Connector,Tag:{},Pts:{},'.format(self.tag, pt_count)
+            for pi in range(0, pt_count):
+                ret += '({},{}),'.format(coords[pi * 2], coords[pi * 2 + 1])
+            return ret
+        else:
+            ret = 'Connector,Tag:{}'.format(self.tag)
+            return ret
 
 
