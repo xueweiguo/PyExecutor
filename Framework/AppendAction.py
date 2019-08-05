@@ -11,3 +11,8 @@ class AppendAction(EditAction):
 
     def undo(self):
         self.parent.remove(self.component)
+
+    def __str__(self):
+        return '<AppendAction>:Component:{}'.format(self.component.tag)
+
+
