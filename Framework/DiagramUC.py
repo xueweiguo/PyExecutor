@@ -23,7 +23,7 @@ class DiagramUC(UndoController):
             return
 
         if not self.in_action:
-            #print(component, req, 'params:', params)
+            # print(component, req, 'params:', params)
             new_action = None
             if req == 'begin_macro':
                 self.macro_action = MacroAction()
