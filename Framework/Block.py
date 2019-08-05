@@ -194,7 +194,18 @@ class Block(Composite):
     def execute(self, context):
         pass
 
-
+    def __str__(self):
+        str = Composite.__str__(self)
+        str += '\n'
+        str += '\t'
+        for in_port in self.iter('input_port'):
+             str+= in_port.__str__() + ','
+        str += '\n'
+        str += '\t'
+        for out_port in self.iter('output_port'):
+            str += out_port.__str__() + ','
+        str += '\n'
+        return str
 
 
 
