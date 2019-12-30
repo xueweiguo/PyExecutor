@@ -1,5 +1,4 @@
 from Framework.DiagramVisitor import *
-from Framework.CustomBlock import *
 
 
 class ExecuteStopper(DiagramVisitor):
@@ -7,6 +6,7 @@ class ExecuteStopper(DiagramVisitor):
         self.context = context
 
     def visit_block(self, block):
+        from Framework.CustomBlock import CustomBlock
         if isinstance(block, CustomBlock):
             return True
         else:
