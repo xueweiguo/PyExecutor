@@ -26,7 +26,7 @@ class ExecutorView(DiagramView):
     def make_editbar(self, toolbar):
         self.copy_btn = Button(toolbar, text='Copy', command=self.copy)
         self.copy_btn.pack(side=LEFT)
-        self.paste_btn = Button(toolbar, text='Paste', command=self.copy)
+        self.paste_btn = Button(toolbar, text='Paste', command=self.paste)
         self.paste_btn.pack(side=LEFT)
         self.del_btn = Button(toolbar, text='Delete', command=self.delete)
         self.del_btn.pack(side=LEFT)
