@@ -8,7 +8,6 @@ from Framework.AttachConnectorAction import *
 from Framework.DetachConnectorAction import *
 from Framework.SetConnectorAction import *
 from Foundation.MacroAction import *
-
 from Framework.CustomBlock import *
 
 
@@ -19,6 +18,7 @@ class DiagramUC(UndoController):
 
     # 处理Action生成请求
     def handle_request(self, component, req, params):
+        from Framework.Diagram import Diagram
         if component.get_ancestor(Diagram).tag != self.diagram:
             return
 

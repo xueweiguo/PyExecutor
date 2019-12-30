@@ -1,6 +1,5 @@
-from Framework.Block import *
-from Framework.CustomBlockTab import *
-from Framework.Diagram import *
+from Framework.Block import Block
+from Framework.Diagram import Diagram
 
 
 class CustomBlock(Block):
@@ -63,6 +62,7 @@ class CustomBlock(Block):
 
     # 生成属性对话框
     def create_property_dlg(self):
+        from Framework.CustomBlockTab import CustomBlockTab
         dlg = PropertyDlg(self)
         dlg.add_tab(CommonTab(dlg.notebook(), '共通', self))
         dlg.add_tab(CustomBlockTab(dlg.notebook(), '参数', self))

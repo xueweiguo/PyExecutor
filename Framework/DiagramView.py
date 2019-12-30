@@ -5,6 +5,8 @@ from Framework.BuilderDirector import *
 from Framework.ExecuteStarter import *
 from Framework.ExecuteStopper import *
 from Framework.ExecuteDriver import *
+from Framework.ComponentDict import ComponentDict
+from Framework.FactoryManager import FactoryManager
 
 
 class DiagramView(CanvasView, Observable):

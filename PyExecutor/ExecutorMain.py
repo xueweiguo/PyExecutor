@@ -11,7 +11,9 @@ from FunctionBlock.Factories import *
 # 导入小家电控制功能
 from ElectricCooker.Factories import *
 
-from ExecutorWnd import *
+from Foundation.Dialog import TopWnd
+from PyExecutor.ExecutorWnd import *
+
 
 if __name__ == '__main__':
     FactoryManager().mode = 'Function Block Diagram'

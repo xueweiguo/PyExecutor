@@ -1,9 +1,9 @@
 import sys
 import os
 
-import tkinter
-from Foundation.TreeAccessor import *
-from Framework.CustomBlock import *
+from tkinter import PhotoImage
+from Foundation.TreeAccessor import TreeAccessor
+# from Framework.CustomBlock import CustomBlock
 
 
 class DiagramTreeAccessor(TreeAccessor):
@@ -23,6 +23,7 @@ class DiagramTreeAccessor(TreeAccessor):
 
     # 取得节点图标
     def get_image(self, node):
+        from Framework.Diagram import Diagram
         # 根据节点类型返回图标
         if isinstance(node, Diagram):
             return self.__diagram_image

@@ -1,7 +1,5 @@
 from Framework.DiagramVisitor import *
-from Framework.CustomBlock import *
-from Framework.InputPort import *
-from Framework.SourceBuilder import *
+# from Framework.SourceBuilder import *
 
 
 class BuilderDirector(DiagramVisitor):
@@ -12,6 +10,9 @@ class BuilderDirector(DiagramVisitor):
         return True
 
     def visit_block(self, block):
+        from Framework.CustomBlock import CustomBlock
+        from Framework.InputBlock import InputBlock
+        from Framework.OutputBlock import OutputBlock
         if isinstance(block, CustomBlock):
             return False
         if isinstance(block, InputBlock):
@@ -29,6 +30,7 @@ class BuilderDirector(DiagramVisitor):
                     self.builder.build_config(port.name, block.strategy.exprs[port.name])
 
     def visit_input(self, in_port):
+        from Framework.InputPort import InputPort
         data_source = in_port.data_source()
         if data_source:
             if isinstance(data_source, InputPort):
