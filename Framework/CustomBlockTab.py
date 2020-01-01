@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter.ttk import *
 from Foundation.ListView import *
+from Framework.PropertyTab import PropertyTab
 from Framework.CustomBlock import *
 
 
