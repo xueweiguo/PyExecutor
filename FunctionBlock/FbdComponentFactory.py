@@ -40,7 +40,7 @@ class FbdComponentFactory(ComponentFactory):
             return ValPanelFun(cd, 'ValPanel').construct(parent)
         elif type == 'Graph':
             return GraphFun(cd, 'Graph').construct(parent)
-        return ComponentFactory.make_element(self, cd, type)
+        return ComponentFactory.make_element(self, cd, parent, type)
 
     def make_context(self):
         return FbdContext()
