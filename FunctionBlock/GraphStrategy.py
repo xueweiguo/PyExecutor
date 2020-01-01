@@ -9,6 +9,14 @@ class GraphStrategy(FbdStrategy):
         self.type = 'line'
         self.data = {}
 
+    def __copy__(self):
+        strategy = FbdStrategy.__copy__(self)
+        strategy.display_names = copy.deepcopy(self.display_names)
+        strategy.colors = copy.deepcopy(self.colors)
+        strategy.type = copy.deepcopy(self.type)
+        self.data = {}
+        return strategy
+
     @staticmethod
     def graph_id(block, index):
         return block.tag + '.graph_' + str(index)
