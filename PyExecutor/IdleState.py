@@ -8,7 +8,6 @@ from Framework.FactoryManager import *
 class IdleState(State):
     def __init__(self, owner, context):
         State.__init__(self, owner, context)
-        self.factory = FactoryManager().factory('element')
         self.event = None
 
     def entry(self):
@@ -16,7 +15,6 @@ class IdleState(State):
         self.context.drawn = None
         self.context.new_connector = None
         State.entry(self)
-        # print(self.context.diagram)
 
     def event_handling(self, event_type, event):
         if event_type == 'LButtonDown':
@@ -40,9 +38,10 @@ class IdleState(State):
             self.reset_element_type()
         elif event_type == 'LButtonDoubleClick':
             if self.context.element_type:
-                element = self.factory.make_element(self.context.dict,
-                                                    self.context.diagram,
-                                                    self.context.element_type)
+                factory = FactoryManager().factory('element')
+                element = factory.make_element(self.context.dict,
+                                               self.context.diagram,
+                                               self.context.element_type)
                 element.set_position(event.x, event.y)
                 self.context.append_element(element)
                 self.context.element_type = None
@@ -50,7 +49,8 @@ class IdleState(State):
                 hit = self.context.find_overlapping(event.x, event.y)
                 if hit:
                     if isinstance(hit, OutputPort):
-                        connector = self.factory.make_connector(self.context.dict, self.context.diagram)
+                        factory = FactoryManager().factory('element')
+                        connector = factory.make_connector(self.context.dict, self.context.diagram)
                         connector.add_begin()
                         self.context.append_element(connector)
                         connector.attach_output(hit)
