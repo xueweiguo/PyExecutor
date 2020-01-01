@@ -25,6 +25,8 @@ class FactoryManager(object):
     def register(self, mode, name, factory):
         self.__factory_dict[self.__key(mode, name)] = factory
         self.__mode_set.add(mode)
+        if not self.mode:
+            self.mode = mode
 
     # 取得工厂
     # name:工厂名称
