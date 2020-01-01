@@ -6,17 +6,18 @@ cur_path = os.path.abspath(os.path.dirname(__file__))
 root_path = os.path.split(cur_path)[0]
 sys.path.append(root_path)
 
-# 导入Fbd功能
-from FunctionBlock.Factories import *
-# 导入小家电控制功能
-from ElectricCooker.Factories import *
-
 from Foundation.Dialog import TopWnd
-from PyExecutor.ExecutorWnd import *
+from Framework.SelectDiagramType import SelectDiagramType
+from PyExecutor.ExecutorWnd import ExecutorWnd
 
+# 导入Fbd功能
+from FunctionBlock.Factories import fbd_register
+# 导入小家电控制功能
+from ElectricCooker.Factories import ecd_register
 
 if __name__ == '__main__':
-    FactoryManager().mode = 'Function Block Diagram'
+    fbd_register()
+    ecd_register()
     dialog = TopWnd(SelectDiagramType())
     dialog.mainloop()
     main_wnd = ExecutorWnd('PyExecutor V0.1')

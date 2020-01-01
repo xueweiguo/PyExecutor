@@ -1,3 +1,6 @@
-from ElectricCooker.EcComponentFactory import *
+from Framework.FactoryManager import FactoryManager
+from ElectricCooker.EcComponentFactory import EcComponentFactory
 
-FactoryManager().register('Electric Appliance Control', 'element', EcComponentFactory())
+
+def ecd_register():
+    FactoryManager().register('Electric Appliance Control', 'element', EcComponentFactory())
