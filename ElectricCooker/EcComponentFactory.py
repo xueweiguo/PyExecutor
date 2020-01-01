@@ -32,15 +32,11 @@ class EcComponentFactory(ComponentFactory):
         elif type=='Contr':
             return HeatingController(cd, 'Controller').construct(parent)
         elif type=='Disp':
-            return Display(cd, 'Display').construct(None)
+            return Display(cd, 'Display').construct(parent)
         elif type == 'Heater':
-            return Heater(cd, 'Heater').construct(None)
-        return ComponentFactory.make_element(self, cd, type)
-
-    def source_types(self):
-        return None
+            return Heater(cd, 'Heater').construct(parent)
+        return ComponentFactory.make_element(self, cd, parent, type)
 
     def make_context(self):
         return EcContext()
 
-EcComponentFactory()
