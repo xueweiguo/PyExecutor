@@ -1,4 +1,6 @@
+from Framework.ExecContext import ExecContext
 
-class EcContext:
+
+class EcContext(ExecContext):
     pass
 
