@@ -26,7 +26,6 @@ class FbdComponentFactory(ComponentFactory):
 
     def make_element(self, cd, parent, type):
         element = None
-
         if type == 'Gentor':
             return GeneratorFun(cd, 'Generator').construct(parent)
         elif type == 'Filter':
