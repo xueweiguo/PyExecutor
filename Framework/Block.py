@@ -64,7 +64,7 @@ class Block(Composite):
     def set_color(self, color):
         self.canvas.itemconfigure(self.__frame, outline=color)
 
-    # 挂接Canvas
+    # 挂接View
     def attach_view(self, view):
         view.canvas.create_rectangle(self.left, self.top, self.right, self.bottom,
                                      tags=[self.tag, self.__frame], fill='white', outline='black')
@@ -72,7 +72,7 @@ class Block(Composite):
         # 调用父类功能
         Composite.attach_view(self, view)
 
-    # 脱离Canvas
+    # 脱离View
     def detach_view(self):
         self.canvas.delete(self.__frame)
         self.canvas.delete(self.__caption)
