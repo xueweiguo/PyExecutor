@@ -2,7 +2,7 @@ from Framework.ExecContext import *
 from FunctionBlock.ChannelManager import *
 
 
-# 运算功能上下文
+# 上下文类FbdCContext
 class FbdContext(ExecContext):
     def __init__(self):
         ExecContext.__init__(self)
