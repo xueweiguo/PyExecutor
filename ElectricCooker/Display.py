@@ -1,7 +1,7 @@
 from Framework.Block import *
 
 class Display(Block):
-    def __init__(self, cd, name):
+    def __init__(self, cd=None, name=""):
         Block.__init__(self, cd, name, '表示面板')
 
     def construct(self, parent):
